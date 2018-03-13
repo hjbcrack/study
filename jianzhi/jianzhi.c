@@ -1,5 +1,5 @@
 
-#define TIMU 1
+#define TIMU 43
 
 
 #if (TIMU == 1)
@@ -2134,10 +2134,122 @@ int main()
 
 #endif
 
+#if (TIMU == 19)
+
+// 19. 二叉树的镜像
+
+#include<stdio.h>
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+struct TreeNode{
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+};
+
+TreeNode* createTreeNode(int value)
+{
+    TreeNode* pNode = new TreeNode();
+    pNode->val = value;
+    pNode->left = NULL;
+    pNode->right = NULL;
+    return pNode;
+}
+
+void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
+                     TreeNode* pRightChild)
+{
+    /*if(!pParent || !pLeftChild || !pRightChild)
+        return;*/
+    // it is ok if left or right is NULL, no child
+    if(!pParent)
+        return;
+
+    pParent->left = pLeftChild;
+    pParent->right = pRightChild;
+}
+
+// 自编代码
+void Mirror(TreeNode *pRoot)
+{
+	TreeNode* node = NULL;
+
+	if (pRoot == NULL) {
+		return;
+	}
+
+    node = pRoot->left;
+    pRoot->left = pRoot->right;
+    pRoot->right = node;
+
+	Mirror(pRoot->left);
+    Mirror(pRoot->right);
+}
+
+void printTreeFromTopToBottom(TreeNode* pRoot)
+{
+    int nextlevel = 0;
+    int curlevel = 0;
+
+    if(pRoot == NULL)
+        return;
+    queue<TreeNode*> btnQueue;
+    btnQueue.push(pRoot);
+    curlevel++;
+    while(!btnQueue.empty())
+    {
+        TreeNode* pTemp = btnQueue.front();
+        btnQueue.pop();
+        if(pTemp->left) {
+            btnQueue.push(pTemp->left);
+            nextlevel++;
+        }
+        if(pTemp->right) {
+            btnQueue.push(pTemp->right);
+            nextlevel++;
+        }
+        cout << pTemp->val << "\t";
+        curlevel--;
+        if (curlevel == 0) {
+            curlevel = nextlevel;
+            nextlevel = 0;
+            cout << endl;
+        }
+    }
+    cout << endl;
+}
+
+int main()
+{
+    TreeNode* pNode1 = createTreeNode(1);
+    TreeNode* pNode2 = createTreeNode(2);
+    TreeNode* pNode3 = createTreeNode(3);
+    TreeNode* pNode4 = createTreeNode(4);
+    TreeNode* pNode5 = createTreeNode(5);
+    TreeNode* pNode6 = createTreeNode(6);
+    TreeNode* pNode7 = createTreeNode(7);
+
+    connectTreeNode(pNode1, pNode2, pNode3);
+    connectTreeNode(pNode2, pNode4, pNode5);
+    connectTreeNode(pNode5, pNode6, NULL);
+
+    printTreeFromTopToBottom(pNode1);
+
+    Mirror(pNode1);
+
+    printTreeFromTopToBottom(pNode1);
+
+    return 0;
+}
+
+#endif
 
 #if (TIMU == 20)
 
-// 20. 顺时针打印矩閿
+// 20. 顺时针打印矩阵
 #include <iostream>
 #include <cstdlib>
 
@@ -2368,7 +2480,7 @@ int main(){
 
 #if (TIMU == 23)
 
-// 23. 顺时针打印矩阵
+// 23. 从上到下打印二叉树
 #include <iostream>
 #include <cstdlib>
 #include <queue>
@@ -2446,6 +2558,103 @@ int main()
 	return 0;
 }
 
+
+#endif
+
+
+#if (TIMU == 24)
+
+// 24. 二叉搜索树的后序遍历序列
+/* 输入一个整数数组，判断该数组是不是某个二叉搜索树的后序遍历的结果
+   假设输入的数组的任意两个数字都互不相同。
+   二叉搜索树: 
+      1 空树
+      2 left < root < right
+*/
+
+#include<stdio.h>
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+struct TreeNode{
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+};
+
+TreeNode* createTreeNode(int value)
+{
+    TreeNode* pNode = new TreeNode();
+    pNode->val = value;
+    pNode->left = NULL;
+    pNode->right = NULL;
+    return pNode;
+}
+
+void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
+                     TreeNode* pRightChild)
+{
+    /*if(!pParent || !pLeftChild || !pRightChild)
+        return;*/
+    // it is ok if left or right is NULL, no child
+    if(!pParent)
+        return;
+
+    pParent->left = pLeftChild;
+    pParent->right = pRightChild;
+}
+
+// 自编代码
+bool VerifySquence(vector<int> sequence, int begin, int end)
+{
+    int index = begin;
+    int mid = 0;
+    int rc = true;
+
+    if (begin >= end) {
+        return true;
+    }
+    while (index < end) {
+        if (sequence[index] > sequence[end]) {
+            break;
+        }
+        index++;
+    }
+    mid = index;
+
+    while (index < end) {
+        if (sequence[index] < sequence[end]) {
+            return false;;
+        }
+        index++;
+    }
+
+    return (VerifySquence(sequence, begin, mid-1) &&
+            VerifySquence(sequence, mid, end-1));
+}
+
+// 自编代码
+bool VerifySquenceOfBST(vector<int> sequence)
+{
+    if (sequence.empty()) {
+        return false;
+    }
+    return VerifySquence(sequence, 0, sequence.size()-1);
+}
+
+int main()
+{
+    //int array[] = {1,3,2,4,5};
+    int array[] = {5,4,6,9,11,10,8};
+    int number = sizeof(array)/sizeof(int);
+    vector<int> sequence(array, array+number);
+
+    cout << VerifySquenceOfBST(sequence) << endl;
+
+    return 0;
+}
 
 #endif
 
@@ -3095,6 +3304,44 @@ int main()
 
 #endif
 
+
+#if (TIMU == 36)
+
+// 36. 数组中的逆序对
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+
+int InversePairs(vector<int> data)
+{
+    int number = 0;
+
+    for (int i = 0; i < data.size()-1; i++) {
+        if (data[i] > data[i+1]) {
+            number++;
+        }
+    }
+
+    return number;
+}
+
+int main()
+{
+	int array[] = {1, 3, 2, 3, 4, 5, 3, 7, 8, 9};
+	int number = sizeof(array) / sizeof(int);
+    vector<int> data(array, array+number);
+
+    cout << InversePairs(data) << endl;
+
+    return 0;
+}
+
+#endif
+
+
 #if (TIMU == 37)
 
 // 37. 两个链表的第一个公共结点
@@ -3695,6 +3942,31 @@ int main()
 	return 0;
 }
 
+
+#endif
+
+
+#if (TIMU == 43)
+
+// 43. n个骰子的点数
+// 把n个骰子仍在地上，所有骰子朝上一面的点数之和为s。输入n，打印出s的所有可能的值出现的概率。
+
+
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+// 自编代码
+void PrintProbability(int n)
+{
+}
+
+int main()
+{
+    
+    return 0;
+}
 
 #endif
 
