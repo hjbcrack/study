@@ -1,5 +1,5 @@
 
-#define TIMU 43
+#define TIMU 46
 
 
 #if (TIMU == 1)
@@ -3970,6 +3970,103 @@ int main()
 
 #endif
 
+#if (TIMU == 44)
+
+// 44. 扑克牌的顺子
+// 从扑克牌中随机抽5张牌，判断是不是一个顺子
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+// 自编代码
+
+bool IsContinuous(vector<int> numbers)
+{
+	sort(numbers.begin(), numbers.end());
+
+	if ((numbers[1]-numbers[0]==1 || numbers[0]-numbers[1]==12) &&
+		(numbers[2]-numbers[1]==1 || numbers[1]-numbers[2]==12) &&
+		(numbers[3]-numbers[2]==1 || numbers[2]-numbers[3]==12) &&
+		(numbers[4]-numbers[3]==1 || numbers[4]-numbers[0]==12)) {
+		return true;
+	}
+
+	return false;
+}
+
+int main()
+{
+    int array[] = {1,2,3,4,5};
+	vector<int> numbers(array, array+sizeof(array)/sizeof(int));
+
+	cout << IsContinuous(numbers) << endl;
+
+    return 0;
+}
+
+#endif
+
+#if (TIMU == 46)
+
+// 46. 求1+2+3+....+n
+// 求1+2+3+...+n，要求不能使用乘除法，for,while,if,else,switch,case等关键字及条件判断语句(a?b:c)。
+/*
+1、构造函数
+在类中定义静态成员变量N和sum，在构造函数中++N,sum+=N；如此一来，创建n个该类型的实例，就会调用n次构造函数，对应的静态变量也就随着更新。
+
+2、虚函数
+使用递归时，既然不能再一个函数中判断是不是终止递归，那么不妨定义两个函数，一个函数充当递归函数，一个负责处理递归的结束条件；
+需要解决的问题就是如何在两个函数中二选一，自然是通过bool变量。如果对n连续做两次反运算，即!!n，那么非零的n转换为true，0转换为false。
+
+3、函数指针
+在纯C语言中，不能使用虚函数，此时可以使用函数指针来模拟。
+
+4、模板类型
+让编译器帮助完成类似于递归的计算。
+*/
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+// 参考代码
+
+class Sum{
+public:
+    Sum(){ ++N; sum+=N; };
+    static void reset(){ N=0; sum=0;};
+    static unsigned int getSum(){ return sum; };
+private:
+    static unsigned int N;
+    static unsigned int sum;
+};
+ 
+unsigned int Sum::N=0;
+unsigned int Sum::sum=0;
+ 
+int Sum_Solution(int n)
+{
+    Sum::reset();
+    Sum* a=new Sum[n];
+    delete[] a;
+    a=NULL;
+
+    return Sum::getSum();
+}
+
+int main()
+{
+	cout << Sum_Solution(5) << endl;
+
+    return 0;
+}
+
+#endif
 
 #if (TIMU == 47)
 
