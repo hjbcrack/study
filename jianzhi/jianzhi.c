@@ -1,5 +1,5 @@
 
-#define TIMU 46
+#define TIMU 61
 
 
 #if (TIMU == 1)
@@ -3606,15 +3606,13 @@ int TreeDepth(TreeNode* pRoot){
 
 int main()
 {
-
-    TreeNode* pNode1 = createTreeNode(8);
-    TreeNode* pNode2 = createTreeNode(6);
-    TreeNode* pNode3 = createTreeNode(10);
-    TreeNode* pNode4 = createTreeNode(5);
-    TreeNode* pNode5 = createTreeNode(7);
-    TreeNode* pNode6 = createTreeNode(9);
-    TreeNode* pNode7 = createTreeNode(11);
-
+    TreeNode* pNode1 = createTreeNode(1);
+    TreeNode* pNode2 = createTreeNode(2);
+    TreeNode* pNode3 = createTreeNode(3);
+    TreeNode* pNode4 = createTreeNode(4);
+    TreeNode* pNode5 = createTreeNode(5);
+    TreeNode* pNode6 = createTreeNode(6);
+    TreeNode* pNode7 = createTreeNode(7);
 
     connectTreeNode(pNode1, pNode2, pNode3);
     connectTreeNode(pNode2, pNode4, pNode5);
@@ -4484,6 +4482,158 @@ int main()
 
 #endif
 
+#if (TIMU == 52)
+
+// 52. 构建乘积数组
+/* 给定一个数组A[0,1,...,n-1],请构建一个数组B[0,1,...,n-1],
+   其中B中的元素B[i]=A[0]*A[1]*...*A[i-1]*A[i+1]*...*A[n-1]。不能使用除法。
+*/
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// 自编代码
+vector<int> multiply(const vector<int>& A)
+{
+    int length = A.size();
+    int multi = 1;
+    vector<int> B;
+
+    for (int i = 0; i < length; i++) {
+        multi = 1;
+        for (int j = 0; j < i; j++) {
+            multi *= A[j];
+        }
+        for (int j = i+1; j < length; j++) {
+            multi *= A[j];
+        }
+        B.push_back(multi);
+    }
+
+    return B;
+}
+
+// 参考代码
+vector<int> multiply1(const vector<int>& A)
+{
+    int len=A.size();
+    if(len<1)
+        return vector<int>();
+    vector<int> B(len,1);
+    vector<int> front(len,1);
+    vector<int> back(len,1);
+
+    for(int i=1;i<len;i++){
+        front[i]=front[i-1]*A[i-1];
+    }
+
+    for(int i=len-2;i>=0;i--){
+        back[i]=back[i+1]*A[i+1];
+    }
+
+    for(int i=0;i<len;i++)
+        B[i]=front[i]*back[i];
+
+    return B;   
+}
+
+int main()
+{
+	int array[] = {1, 2, 3, 4, 5};
+	int length = sizeof(array)/sizeof(int);
+	vector<int> vecA(array, array+length);
+    vector<int> vecB;
+
+    for (int i = 0; i < length; i++) {
+        cout << vecA[i] << endl;
+    }
+
+    vecB = multiply(vecA);
+
+    cout << "my code:" << endl;
+    for (int i = 0; i < length; i++) {
+        cout << vecB[i] << endl;
+    }
+
+    vecB.clear();
+    vecB = multiply1(vecA);
+
+    cout << "ref code:" << endl;
+    for (int i = 0; i < length; i++) {
+        cout << vecB[i] << endl;
+    }
+
+	return 0;
+}
+
+#endif
+
+#if (TIMU == 53)
+
+// 53. 正则表达式匹配
+/*
+请实现一个函数用来匹配包括'.'和'*'的正则表达式。模式中的字符'.'表示任意一个字符，
+而'*'表示它前面的字符可以出现任意次（包含0次）。 在本题中，匹配是指字符串的所有
+字符匹配整个模式。例如，字符串"aaa"与模式"a.a"和"ab*ac*a"匹配，但是与"aa.a"和"ab*a"均不匹配
+*/
+
+#include <stdio.h>
+#include <iostream>
+#include <cstring>
+ 
+using namespace std;
+
+// 参考代码
+bool matchCore(char* str,char* pattern)
+{
+    if(*str=='\0' && *pattern=='\0')
+        return true;
+    if(*str!='\0' && *pattern=='\0')
+        return false;
+
+    if(*(pattern+1)=='*'){
+        if(*str==*pattern || (*str!='\0' && *pattern=='.'))
+            return matchCore(str, pattern+2) || matchCore(str+1, pattern+2) || 
+                   matchCore(str+1, pattern);
+        else
+            return matchCore(str, pattern+2);
+    }
+
+    if(*str==*pattern || (*str!='\0' && *pattern=='.'))
+        return matchCore(str+1, pattern+1);
+
+    return false;
+}
+
+bool match(char* str, char* pattern)
+{
+    if(str==NULL || pattern==NULL)
+        return false;
+    return matchCore(str, pattern);
+}
+
+int main()
+{
+    char str[] = "aaa";
+    char pattern[256] = {0}; 
+
+    strcpy(pattern, "a.a");
+    cout << match(str, pattern) << endl;
+    strcpy(pattern, "ab*ac*a");
+    cout << match(str, pattern) << endl;
+    strcpy(pattern, "aa.a");
+    cout << match(str, pattern) << endl;
+    strcpy(pattern, "ab*a");
+    cout << match(str, pattern) << endl;
+
+    return 0;
+}
+
+#endif
+
+
 #if (TIMU == 55)
 
 // 55. 字符流中第一个不重复的字符
@@ -4895,13 +5045,13 @@ int main()
 {
     TreeNode* pNode;
 
-    TreeNode* pNode1 = createTreeNode(8);
-    TreeNode* pNode2 = createTreeNode(6);
-    TreeNode* pNode3 = createTreeNode(10);
-    TreeNode* pNode4 = createTreeNode(5);
-    TreeNode* pNode5 = createTreeNode(7);
-    TreeNode* pNode6 = createTreeNode(9);
-    TreeNode* pNode7 = createTreeNode(11);
+    TreeNode* pNode1 = createTreeNode(1);
+    TreeNode* pNode2 = createTreeNode(2);
+    TreeNode* pNode3 = createTreeNode(3);
+    TreeNode* pNode4 = createTreeNode(4);
+    TreeNode* pNode5 = createTreeNode(5);
+    TreeNode* pNode6 = createTreeNode(6);
+    TreeNode* pNode7 = createTreeNode(7);
 
     connectTreeNode(pNode1, pNode2, pNode3);
     connectTreeNode(pNode2, pNode4, pNode5);
@@ -5016,13 +5166,13 @@ bool isSymmetrical(TreeNode* pRoot)
 int main()
 {
 /*
-    TreeNode* pNode1 = createTreeNode(8);
-    TreeNode* pNode2 = createTreeNode(6);
-    TreeNode* pNode3 = createTreeNode(10);
-    TreeNode* pNode4 = createTreeNode(5);
-    TreeNode* pNode5 = createTreeNode(7);
-    TreeNode* pNode6 = createTreeNode(9);
-    TreeNode* pNode7 = createTreeNode(11);
+    TreeNode* pNode1 = createTreeNode(1);
+    TreeNode* pNode2 = createTreeNode(2);
+    TreeNode* pNode3 = createTreeNode(3);
+    TreeNode* pNode4 = createTreeNode(4);
+    TreeNode* pNode5 = createTreeNode(5);
+    TreeNode* pNode6 = createTreeNode(6);
+    TreeNode* pNode7 = createTreeNode(7);
 */
 
     TreeNode* pNode1 = createTreeNode(1);
@@ -5115,13 +5265,13 @@ void printTreeFromTopToBottom(TreeNode* pRoot)
 
 int main()
 {
-    TreeNode* pNode1 = createTreeNode(8);
-    TreeNode* pNode2 = createTreeNode(6);
-    TreeNode* pNode3 = createTreeNode(10);
-    TreeNode* pNode4 = createTreeNode(5);
-    TreeNode* pNode5 = createTreeNode(7);
-    TreeNode* pNode6 = createTreeNode(9);
-    TreeNode* pNode7 = createTreeNode(11);
+    TreeNode* pNode1 = createTreeNode(1);
+    TreeNode* pNode2 = createTreeNode(2);
+    TreeNode* pNode3 = createTreeNode(3);
+    TreeNode* pNode4 = createTreeNode(4);
+    TreeNode* pNode5 = createTreeNode(5);
+    TreeNode* pNode6 = createTreeNode(6);
+    TreeNode* pNode7 = createTreeNode(7);
 
     connectTreeNode(pNode1, pNode2, pNode3);
     connectTreeNode(pNode2, pNode4, pNode5);
@@ -5135,5 +5285,159 @@ int main()
 #endif
 
 
+#if (TIMU == 61)
+
+// 61. 按之字形顺序打印二叉树
+/* 
+请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，
+第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。
+*/
+
+#include<stdio.h>
+#include<iostream>
+#include<queue>
+#include<stack>
+#include<vector>
+
+using namespace std;
+
+struct TreeNode{
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+};
+
+TreeNode* createTreeNode(int value)
+{
+    TreeNode* pNode = new TreeNode();
+    pNode->val = value;
+    pNode->left = NULL;
+    pNode->right = NULL;
+    return pNode;
+}
+
+void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
+                     TreeNode* pRightChild)
+{
+    if(!pParent || !pLeftChild || !pRightChild)
+        return;
+
+    pParent->left = pLeftChild;
+    pParent->right = pRightChild;
+}
+
+void printTreeFromTopToBottom(TreeNode* pRoot)
+{
+    int nextlevel = 0;
+    int curlevel = 0;
+
+    if(pRoot == NULL)
+        return;
+    queue<TreeNode*> btnQueue;
+    btnQueue.push(pRoot);
+    curlevel++;
+    while(!btnQueue.empty())
+    {
+        TreeNode* pTemp = btnQueue.front();
+        btnQueue.pop();
+        if(pTemp->left) {
+            btnQueue.push(pTemp->left);
+            nextlevel++;
+        }
+        if(pTemp->right) {
+            btnQueue.push(pTemp->right);
+            nextlevel++;
+        }
+        cout << pTemp->val << "\t";
+        curlevel--;
+        if (curlevel == 0) {
+            curlevel = nextlevel;
+            nextlevel = 0;
+            cout << endl;
+        }
+    }
+    cout << endl;
+}
+
+vector<vector<int> > Print(TreeNode* pRoot)
+{
+    int direct = 0;
+    vector<int> vec;
+    vector<vector<int> > vec_list;
+    if(pRoot == NULL)
+        return vec_list;
+    stack<TreeNode*> rStack;
+    queue<TreeNode*> btnQueue;
+    btnQueue.push(pRoot);
+    while(!btnQueue.empty() || !rStack.empty())
+    {
+        TreeNode* pTemp;
+        while(!btnQueue.empty()) {
+            rStack.push(btnQueue.front());
+            btnQueue.pop();
+        }
+        while(!rStack.empty()) {
+            pTemp = rStack.top();
+            rStack.pop();
+            if (direct) {
+                if(pTemp->right) {
+                    btnQueue.push(pTemp->right);
+                }
+                if(pTemp->left) {
+                    btnQueue.push(pTemp->left);
+                }
+            } else {
+                if(pTemp->left) {
+                    btnQueue.push(pTemp->left);
+                }
+                if(pTemp->right) {
+                    btnQueue.push(pTemp->right);
+                }
+            }
+            vec.push_back(pTemp->val);
+        }
+        direct = !direct;
+        vec_list.push_back(vec);
+        vec.clear();
+    }
+
+    return vec_list;
+}
+
+int main()
+{
+    TreeNode* pNode1 = createTreeNode(1);
+    TreeNode* pNode2 = createTreeNode(2);
+    TreeNode* pNode3 = createTreeNode(3);
+    TreeNode* pNode4 = createTreeNode(4);
+    TreeNode* pNode5 = createTreeNode(5);
+    TreeNode* pNode6 = createTreeNode(6);
+    TreeNode* pNode7 = createTreeNode(7);
+
+    vector<int> vec;
+    vector<vector<int> > vec_list;
+
+    connectTreeNode(pNode1, pNode2, pNode3);
+    connectTreeNode(pNode2, pNode4, pNode5);
+    connectTreeNode(pNode3, pNode6, pNode7);
+
+    printTreeFromTopToBottom(pNode1);
+
+    vec_list = Print(pNode1);
+    int i = 0, j = 0;
+    while(i < vec_list.size()) {
+        while(j < vec_list[i].size()) {
+            cout << vec_list[i][j] << "\t";
+            j++;
+        }
+        cout << endl;
+        j = 0;
+        i++;
+    }
+
+    return 0;
+}
+
+#endif
 
 
