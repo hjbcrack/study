@@ -1,5 +1,5 @@
 
-#define TIMU 61
+#define TIMU 33
 
 
 #if (TIMU == 1)
@@ -3095,11 +3095,11 @@ int numberOf1Between1AndN(unsigned int n){
 
 int main()
 {
-	int count = 0;
+    int count = 0;
 
     cout << numberOf1Between1AndN(99) << endl;
 
-	return 0;
+    return 0;
 }
 
 
