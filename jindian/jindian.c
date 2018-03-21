@@ -1,6 +1,7 @@
-#define A4_5
+#define A2_7
 
-#include "../common/common.h"
+#include "common.h"
+
 
 #ifdef A1_1
 
@@ -9,11 +10,6 @@
 请实现一个算法，确定一个字符串的所有字符是否全都不同。
 这里我们要求不允许使用额外的存储结构。
 */
-
-#include <iostream>
-#include <cstring>
-
-using namespace std;
 
 // my code
 bool checkDifferent(string iniString) {
@@ -51,11 +47,6 @@ int main()
 翻转一个给定的字符串(可以使用单个过程变量)。
 */
 
-#include <iostream>
-#include <cstring>
-
-using namespace std;
-
 // my code
 string reverseString(string iniString) {
     for (int i = 0; i < iniString.size()/2; i++) {
@@ -85,12 +76,6 @@ int main()
 给定两个字符串，请编写程序，确定其中一个字符串的字符重新排列后，
 能否变成另一个字符串。这里规定大小写为不同字符，且考虑字符串重点空格。
 */
-
-#include <iostream>
-#include <cstring>
-#include <algorithm>
-
-using namespace std;
 
 // my code
 bool checkSam(string stringA, string stringB) {
@@ -132,12 +117,6 @@ int main()
 利用字符重复出现的次数，编写一个方法，实现基本的字符串压缩功能。比如，字符串
 “aabcccccaaa”经压缩会变成“a2b1c5a3”。若压缩后的字符串没有变短，则返回原先的字符串。
 */
-
-#include <iostream>
-#include <string>
-#include <algorithm>
-
-using namespace std;
 
 // my code
 string zipString(string iniString) {
@@ -185,11 +164,6 @@ int main()
 有一副由NxN矩阵表示的图像，这里每个像素用一个int表示，请编写一个算法，
 在不占用额外内存空间的情况下(即不使用缓存矩阵)，将图像顺时针旋转90度。
 */
-
-#include <iostream>
-#include <vector>
-
-using namespace std;
 
 // my code
 vector<vector<int> > transformImage(vector<vector<int> > mat, int n) {
@@ -262,11 +236,6 @@ int main()
 [[1,2,3],[0,1,2],[0,0,1]]
 返回：[[0,0,3],[0,0,0],[0,0,0]]
 */
-
-#include <iostream>
-#include <vector>
-
-using namespace std;
 
 // my code
 vector<vector<int> > clearZero(vector<vector<int> > mat, int n) {
@@ -342,11 +311,6 @@ int main()
 "waterbottle","erbottlewat"
 返回：true
 */
-
-#include <iostream>
-#include <cstring>
-
-using namespace std;
 
 // my code
 bool checkReverseEqual(string s1, string s2) {
@@ -437,10 +401,6 @@ int main()
 注意：分割以后保持原来的数据顺序不变。
 */
 
-#include <iostream>
-
-using namespace std;
-
 struct ListNode {
     int val;
     struct ListNode *next;
@@ -527,6 +487,8 @@ int main(){
     return 0;
 }
 
+#endif
+
 #ifdef A2_5
 
 // 57. 链式A+B
@@ -539,16 +501,6 @@ int main(){
 {1,2,3},{3,2,1}
 返回：{4,4,4}
 */
-
-#include <iostream>
-
-using namespace std;
-
-struct ListNode {
-    int val;
-    struct ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
 
 bool create_linklist(ListNode *head, int length)
 {
@@ -774,59 +726,6 @@ int main(){
 返回：false
 */
 
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
-struct ListNode {
-    int val;
-    struct ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
-
-bool create_linklist(ListNode *head, int length)
-{
-    ListNode *node = NULL;
-    ListNode *node1 = NULL;
-
-    node = new ListNode(0);
-    if (node == NULL) {
-        return false;
-    }
-    head->next = node;
-/*
-    for (int i = 1; i < length; i++) {
-        node1 = new ListNode(i);
-        if (node1 == NULL) {
-            return false;
-        }
-        node->next = node1;
-        node = node1;
-    }
-*/
-
-    for (int i = 1; i < length/2; i++) {
-        node1 = new ListNode(i);
-        if (node1 == NULL) {
-            return false;
-        }
-        node->next = node1;
-        node = node1;
-    }
-
-    for (int i = length/2; i < length; i++) {
-        node1 = new ListNode(length-1-i);
-        if (node1 == NULL) {
-            return false;
-        }
-        node->next = node1;
-        node = node1;
-    }
-
-    return true;
-}
-
 // my code
 bool isPalindrome(ListNode* pHead)
 {
@@ -855,7 +754,7 @@ int main(){
     ListNode *head = new ListNode(-1);
     ListNode *node;
 
-    create_linklist(head, length);
+    create_huiwenlist(head, length);
     node = head->next;
     while(node != NULL) {
         cout << node->val << " ";
@@ -883,11 +782,6 @@ int main(){
 后一个数无意义。请返回一个int[][](C++为vector&ltvector&ltint>>)，为完成所有操作
 后的SetOfStacks，顺序应为从下到上，默认初始的SetOfStacks为空。保证数据合法。
 */
-
-#include <iostream>
-
-
-using namespace std;
 
 // my code
 vector<vector<int> > setOfStacks(vector<vector<int> > ope, int size)
@@ -917,11 +811,6 @@ int main(){
 [1,2,3,4,5]
 返回：[5,4,3,2,1]
 */
-
-#include <iostream>
-#include <vector>
-
-using namespace std;
 
 // my code
 vector<int> twoStacksSort(vector<int> numbers)
@@ -1031,10 +920,6 @@ int main()
 给定一个有序序列int[] vals,请返回创建的二叉查找树的高度。
 */
 
-#include <iostream>
-#include <vector>
-
-using namespace std;
 
 // my code 1: 直接计算 log2(sizeof(vals))+1
 int buildMinimalBST(vector<int> vals)
@@ -1135,18 +1020,17 @@ int main()
 #ifdef A4_5
 // 4.5 检查是否为BST
 
-/*
+
 // 自编代码
 bool checkBST(TreeNode* root)
 {
     return true;
 }
-*/
 
 int main()
 {
     struct TreeNode* node;
-/*node
+
     TreeNode* pNode1 = createTreeNode(1);
     TreeNode* pNode2 = createTreeNode(2);
     TreeNode* pNode3 = createTreeNode(3);
@@ -1162,7 +1046,7 @@ int main()
     printTreeFromTopToBottom(pNode1);
 
     cout << checkBST(pNode1) << endl;
-*/
+
     return 0;
 }
 
@@ -1180,10 +1064,6 @@ int main()
 1024，19，2，6
 返回：1100
 */
-
-#include <iostream>
-
-using namespace std;
 
 // MY CODE
 int binInsert(int n, int m, int j, int i)
@@ -1222,11 +1102,6 @@ int main()
 0.625
 返回：0.101
 */
-
-#include <iostream>
-#include <cstring>
-
-using namespace std;
 
 // MY CODE
 string printBin(double num)
@@ -1278,11 +1153,6 @@ int main()
 2
 返回：[1,4]
 */
-
-#include <iostream>
-#include <vector>
-
-using namespace std;
 
 // MY CODE
 vector<int> getCloseNumber(int x)

@@ -1,6 +1,7 @@
 
-#define TIMU 33
+#define TIMU    61
 
+#include "common.h"
 
 #if (TIMU == 1)
 // 1. 赋值运算符函数
@@ -20,11 +21,6 @@
 更多考虑：异常安全性等。
 
 */
-
-#include <iostream>
-#include <cstring>
-#include <cstdlib>
-using namespace std;
 
 class CMyString
 {
@@ -116,8 +112,6 @@ int main()
 
 // 3. 二位数组查找
 
-#include <iostream>  
-using namespace std;  
 //二维数组的查找（右上角版本）  
 bool find(int* matrix, int rows, int columns, int number)  //传入一维数繿 
 {  
@@ -162,7 +156,7 @@ int main()
 {  
     int matrix[16] = {1,2,8,9,2,4,9,12,4,7,10,13,6,8,11,15};  
     if(find(matrix, 4, 4, 9))  
-        cout << "exist!" << endl;  
+        cout << "ok!" << endl;  
     else  
         cout << "none!" << endl;  
     return 0;  
@@ -175,9 +169,6 @@ int main()
 
 // 4. 替换空格
 
-#include <stdlib.h>
-#include <iostream>
-using namespace std;
 
 // 自编代码
 void replace_blank(char array[], int length)
@@ -322,51 +313,6 @@ int main()
 
 // 5. 从尾到头打印链表
 
-#include <iostream>
-#include <stack>
-
-using namespace std;
-
-struct ListNode{
-    int data;
-    ListNode* next;
-};
-
-bool create_linklist(ListNode *head, int length)
-{
-    ListNode *node = NULL;
-    ListNode *node1 = NULL;
-
-    head->data = -1;
-
-    node = new ListNode;
-    if (node == NULL) {
-        return false;
-    }
-    node->data = 0;
-    node->next = NULL;
-    head->next = node;
-
-    for (int i = 1; i < length; i++) {
-        node1 = new ListNode;
-        if (node1 == NULL) {
-            return false;
-        }
-
-        node1->data = i;
-        node1->next = NULL;
-        node->next = node1;
-        node = node1;
-    }
-
-    for (node = head->next; node != NULL; node = node->next) {
-        cout << node->data << " ";
-    }
-    cout << endl;
-
-    return true;
-}
-
 void printNode(ListNode* pHead)
 {
     if (pHead == NULL) {
@@ -374,7 +320,7 @@ void printNode(ListNode* pHead)
     }
 
     printNode(pHead->next);
-    cout << pHead->data << endl;
+    cout << pHead->val << endl;
 }
 
 void printListFromTailToHead(ListNode* pHead)
@@ -401,7 +347,7 @@ void printListFromTailToHead1(ListNode* pHead)
     }
 
     while(!stack.empty()) {
-        cout << stack.top()->data << endl;
+        cout << stack.top()->val << endl;
         stack.pop();
     }
 }
@@ -410,7 +356,7 @@ void printListFromTailToHead1(ListNode* pHead)
 int main()
 {
     int length = 10;
-    ListNode *head = new ListNode;
+    ListNode *head = new ListNode();
 
     create_linklist(head, length);
 
@@ -426,9 +372,6 @@ int main()
 /*
 // 参考代码
 
-#include <iostream>
-#include <stack>
-using namespace std;
 
 typedef struct node {
     int data;
@@ -450,7 +393,7 @@ node_t* create_list(int number)
     if (node == NULL) {
         return head;
     }
-    node->data = 0;
+    node->val = 0;
     node->next = NULL;
     head->next = node;
 
@@ -459,7 +402,7 @@ node_t* create_list(int number)
         if (node1 == NULL) {
             return head;
         } else {
-            node1->data = i;
+            node1->val = i;
             node1->next = NULL;
             node->next = node1;
             node = node1;
@@ -477,7 +420,7 @@ void printlist(node_t *node)
         if (node->next != NULL) {
             printlist(node->next);
         }
-        cout << node->data << endl;
+        cout << node->val << endl;
     }
 }
 
@@ -498,7 +441,7 @@ void PrintListReversingly(node* L)
     while(!nodes.empty())
     {
         pNode = nodes.top();
-        cout << pNode->data << " ";
+        cout << pNode->val << " ";
         nodes.pop();
     }
     cout << endl;
@@ -535,43 +478,11 @@ int main()
 先通过先序遍历序列找到根节点，
 然后在中序遍历序列中找到根节点，这样就可以确定左子树和右子树。
 接着再回到先序遍历序列中找到左子树和右子树，重复上述步骤（递归）。
-
 */
-
-#include<stdio.h>
-#include<iostream>
-#include<queue>
-
-using namespace std;
-
-struct TreeNode{
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-};
-
-TreeNode* createTreeNode(int value)
-{
-    TreeNode* pNode = new TreeNode();
-    pNode->val = value;
-    pNode->left = NULL;
-    pNode->right = NULL;
-    return pNode;
-}
-
-void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
-                     TreeNode* pRightChild)
-{
-    if(!pParent || !pLeftChild || !pRightChild)
-        return;
-
-    pParent->left = pLeftChild;
-    pParent->right = pRightChild;
-}
 
 TreeNode* reConstructBinaryTree(vector<int> pre, vector<int> in)
 {
-    TreeNode* node = new TreeNode;
+    TreeNode* node = new TreeNode();
     vector<int> pre_left, in_left, pre_right, in_right;
 
     if (pre.size() == 0 || in.size() == 0) {
@@ -627,7 +538,7 @@ TreeNode* reConstructBinaryTree2(vector<int> pre,int startPre,int endPre,vector<
 {
     if(startPre>endPre||startIn>endIn)
         return NULL;
-    TreeNode* root = new TreeNode;
+    TreeNode* root = new TreeNode();
     root->val = pre[startPre];
 
     printf("index = %d, %d, %d, %d \n", startPre, endPre, startIn, endIn);
@@ -645,41 +556,6 @@ TreeNode* reConstructBinaryTree1(vector<int> pre, vector<int> in)
 {
     TreeNode* root = reConstructBinaryTree2(pre, 0, pre.size()-1, in, 0, in.size()-1);
     return root;
-}
-
-
-// 打印二叉树程序
-void printTreeFromTopToBottom(TreeNode* pRoot)
-{
-    int nextlevel = 0;
-    int curlevel = 0;
-
-    if(pRoot == NULL)
-        return;
-    queue<TreeNode*> btnQueue;
-    btnQueue.push(pRoot);
-    curlevel++;
-    while(!btnQueue.empty())
-    {
-        TreeNode* pTemp = btnQueue.front();
-        btnQueue.pop();
-        if(pTemp->left) {
-            btnQueue.push(pTemp->left);
-            nextlevel++;
-        }
-        if(pTemp->right) {
-            btnQueue.push(pTemp->right);
-            nextlevel++;
-        }
-        cout << pTemp->val << "\t";
-        curlevel--;
-        if (curlevel == 0) {
-            curlevel = nextlevel;
-            nextlevel = 0;
-            cout << endl;
-        }
-    }
-    cout << endl;
 }
 
 int main()
@@ -711,14 +587,6 @@ int main()
 // 7. 用两个栈实现队列
 
 // 自编代码
-
-
-#include <stdio.h>
-#include <iostream>
-#include <stack>
-
-using namespace std;
-
 class CQueue {
 public:
     //CQueue();
@@ -795,13 +663,6 @@ int main()
 // 参考代码
 
 /*
-
-#include <stdio.h>
-#include <iostream>
-#include <stack>
-
-using namespace std;
-
 template <typename T>
 class CQueue {
 public:
@@ -882,13 +743,6 @@ int main()
 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。
 */
 
-#include <stdio.h>
-
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
 int minNumberInRotateArray(vector<int> rotateArray)
 {
     if (rotateArray.empty())
@@ -931,7 +785,6 @@ int minNumberInRotateArray2(vector<int> rotateArray, int begin, int end)
 
     return -1;
 }
-
 
 int minNumberInRotateArray1(vector<int> rotateArray)
 {
@@ -1012,11 +865,6 @@ int main()
 
 // 9. 斐波那契数列
 
-#include <stdio.h>
-#include <iostream>
-
-using namespace std;
-
 // 自编代码
 int fun(int n)
 {
@@ -1050,17 +898,9 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////////////
 
-
-
-
 #if (TIMU == 10)
 
 // 10. 二进制中1的个数
-
-#include <stdio.h>
-#include <iostream>
-
-using namespace std;
 
 // 自编代码
 int fun(int value)
@@ -1122,12 +962,8 @@ int main()
 
 
 #if (TIMU == 11)
+
 // 11. 数值的整数次方
-
-#include <iostream>
-
-
-using namespace std;
 
 double Power(double base, int exponent) {
     double result = 1;
@@ -1171,12 +1007,6 @@ n位所有十进制数其实就是n个从0到9的全排列。即把数字的每一位都从0到9排列一遍，就得
 
 */
 
-#include <iostream>
-#include <stdio.h>
-#include <string.h>
-
-using namespace std;
-
 void PrintNumber(char* number){
     int i=0;
     int length = strlen(number);
@@ -1209,6 +1039,7 @@ void fun(int n)
     ch[n] = '\0';
 
     printfun(ch, n, 0);
+    cout << endl;
 
     return;
 }
@@ -1224,13 +1055,6 @@ int main()
 /*
 
 // 参考代码 1
-
-#include <stdio.h>
-#include <iostream>
-#include <string.h>
- 
-using namespace std;
- 
 bool Increment(char* number){
     bool isOverflow=false;
     int nTakeOver=0;
@@ -1303,11 +1127,6 @@ int main()
 
 // 参考代码 2
 
-#include <iostream>
-#include <string.h>
- 
-using namespace std;
- 
 void PrintNumber(char* number){
     int i=0;
     int length=strlen(number);
@@ -1344,7 +1163,6 @@ int main()
     return 0;
 }
 
-
 */
 
 #if (TIMU == 13)
@@ -1360,38 +1178,6 @@ ListNode* next;
 
 void deleteNode(ListNode** pListHead,ListNode* pToBeDeleted)
 */
-
-
-#include <iostream>
-using namespace std;
-
-struct ListNode
-{
-    int val;
-    ListNode* next;
-};
-
-void createList(ListNode *&head)
-{
-    head = new(ListNode);
-    head->val = 1;
-    head->next = NULL;
-
-    ListNode *p2 = new(ListNode);
-    p2->val = 2;
-    p2->next = NULL;
-    head->next = p2;
-
-    ListNode *p3 = new(ListNode);
-    p3->val = 3;
-    p3->next = NULL;
-    p2->next = p3;
-
-    ListNode *p4 = new(ListNode);
-    p4->val = 4;
-    p4->next = NULL;
-    p3->next = p4;
-}
 
 void deleteList(ListNode *p)
 {
@@ -1443,8 +1229,8 @@ bool deleteNode(ListNode **head, ListNode *p)
 
 int main()
 {
-    ListNode *head = NULL;
-    createList(head);
+    ListNode *head = new ListNode();
+    create_linklist(head, 10);
     ListNode *p = head->next->next;
     deleteNode(&head, p);
     deleteList(head);
@@ -1457,12 +1243,6 @@ int main()
 #if (TIMU == 14)
 
 // 14. 调整数组顺序使奇数位于偶数前面
-
-#include <cstring>
-#include <iostream>
-#include <vector>
-
-using namespace std;
 
 // 自编代码
 void ReOrderOddEven(int array[], int number)
@@ -1487,8 +1267,7 @@ void ReOrderOddEven(int array[], int number)
     memcpy(array, tmpArr, number*sizeof(int));
 }
 
-// 自编代码
-
+// 自编代码 1
 void reOrderArray1(vector<int> &array)
 {
     int number = (int)array.size();
@@ -1558,12 +1337,6 @@ int main()
 #endif
 
 /*
-
-#include <iostream>
-#include <vector>
- 
-using namespace std;
- 
 // not changed the relative position
 void ReOrderOddEven_1(vector<int> &array){
     if(array.size()<=0)
@@ -1659,51 +1432,6 @@ int main()
 
 // 15. 链表中倒数第k个结点
 
-
-#include <iostream>
-
-using namespace std;
-
-struct ListNode{
-    int data;
-    ListNode* next;
-};
-
-bool create_linklist(ListNode *head, int length)
-{
-    ListNode *node = NULL;
-    ListNode *node1 = NULL;
-
-    head->data = -1;
-
-    node = new ListNode;
-    if (node == NULL) {
-        return false;
-    }
-    node->data = 0;
-    node->next = NULL;
-    head->next = node;
-
-    for (int i = 1; i < length; i++) {
-        node1 = new ListNode;
-        if (node1 == NULL) {
-            return false;
-        }
-
-        node1->data = i;
-        node1->next = NULL;
-        node->next = node1;
-        node = node1;
-    }
-
-    for (node = head->next; node != NULL; node = node->next) {
-        cout << node->data << " ";
-    }
-    cout << endl;
-
-    return true;
-}
-
 // 自编代码
 ListNode* FindKthToTail(ListNode* head, int k)
 {
@@ -1763,19 +1491,19 @@ ListNode* FindKthToTail1(ListNode* pListHead, unsigned int k) {
 
 int main(){
     int length = 10;
-    ListNode *head = new ListNode;
+    ListNode *head = new ListNode();
     ListNode *k_node = NULL;
 
     create_linklist(head, length);
 
     k_node = FindKthToTail(head, 2);
     if (k_node != NULL) {
-        cout << "1. tail k data is " << k_node->data << endl;
+        cout << "1. tail k data is " << k_node->val << endl;
     }
 
     k_node = FindKthToTail1(head, 2);
     if (k_node != NULL) {
-        cout << "2. tail k data is " << k_node->data << endl;
+        cout << "2. tail k data is " << k_node->val << endl;
     }
 
     return 0;
@@ -1787,51 +1515,6 @@ int main(){
 #if (TIMU == 16)
 
 // 16. 反转链表
-
-
-#include <iostream>
-
-using namespace std;
-
-struct ListNode{
-    int data;
-    ListNode* next;
-};
-
-bool create_linklist(ListNode *head, int length)
-{
-    ListNode *node = NULL;
-    ListNode *node1 = NULL;
-
-    head->data = -1;
-
-    node = new ListNode;
-    if (node == NULL) {
-        return false;
-    }
-    node->data = 0;
-    node->next = NULL;
-    head->next = node;
-
-    for (int i = 1; i < length; i++) {
-        node1 = new ListNode;
-        if (node1 == NULL) {
-            return false;
-        }
-
-        node1->data = i;
-        node1->next = NULL;
-        node->next = node1;
-        node = node1;
-    }
-
-    for (node = head->next; node != NULL; node = node->next) {
-        cout << node->data << " ";
-    }
-    cout << endl;
-
-    return true;
-}
 
 // 参考代码
 
@@ -1871,14 +1554,14 @@ ListNode* ReverseList1(ListNode* pHead)
 
 int main(){
     int length = 10;
-    ListNode *head = new ListNode;
+    ListNode *head = new ListNode();
     ListNode *tail = NULL;
 
     create_linklist(head, length);
 
     tail = ReverseList1(head);
     for (tail; tail != NULL; tail = tail->next) {
-        cout << tail->data << " ";
+        cout << tail->val << " ";
     }
     cout << endl;
 
@@ -1891,62 +1574,11 @@ int main(){
 
 // 17. 合并两个排序的链表
 
-#include <iostream>
-#include <cstdlib>
-
-using namespace std;
-
-struct ListNode {
-    int data;
-    ListNode *next;
-};
-
-ListNode* create_list(int begin, int number)
-{
-    ListNode *head = NULL;
-    ListNode *node = NULL;
-    ListNode *node1 = NULL;
-
-    head = new ListNode;
-    if (head == NULL) {
-        return NULL;
-    }
-
-    node = new ListNode;
-    if (node == NULL) {
-        return head;
-    }
-    node->data = begin;
-    node->next = NULL;
-    head->next = node;
-
-    for (int i = begin+1; i < begin+number; i++) {
-        node1 = new ListNode;
-        if (node1 == NULL) {
-            return head;
-        } else {
-            node1->data = i;
-            node1->next = NULL;
-            node->next = node1;
-            node = node1;
-        }
-    }
-
-    return head;
-}
-
 // 自编代码
 
-void printlist(ListNode *node)
-{
-    while (node != NULL) {
-        cout << node->data << endl;
-        node = node->next;
-    }
-}
 ListNode* merge(ListNode* head1, ListNode* head2)
 {
-    ListNode* node = new ListNode;
+    ListNode* node = new ListNode();
     ListNode* head = node;
 
     if(head1 == NULL && head2 == NULL) {
@@ -1961,7 +1593,7 @@ ListNode* merge(ListNode* head1, ListNode* head2)
         return head1;
 
     while(head1 != NULL && head2 != NULL) {
-        if (head1->data > head2->data) {
+        if (head1->val > head2->val) {
             node->next = head2;
             head2 = head2->next;
         } else {
@@ -1989,14 +1621,14 @@ int main()
     ListNode *head2 = NULL;
     ListNode *head = NULL;
 
-    head1 = create_list(1, number);
-    head2 = create_list(5, number);
+    head1 = create_beginlist(1, number);
+    head2 = create_beginlist(5, number);
 
-    printlist(head1->next);
-    printlist(head2->next);
+    print_linklist(head1->next);
+    print_linklist(head2->next);
 
     head = merge(head1->next, head2->next);
-    printlist(head->next);
+    print_linklist(head->next);
 
 }
 
@@ -2006,37 +1638,6 @@ int main()
 #if (TIMU == 18)
 
 // 18. 树的子结构
-
-#include<stdio.h>
-#include<iostream>
-#include<queue>
-
-using namespace std;
-
-struct TreeNode{
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-};
-
-TreeNode* createTreeNode(int value)
-{
-    TreeNode* pNode = new TreeNode();
-    pNode->val = value;
-    pNode->left = NULL;
-    pNode->right = NULL;
-    return pNode;
-}
-
-void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
-                     TreeNode* pRightChild)
-{
-    if(!pParent || !pLeftChild || !pRightChild)
-        return;
-
-    pParent->left = pLeftChild;
-    pParent->right = pRightChild;
-}
 
 TreeNode* FindTheFirst(TreeNode* pRoot1, int data)
 {
@@ -2138,40 +1739,6 @@ int main()
 
 // 19. 二叉树的镜像
 
-#include<stdio.h>
-#include<iostream>
-#include<queue>
-
-using namespace std;
-
-struct TreeNode{
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-};
-
-TreeNode* createTreeNode(int value)
-{
-    TreeNode* pNode = new TreeNode();
-    pNode->val = value;
-    pNode->left = NULL;
-    pNode->right = NULL;
-    return pNode;
-}
-
-void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
-                     TreeNode* pRightChild)
-{
-    /*if(!pParent || !pLeftChild || !pRightChild)
-        return;*/
-    // it is ok if left or right is NULL, no child
-    if(!pParent)
-        return;
-
-    pParent->left = pLeftChild;
-    pParent->right = pRightChild;
-}
-
 // 自编代码
 void Mirror(TreeNode *pRoot)
 {
@@ -2187,39 +1754,6 @@ void Mirror(TreeNode *pRoot)
 
     Mirror(pRoot->left);
     Mirror(pRoot->right);
-}
-
-void printTreeFromTopToBottom(TreeNode* pRoot)
-{
-    int nextlevel = 0;
-    int curlevel = 0;
-
-    if(pRoot == NULL)
-        return;
-    queue<TreeNode*> btnQueue;
-    btnQueue.push(pRoot);
-    curlevel++;
-    while(!btnQueue.empty())
-    {
-        TreeNode* pTemp = btnQueue.front();
-        btnQueue.pop();
-        if(pTemp->left) {
-            btnQueue.push(pTemp->left);
-            nextlevel++;
-        }
-        if(pTemp->right) {
-            btnQueue.push(pTemp->right);
-            nextlevel++;
-        }
-        cout << pTemp->val << "\t";
-        curlevel--;
-        if (curlevel == 0) {
-            curlevel = nextlevel;
-            nextlevel = 0;
-            cout << endl;
-        }
-    }
-    cout << endl;
 }
 
 int main()
@@ -2250,13 +1784,9 @@ int main()
 #if (TIMU == 20)
 
 // 20. 顺时针打印矩阵
-#include <iostream>
-#include <cstdlib>
 
-using namespace std;
 
 // 自编代码
-
 void print_array(int array[][4], int row, int column)
 {
     int rindex = 0;
@@ -2327,11 +1857,6 @@ int main()
 #if (TIMU == 21)
 
 // 21. 包含min函数的栈
-
-#include <iostream>
-#include <stack>
-
-using namespace std;
 
 template<typename T>
 class CStackwithmin{
@@ -2407,11 +1932,6 @@ int main(){
 
 // 22. 栈的压入、弹出序列
 
-#include <iostream>
-#include <stack>
-
-using namespace std;
-
 bool IsPopOrder(const int* push, const int* pop, int length)
 {
     int rc = false;
@@ -2481,19 +2001,9 @@ int main(){
 #if (TIMU == 23)
 
 // 23. 从上到下打印二叉树
-#include <iostream>
-#include <cstdlib>
-#include <queue>
 
-using namespace std;
 
 // queue是单向队列，deque（double-ended-queue）是双向队列
-struct TreeNode{
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-};
-
 // 自编代码
 
 void PrintFromTopToBottom(TreeNode* root)
@@ -2517,6 +2027,7 @@ void PrintFromTopToBottom(TreeNode* root)
         }
     }
 }
+
 /*
 // 参考代码
 void PrintFromTopToBottom(TreeNode* root){
@@ -2539,19 +2050,19 @@ void PrintFromTopToBottom(TreeNode* root){
 */
 int main()
 {
-    TreeNode* root = new TreeNode;
+    TreeNode* root = new TreeNode();
     root->val = 1;
-    root->left = new TreeNode;
+    root->left = new TreeNode();
     root->left->val = 2;
-    root->left->left = new TreeNode;
+    root->left->left = new TreeNode();
     root->left->left->val = 3;
-    root->left->right = new TreeNode;
+    root->left->right = new TreeNode();
     root->left->right->val = 4;
-    root->right = new TreeNode;
+    root->right = new TreeNode();
     root->right->val = 5;
-    root->right->left = new TreeNode;
+    root->right->left = new TreeNode();
     root->right->left->val = 6;
-    root->right->right = new TreeNode;
+    root->right->right = new TreeNode();
     root->right->right->val = 7;
     PrintFromTopToBottom(root);
 
@@ -2571,40 +2082,6 @@ int main()
       1 空树
       2 left < root < right
 */
-
-#include<stdio.h>
-#include<iostream>
-#include<queue>
-
-using namespace std;
-
-struct TreeNode{
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-};
-
-TreeNode* createTreeNode(int value)
-{
-    TreeNode* pNode = new TreeNode();
-    pNode->val = value;
-    pNode->left = NULL;
-    pNode->right = NULL;
-    return pNode;
-}
-
-void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
-                     TreeNode* pRightChild)
-{
-    /*if(!pParent || !pLeftChild || !pRightChild)
-        return;*/
-    // it is ok if left or right is NULL, no child
-    if(!pParent)
-        return;
-
-    pParent->left = pLeftChild;
-    pParent->right = pRightChild;
-}
 
 // 自编代码
 bool VerifySquence(vector<int> sequence, int begin, int end)
@@ -2660,25 +2137,14 @@ int main()
 
 
 #if (TIMU == 27)
-
+// 有问题
 // 27. 二叉搜索树与双向链表
 
 /* 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表
    要求不能创建任何新的结点，只能调整树中结点指针的指向
 */
 
-#include <iostream>
-#include <cstdlib>
-#include <queue>
-
-using namespace std;
-
 // queue是单向队列，deque（double-ended-queue）是双向队列?
-struct TreeNode{
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-};
 
 // 自编代码
 
@@ -2726,21 +2192,21 @@ void PrintFromTopToBottom(TreeNode* root){
 */
 int main()
 {
-    TreeNode* root = new TreeNode;
-    root->val = 1;
-    root->left = new TreeNode;
-    root->left->val = 2;
-    root->left->left = new TreeNode;
-    root->left->left->val = 3;
-    root->left->right = new TreeNode;
-    root->left->right->val = 4;
-    root->right = new TreeNode;
-    root->right->val = 5;
-    root->right->left = new TreeNode;
-    root->right->left->val = 6;
-    root->right->right = new TreeNode;
-    root->right->right->val = 7;
-    PrintFromTopToBottom(root);
+    TreeNode* pNode1 = createTreeNode(1);
+    TreeNode* pNode2 = createTreeNode(2);
+    TreeNode* pNode3 = createTreeNode(3);
+    TreeNode* pNode4 = createTreeNode(4);
+    TreeNode* pNode5 = createTreeNode(5);
+    TreeNode* pNode6 = createTreeNode(6);
+    TreeNode* pNode7 = createTreeNode(7);
+
+    connectTreeNode(pNode1, pNode2, pNode3);
+    connectTreeNode(pNode2, pNode4, pNode5);
+    connectTreeNode(pNode5, pNode6, pNode7);
+
+    printTreeFromTopToBottom(pNode1);
+
+    PrintFromTopToBottom(pNode1);
 
     return 0;
 }
@@ -2757,13 +2223,6 @@ int main()
 此时仍把后面的字符看成两部分，第一个字符和后面的字符，然后重复上述步骤。（递归)
 类似问题：N皇后问题
 */
-
-#include <iostream>
-#include <cstring>
-#include <vector>
-#include <algorithm>
-
-using namespace std;
 
 void swap(char* c1,char* c2){
     char tmp = *c1;
@@ -2827,12 +2286,6 @@ int main()
 出现的次数比其他所有数字的出现次数之和还要大，则要找的数字肯定是组后一次把次数设为1时对应的数字?
 时间复杂度为O(n)，空间复杂度为O(1)*/
 
-
-#include <iostream>
- 
-using namespace std;
-
-
 int MoreThanHalfNum(int* numbers, int length)
 {
     int num = 0;
@@ -2881,14 +2334,8 @@ int main()
 
 
 #if (TIMU == 30)
+
 // 30. 最小的k个数
-
-#include <iostream>
-#include <cstdlib>
-#include <set>
-#include <vector>
-
-using namespace std;
 
 // Partition
 int Partition(int* numbers,int start,int end){
@@ -2993,11 +2440,6 @@ int main()
 
 // 31. 连续子数组的最大和
 
-#include <iostream>
-#include <cstdlib>
-
-using namespace std;
-
 // 自编代码
 
 int findGreatestSumOfSubArray(int *pData, int nLength)
@@ -3067,12 +2509,8 @@ int main()
 #endif
 
 #if (TIMU == 32)
+
 // 32. 从1到n整数中1出现的次数
-
-#include <iostream>
-#include <cstdlib>
-
-using namespace std;
 
 // 参考代码
 int numberOf1(int n){
@@ -3123,12 +2561,6 @@ int main()
 
 */
 
-#include <iostream>
-#include <string>
-
-using namespace std;
-
-
 bool compare(int a,int b)
 {
     string strNum1=to_string(a);
@@ -3164,11 +2596,6 @@ int main()
 
 // 34. 丑数
 // 求按从小到大的顺序的第N个丑数。
-
-#include <iostream>
-
-using namespace std;
-
 
 // 自编代码
 // 问题: 运行超时
@@ -3262,11 +2689,6 @@ int main()
 
 // 35. 第一个只出现一次的字符
 
-#include <cstring>
-#include <iostream>
-
-using namespace std;
-
 // 自编代码
 char firstNotRepeatingChar(char* pString)
 {
@@ -3309,12 +2731,6 @@ int main()
 
 // 36. 数组中的逆序对
 
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
-
 int InversePairs(vector<int> data)
 {
     int number = 0;
@@ -3346,79 +2762,59 @@ int main()
 
 // 37. 两个链表的第一个公共结点
 
-#include <iostream>
-#include <stack>
-
-using namespace std;
-
-struct ListNode{
-    int val;
-    ListNode* next;
-};
-
-void create_list(ListNode** pHead1, ListNode** pHead2)
+void create_reflist(ListNode** pHead1, ListNode** pHead2)
 {
     ListNode *node = NULL;
     ListNode *node1 = NULL;
     ListNode *node2 = NULL;
 
-    *pHead1 = new ListNode;
+    *pHead1 = new ListNode();
     if (pHead1 == NULL) {
         return; 
     }
 
-    node1 = new ListNode;
+    node1 = new ListNode(0);
     if (node1 == NULL) {
         return;
     }
-    node1->val = 0;
-    node1->next = NULL;
     (*pHead1)->next = node1;
 
     for (int i = 1; i < 5; i++) {
-        node = new ListNode;
+        node = new ListNode(i);
         if (node == NULL) {
             return;
         } else {
-            node->val = i;
-            node->next = NULL;
             node1->next = node;
             node1 = node;
         }
     }
 
-    *pHead2 = new ListNode;
+    *pHead2 = new ListNode();
     if (pHead2 == NULL) {
         return; 
     }
 
-    node2 = new ListNode;
+    node2 = new ListNode(100);
     if (node2 == NULL) {
         return;
     }
-    node2->val = 100;
-    node2->next = NULL;
     (*pHead2)->next = node2;
 
     for (int i = 101; i < 103; i++) {
-        node = new ListNode;
+        node = new ListNode(i);
         if (node == NULL) {
             return;
         } else {
-            node->val = i;
-            node->next = NULL;
             node2->next = node;
             node2 = node;
         }
     }
 
     for (int i = 10; i < 15; i++) {
-        node = new ListNode;
+        node = new ListNode(i);
         if (node == NULL) {
             return;
         } else {
-            node->val = i;
-            node->next = NULL;
             node1->next = node;
             node1 = node;
             node2->next = node;
@@ -3461,7 +2857,7 @@ int main()
     ListNode *pHead2 = NULL;
     ListNode *pHead = NULL;
 
-    create_list(&pHead1, &pHead2);
+    create_reflist(&pHead1, &pHead2);
     cout << "create list ok" << endl;
     
     pHead = pHead1;
@@ -3492,11 +2888,6 @@ int main()
 
 // 38. 数字在排序数组中出现的次数
 // 二分查找到其中一个，然后前后搜索
-
-#include <iostream>
- 
-using namespace std;
-
 
 int getNumberOfK(int* data, int length, int k)
 {
@@ -3564,37 +2955,6 @@ int main()
 递归的结束条件就是：该结点为空，深度为0；
 */
 
-#include<stdio.h>
-#include<iostream>
-#include<queue>
-
-using namespace std;
-
-struct TreeNode{
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-};
-
-TreeNode* createTreeNode(int value)
-{
-    TreeNode* pNode = new TreeNode();
-    pNode->val = value;
-    pNode->left = NULL;
-    pNode->right = NULL;
-    return pNode;
-}
-
-void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
-                     TreeNode* pRightChild)
-{
-    if(!pParent || !pLeftChild || !pRightChild)
-        return;
-
-    pParent->left = pLeftChild;
-    pParent->right = pRightChild;
-}
-
 int TreeDepth(TreeNode* pRoot){
     if(pRoot == NULL)
         return 0;
@@ -3602,7 +2962,6 @@ int TreeDepth(TreeNode* pRoot){
     int right = TreeDepth(pRoot->right);
     return left > right ? (left+1) : (right+1);
 }
-
 
 int main()
 {
@@ -3635,37 +2994,6 @@ int main()
 一棵二叉树的深度，等于它的左子树深度和右子树深度的较大者+1；
 递归的结束条件就是：该结点为空，深度为0；
 */
-
-#include<stdio.h>
-#include<iostream>
-#include<queue>
-
-using namespace std;
-
-struct TreeNode{
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-};
-
-TreeNode* createTreeNode(int value)
-{
-    TreeNode* pNode = new TreeNode();
-    pNode->val = value;
-    pNode->left = NULL;
-    pNode->right = NULL;
-    return pNode;
-}
-
-void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
-                     TreeNode* pRightChild)
-{
-    if(!pParent || !pLeftChild || !pRightChild)
-        return;
-
-    pParent->left = pLeftChild;
-    pParent->right = pRightChild;
-}
 
 // 参考代码 1: 重复遍历结点
 int TreeDepth(TreeNode* pRoot){
@@ -3741,12 +3069,6 @@ int main()
 #if (TIMU == 411)
 // 41.1 和为s的两个数字
 
-#include <iostream>
-#include <cstdlib>
-#include <vector>
-
-using namespace std;
-
 // 自编代码
 
 vector<int> FindNumbersWithSum(vector<int> array, int sum)
@@ -3800,11 +3122,6 @@ int main()
 
 #if (TIMU == 412)
 // 41.2 和为s的连续正数序列
-#include <iostream>
-#include <cstdlib>
-#include <vector>
-
-using namespace std;
 
 // 自编代码
 vector<int> FindNumbersWithSum(vector<int> array, int sum)
@@ -3877,12 +3194,6 @@ int main()
 
 // 42. 翻转单词顺序
 
-
-#include <iostream>
-#include <cstring>
-
-using namespace std;
-
 void Reverse(char* pBegin,char* pEnd){
     if(pBegin==NULL || pEnd==NULL)
         return;
@@ -3949,12 +3260,6 @@ int main()
 // 43. n个骰子的点数
 // 把n个骰子仍在地上，所有骰子朝上一面的点数之和为s。输入n，打印出s的所有可能的值出现的概率。
 
-
-#include <iostream>
-#include <stdio.h>
-
-using namespace std;
-
 // 自编代码
 void PrintProbability(int n)
 {
@@ -3968,16 +3273,13 @@ int main()
 
 #endif
 
+
+
 #if (TIMU == 44)
 
 // 44. 扑克牌的顺子
 // 从扑克牌中随机抽5张牌，判断是不是一个顺子
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
-using namespace std;
 
 // 自编代码
 
@@ -4007,6 +3309,7 @@ int main()
 
 #endif
 
+
 #if (TIMU == 46)
 
 // 46. 求1+2+3+....+n
@@ -4025,12 +3328,6 @@ int main()
 4、模板类型
 让编译器帮助完成类似于递归的计算。
 */
-
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
-using namespace std;
 
 // 参考代码
 
@@ -4070,12 +3367,6 @@ int main()
 
 // 47. 不用加减乘除做加法
 // 写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号。
-
-
-#include <iostream>
-#include <stdio.h>
-
-using namespace std;
 
 void print_2(int val2)
 {
@@ -4183,11 +3474,6 @@ int main()
 
 */
 
-
-#include <iostream>
- 
-using namespace std;
-
 class SealedClass{
 public:
     static SealedClass* GetInstance(){
@@ -4216,11 +3502,6 @@ int main()
 // 49. 把字符串转换为整数
 // 考虑+-、空格、非数字字符，以及溢出问题
 
-#include <iostream>
-
-using namespace std;
-
- 
 long long str2int(const char* str)
 {
     int flag = 1;
@@ -4292,9 +3573,7 @@ int main()
 
 // 参考代码
 
-#include <iostream>
  
-using namespace std;
  
 enum Status {kValid=0,kInvalid};
 int g_nStatus=kInvalid;
@@ -4367,12 +3646,6 @@ int main()
 但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。
 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是重复的数字2或者3。
 */
-
-
-#include <iostream>
-
-using namespace std;
-
  
 bool duplicate(int numbers[], int length, int* duplication)
 {
@@ -4415,9 +3688,7 @@ int main()
 #if 0
 
 // 参考代码
-#include <iostream>
  
-using namespace std;
  
 enum Status {kValid=0,kInvalid};
 int g_nStatus=kInvalid;
@@ -4488,11 +3759,6 @@ int main()
 /* 给定一个数组A[0,1,...,n-1],请构建一个数组B[0,1,...,n-1],
    其中B中的元素B[i]=A[0]*A[1]*...*A[i-1]*A[i+1]*...*A[n-1]。不能使用除法。
 */
-
-#include <iostream>
-#include <vector>
-
-using namespace std;
 
 // 自编代码
 vector<int> multiply(const vector<int>& A)
@@ -4579,12 +3845,6 @@ int main()
 字符匹配整个模式。例如，字符串"aaa"与模式"a.a"和"ab*ac*a"匹配，但是与"aa.a"和"ab*a"均不匹配
 */
 
-#include <stdio.h>
-#include <iostream>
-#include <cstring>
- 
-using namespace std;
-
 // 参考代码
 bool matchCore(char* str,char* pattern)
 {
@@ -4638,12 +3898,6 @@ int main()
 
 // 55. 字符流中第一个不重复的字符
 // 字符流：像流水一样的字符，一去不复返，意味着只能访问一次。所以要将字符流保存起来进行处理
-
-#include <stdio.h>
-#include <iostream>
-#include <string.h>
- 
-using namespace std;
 
 /*
 class Solution
@@ -4719,49 +3973,6 @@ int main()
 如果链表存在环，我们无需计算环的长度n，只需在相遇时，让一个指针在相遇点出发，另一个指针在链表首部出发，然后两个指针一次走一步，当它们相遇时，就是环的入口处。（这里就不说明为什么这样做是正确的，大家可以在纸上推导一下公式）
 
 */
-#include <iostream>
-
-using namespace std;
-
-struct ListNode{
-    int data;
-    ListNode* next;
-};
-
-bool create_linklist(ListNode *head, int length)
-{
-    ListNode *node = NULL;
-    ListNode *node1 = NULL;
-    ListNode *nodeLoop = NULL;
-
-    head->data = -1;
-
-    node = new ListNode;
-    if (node == NULL) {
-        return false;
-    }
-    node->data = 0;
-    node->next = NULL;
-    head->next = node;
-
-    for (int i = 1; i < length; i++) {
-        node1 = new ListNode;
-        if (node1 == NULL) {
-            return false;
-        }
-        node1->data = i;
-        node1->next = NULL;
-        node->next = node1;
-        node = node1;
-        /*
-        if (i == 1) {
-            nodeLoop = node;
-        }*/
-    }
-    node->next = nodeLoop;
-
-    return true;
-}
 
 ListNode* findLoopNode(ListNode* pHead)
 {
@@ -4799,21 +4010,21 @@ ListNode* findLoopNode(ListNode* pHead)
 
 int main(){
     int length = 10;
-    ListNode *head = new ListNode;
+    ListNode *head = new ListNode();
     ListNode *node;
     int index = 0;
 
     create_linklist(head, length);
     node = head->next;
     while(node != NULL && index++ < 20) {
-        cout << node->data << " ";
+        cout << node->val << " ";
         node = node->next;
     }
     cout << endl;
 
     node = findLoopNode(head->next);
     if (node != NULL) {
-        cout << "nodeLoop = " << node->data << " " << endl;
+        cout << "nodeLoop = " << node->val << " " << endl;
     } else {
         cout << "no loop" << endl;
     }
@@ -4828,50 +4039,6 @@ int main(){
 
 // 57. 删除链表中的重复结点
 
-#include <iostream>
-
-using namespace std;
-
-struct ListNode{
-    int data;
-    ListNode* next;
-};
-
-bool create_linklist(ListNode *head, int length)
-{
-    ListNode *node = NULL;
-    ListNode *node1 = NULL;
-
-    head->data = -1;
-
-    node = new ListNode;
-    if (node == NULL) {
-        return false;
-    }
-    node->data = 0;
-    node->next = NULL;
-    head->next = node;
-
-    for (int i = 1; i < length; i++) {
-        node1 = new ListNode;
-        if (node1 == NULL) {
-            return false;
-        }
-
-        node1->data = (i%2) ? i+1 : i;
-        node1->next = NULL;
-        node->next = node1;
-        node = node1;
-    }
-
-    for (node = head->next; node != NULL; node = node->next) {
-        cout << node->data << " ";
-    }
-    cout << endl;
-
-    return true;
-}
-
 ListNode* deleteDuplication(ListNode* pHead)
 {
     ListNode* node;
@@ -4883,7 +4050,7 @@ ListNode* deleteDuplication(ListNode* pHead)
 
     node = pHead;
     while(pHead->next != NULL){
-        if (pHead->data == pHead->next->data) {
+        if (pHead->val == pHead->next->val) {
             tmp_node = pHead->next;
             pHead->next = pHead->next->next;
             delete tmp_node;
@@ -4897,20 +4064,20 @@ ListNode* deleteDuplication(ListNode* pHead)
 
 int main(){
     int length = 10;
-    ListNode *head = new ListNode;
+    ListNode *head = new ListNode();
     ListNode *node;
 
     create_linklist(head, length);
     node = head->next;
     while(node != NULL) {
-        cout << node->data << " ";
+        cout << node->val << " ";
         node = node->next;
     }
     cout << endl;
 
     node = deleteDuplication(head->next);
     while(node != NULL) {
-        cout << node->data << " ";
+        cout << node->val << " ";
         node = node->next;
     }
     cout << endl;
@@ -4925,50 +4092,14 @@ int main(){
 
 // 58. 二叉树的下一个结点: 中序遍历的下一个结点
 
-#include<stdio.h>
-#include<iostream>
-#include<queue>
-
-using namespace std;
-
-struct TreeNode {
-    int val;
-    struct TreeNode *left;
-    struct TreeNode *right;
-    struct TreeNode *next; // node的父结点
-};
-
-
-TreeNode* createTreeNode(int value)
-{
-    TreeNode* pNode = new TreeNode();
-    pNode->val = value;
-    pNode->left = NULL;
-    pNode->right = NULL;
-    pNode->next = NULL;
-    return pNode;
-}
-
-void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
-                     TreeNode* pRightChild)
-{
-    if(!pParent || !pLeftChild || !pRightChild)
-        return;
-
-    pParent->left = pLeftChild;
-    pParent->right = pRightChild;
-    pLeftChild->next = pParent;
-    pRightChild->next = pParent;
-}
-
-TreeNode* GetNext(TreeNode* pNode)
+TreeLinkNode* GetNext(TreeLinkNode* pNode)
 {
     if(pNode == NULL)
         return NULL;
     cout << "Y :" << pNode->val << endl;
 
     if(pNode->right != NULL) {
-        TreeNode* pTmp = pNode->right;
+        TreeLinkNode* pTmp = pNode->right;
         while(pTmp->left != NULL){
             pTmp = pTmp->left;
         }
@@ -4985,9 +4116,9 @@ TreeNode* GetNext(TreeNode* pNode)
     }
 }
 
-TreeNode* GetNext1(TreeNode* pNode)
+TreeLinkNode* GetNext1(TreeLinkNode* pNode)
 {
-    TreeNode* curNode = NULL;
+    TreeLinkNode* curNode = NULL;
 
     //第一步：判断是否有右孩子
     if(pNode->right != NULL){
@@ -5015,9 +4146,9 @@ TreeNode* GetNext1(TreeNode* pNode)
 }
 
 // 自编代码
-TreeNode* GetNext2(TreeNode* pNode)
+TreeLinkNode* GetNext2(TreeLinkNode* pNode)
 {
-    TreeNode* curNode = NULL;
+    TreeLinkNode* curNode = NULL;
 
     if (pNode->right != NULL) {
         curNode = pNode->right;
@@ -5043,19 +4174,19 @@ TreeNode* GetNext2(TreeNode* pNode)
 
 int main()
 {
-    TreeNode* pNode;
+    TreeLinkNode* pNode;
 
-    TreeNode* pNode1 = createTreeNode(1);
-    TreeNode* pNode2 = createTreeNode(2);
-    TreeNode* pNode3 = createTreeNode(3);
-    TreeNode* pNode4 = createTreeNode(4);
-    TreeNode* pNode5 = createTreeNode(5);
-    TreeNode* pNode6 = createTreeNode(6);
-    TreeNode* pNode7 = createTreeNode(7);
+    TreeLinkNode* pNode1 = createTreeLinkNode(1);
+    TreeLinkNode* pNode2 = createTreeLinkNode(2);
+    TreeLinkNode* pNode3 = createTreeLinkNode(3);
+    TreeLinkNode* pNode4 = createTreeLinkNode(4);
+    TreeLinkNode* pNode5 = createTreeLinkNode(5);
+    TreeLinkNode* pNode6 = createTreeLinkNode(6);
+    TreeLinkNode* pNode7 = createTreeLinkNode(7);
 
-    connectTreeNode(pNode1, pNode2, pNode3);
-    connectTreeNode(pNode2, pNode4, pNode5);
-    connectTreeNode(pNode3, pNode6, pNode7);
+    connectTreeLinkNode(pNode1, pNode2, pNode3);
+    connectTreeLinkNode(pNode2, pNode4, pNode5);
+    connectTreeLinkNode(pNode3, pNode6, pNode7);
     cout << "         8\n     6      10\n  5    7  9    11\n" << endl;
 
 /*
@@ -5109,6 +4240,7 @@ int main()
     return 0;
 }
 
+
 #endif
 
 
@@ -5116,38 +4248,8 @@ int main()
 
 // 59. 对称的二叉树: 判断二叉树是否对称
 
-#include<stdio.h>
-#include<iostream>
-#include<queue>
 
-using namespace std;
-
-struct TreeNode{
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-};
-
-TreeNode* createTreeNode(int value)
-{
-    TreeNode* pNode = new TreeNode();
-    pNode->val = value;
-    pNode->left = NULL;
-    pNode->right = NULL;
-    return pNode;
-}
-
-void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
-                     TreeNode* pRightChild)
-{
-    if(!pParent || !pLeftChild || !pRightChild)
-        return;
-
-    pParent->left = pLeftChild;
-    pParent->right = pRightChild;
-}
-
-// 核心代码
+// 自编代码
 bool Symetrical(TreeNode* pLeft,TreeNode* pRight){
     if(pLeft==NULL && pRight==NULL)
         return true;
@@ -5199,38 +4301,7 @@ int main()
 
 // 60. 把二叉树打印成多行
 
-#include<stdio.h>
-#include<iostream>
-#include<queue>
-
-using namespace std;
-
-struct TreeNode{
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-};
-
-TreeNode* createTreeNode(int value)
-{
-    TreeNode* pNode = new TreeNode();
-    pNode->val = value;
-    pNode->left = NULL;
-    pNode->right = NULL;
-    return pNode;
-}
-
-void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
-                     TreeNode* pRightChild)
-{
-    if(!pParent || !pLeftChild || !pRightChild)
-        return;
-
-    pParent->left = pLeftChild;
-    pParent->right = pRightChild;
-}
-
-void printTreeFromTopToBottom(TreeNode* pRoot)
+void printTreeFromTopToBottom1(TreeNode* pRoot)
 {
     int nextlevel = 0;
     int curlevel = 0;
@@ -5277,7 +4348,7 @@ int main()
     connectTreeNode(pNode2, pNode4, pNode5);
     connectTreeNode(pNode3, pNode6, pNode7);
 
-    printTreeFromTopToBottom(pNode1);
+    printTreeFromTopToBottom1(pNode1);
 
     return 0;
 }
@@ -5292,72 +4363,6 @@ int main()
 请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，
 第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。
 */
-
-#include<stdio.h>
-#include<iostream>
-#include<queue>
-#include<stack>
-#include<vector>
-
-using namespace std;
-
-struct TreeNode{
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-};
-
-TreeNode* createTreeNode(int value)
-{
-    TreeNode* pNode = new TreeNode();
-    pNode->val = value;
-    pNode->left = NULL;
-    pNode->right = NULL;
-    return pNode;
-}
-
-void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
-                     TreeNode* pRightChild)
-{
-    if(!pParent || !pLeftChild || !pRightChild)
-        return;
-
-    pParent->left = pLeftChild;
-    pParent->right = pRightChild;
-}
-
-void printTreeFromTopToBottom(TreeNode* pRoot)
-{
-    int nextlevel = 0;
-    int curlevel = 0;
-
-    if(pRoot == NULL)
-        return;
-    queue<TreeNode*> btnQueue;
-    btnQueue.push(pRoot);
-    curlevel++;
-    while(!btnQueue.empty())
-    {
-        TreeNode* pTemp = btnQueue.front();
-        btnQueue.pop();
-        if(pTemp->left) {
-            btnQueue.push(pTemp->left);
-            nextlevel++;
-        }
-        if(pTemp->right) {
-            btnQueue.push(pTemp->right);
-            nextlevel++;
-        }
-        cout << pTemp->val << "\t";
-        curlevel--;
-        if (curlevel == 0) {
-            curlevel = nextlevel;
-            nextlevel = 0;
-            cout << endl;
-        }
-    }
-    cout << endl;
-}
 
 vector<vector<int> > Print(TreeNode* pRoot)
 {

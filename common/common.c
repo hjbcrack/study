@@ -1,20 +1,108 @@
 
 #include "common.h"
 
-#include <stdio.h>
-#include <queue>
-#include <iostream>
-
-
 using namespace std;
 
-/*
+// list
+
+bool create_linklist(ListNode *head, int length)
+{
+    ListNode *node = NULL;
+    ListNode *node1 = NULL;
+
+    node = new ListNode(0);
+    if (node == NULL) {
+        return false;
+    }
+    head->next = node;
+
+    for (int i = 1; i < length; i++) {
+        node1 = new ListNode(i);
+        if (node1 == NULL) {
+            return false;
+        }
+        node->next = node1;
+        node = node1;
+    }
+
+    return true;
+}
+
+ListNode* create_beginlist(int begin, int number)
+{
+    ListNode *head = NULL;
+    ListNode *node = NULL;
+    ListNode *node1 = NULL;
+
+    head = new ListNode();
+    if (head == NULL) {
+        return NULL;
+    }
+
+    node = new ListNode(begin);
+    if (node == NULL) {
+        return head;
+    }
+    head->next = node;
+
+    for (int i = begin+1; i < begin+number; i++) {
+        node1 = new ListNode(i);
+        if (node1 == NULL) {
+            return head;
+        } else {
+            node->next = node1;
+            node = node1;
+        }
+    }
+
+    return head;
+}
+
+bool create_huiwenlist(ListNode *head, int length)
+{
+    ListNode *node = NULL;
+    ListNode *node1 = NULL;
+
+    node = new ListNode(0);
+    if (node == NULL) {
+        return false;
+    }
+    head->next = node;
+
+    for (int i = 1; i < length/2; i++) {
+        node1 = new ListNode(i);
+        if (node1 == NULL) {
+            return false;
+        }
+        node->next = node1;
+        node = node1;
+    }
+
+    for (int i = length/2; i < length; i++) {
+        node1 = new ListNode(length-1-i);
+        if (node1 == NULL) {
+            return false;
+        }
+        node->next = node1;
+        node = node1;
+    }
+
+    return true;
+}
+
+void print_linklist(ListNode *node)
+{
+    while (node != NULL) {
+        cout << node->val << endl;
+        node = node->next;
+    }
+}
+
+// tree
+
 TreeNode* createTreeNode(int value)
 {
-    TreeNode* pNode = new TreeNode();
-    pNode->val = value;
-    pNode->left = NULL;
-    pNode->right = NULL;
+    TreeNode* pNode = new TreeNode(value);
     return pNode;
 }
 
@@ -36,6 +124,7 @@ void printTreeFromTopToBottom(TreeNode* pRoot)
 
     if(pRoot == NULL)
         return;
+
     queue<TreeNode*> btnQueue;
     btnQueue.push(pRoot);
     curlevel++;
@@ -61,5 +150,22 @@ void printTreeFromTopToBottom(TreeNode* pRoot)
     }
     cout << endl;
 }
-*/
+
+TreeLinkNode* createTreeLinkNode(int value)
+{
+    TreeLinkNode* pNode = new TreeLinkNode(value);
+    return pNode;
+}
+
+void connectTreeLinkNode(TreeLinkNode* pParent, TreeLinkNode* pLeftChild,
+                         TreeLinkNode* pRightChild)
+{
+    if(!pParent || !pLeftChild || !pRightChild)
+        return;
+
+    pParent->left = pLeftChild;
+    pParent->right = pRightChild;
+    pLeftChild->next = pParent;
+    pRightChild->next = pParent;
+}
 
