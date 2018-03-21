@@ -1,5 +1,6 @@
+#define A4_5
 
-#define A5_3
+#include "../common/common.h"
 
 #ifdef A1_1
 
@@ -14,7 +15,7 @@
 
 using namespace std;
 
-// MY CODE
+// my code
 bool checkDifferent(string iniString) {
     int i;
     int j;
@@ -55,7 +56,7 @@ int main()
 
 using namespace std;
 
-// MY CODE
+// my code
 string reverseString(string iniString) {
     for (int i = 0; i < iniString.size()/2; i++) {
         char tmp = iniString[i];
@@ -91,7 +92,7 @@ int main()
 
 using namespace std;
 
-// MY CODE
+// my code
 bool checkSam(string stringA, string stringB) {
     sort(stringA.begin(), stringA.end());
     sort(stringB.begin(), stringB.end());
@@ -138,7 +139,7 @@ int main()
 
 using namespace std;
 
-// MY CODE
+// my code
 string zipString(string iniString) {
     string outstring;
     int i = 0;
@@ -190,7 +191,7 @@ int main()
 
 using namespace std;
 
-// MY CODE
+// my code
 vector<vector<int> > transformImage(vector<vector<int> > mat, int n) {
     for (int i = 0; i < n/2; i++) {
         for (int j = 0; j < n; j++) {
@@ -267,7 +268,7 @@ int main()
 
 using namespace std;
 
-// MY CODE
+// my code
 vector<vector<int> > clearZero(vector<vector<int> > mat, int n) {
     vector<int> row(n,0);
     vector<int> col(n,0);  
@@ -347,7 +348,7 @@ int main()
 
 using namespace std;
 
-// MY CODE
+// my code
 bool checkReverseEqual(string s1, string s2) {
     int i;
     int j;
@@ -427,7 +428,7 @@ int main()
 // 2.3 访问单个结点的删除 
 #endif
 
-#ifdef A1_8
+#ifdef A2_4
 
 // 2.4 链表分割 
 /*
@@ -526,6 +527,644 @@ int main(){
     return 0;
 }
 
+#ifdef A2_5
+
+// 57. 链式A+B
+
+/*
+有两个用链表表示的整数，每个结点包含一个数位。这些数位是反向存放的，
+也就是个位排在链表的首部。编写函数对这两个整数求和，并用链表形式返回结果。
+给定两个链表ListNode* A，ListNode* B，请返回A+B的结果(ListNode*)。
+测试样例：
+{1,2,3},{3,2,1}
+返回：{4,4,4}
+*/
+
+#include <iostream>
+
+using namespace std;
+
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+bool create_linklist(ListNode *head, int length)
+{
+    ListNode *node = NULL;
+    ListNode *node1 = NULL;
+
+    node = new ListNode(0);
+    if (node == NULL) {
+        return false;
+    }
+    head->next = node;
+
+    for (int i = 1; i < length; i++) {
+        node1 = new ListNode(i);
+        if (node1 == NULL) {
+            return false;
+        }
+        node->next = node1;
+        node = node1;
+    }
+
+    return true;
+}
+
+// my code
+ListNode* plusAB(ListNode* a, ListNode* b)
+{
+    ListNode* node = NULL;
+    int pre = 0;
+    int sum = 0;
+
+    if (a == NULL || a == NULL) {
+        return NULL;
+    }
+
+    node = a;
+    while (a->next != NULL && b->next != NULL) {
+        sum = (a->val + b->val + pre) % 10;
+        pre = (a->val + b->val + pre) / 10;
+        a->val = sum;
+        a = a->next;
+        b = b->next;
+    }
+
+    if (a->next == NULL && b->next == NULL) {
+        sum = (a->val + b->val + pre) % 10;
+        pre = (a->val + b->val + pre) / 10;
+        a->val = sum;
+        if (pre == 1) {
+            ListNode* tmpNode = new ListNode(1);
+            a->next = tmpNode;
+        }
+    } else if (a->next == NULL) {
+        sum = (a->val + b->val + pre) % 10;
+        pre = (a->val + b->val + pre) / 10;
+        a->val = sum;
+        a->next = b->next;
+        b = b->next;
+        while (b->next != NULL) {
+            sum = (b->val + pre) % 10;
+            pre = (b->val + pre) / 10;
+            b->val = sum;
+            b = b->next;
+        }
+        sum = (b->val + pre) % 10;
+        pre = (b->val + pre) / 10;
+        b->val = sum;
+        if (pre == 1) {
+            ListNode* tmpNode = new ListNode(1);
+            b->next = tmpNode;
+        }
+    } else {
+        sum = (a->val + b->val + pre) % 10;
+        pre = (a->val + b->val + pre) / 10;
+        a->val = sum;
+        a = a->next;
+        while (a->next != NULL) {
+            sum = (a->val + pre) % 10;
+            pre = (a->val + pre) / 10;
+            a->val = sum;
+            a = a->next;
+        }
+        sum = (a->val + pre) % 10;
+        pre = (a->val + pre) / 10;
+        a->val = sum;
+        if (pre == 1) {
+            ListNode* tmpNode = new ListNode(1);
+            a->next = tmpNode;
+        }
+    }
+
+    return node;
+}
+
+// ref code 1
+ListNode* plusAB1(ListNode* a, ListNode* b) {
+    // write code here
+    if(a == NULL && b == NULL){
+        return NULL;
+    }
+    if(a == NULL)return b;
+    if(b == NULL)return a;
+
+    ListNode* res = new ListNode(0);
+    ListNode* ap = a;
+    ListNode* bp = b;
+    ListNode* result = res;
+
+    int flag = 0;
+    int value;  
+    int val1;
+    int val2;
+
+    while(ap!=NULL || bp!=NULL || flag!=0){
+        val1 = (ap == NULL ? 0 : ap->val);
+        val2 = (bp == NULL ? 0 : bp->val);
+        value = val1 + val2 + flag;
+
+        flag = value/10;
+
+        ListNode* node = new ListNode(value%10);
+        res->next = node;
+        res = res->next;
+        ap = (ap == NULL ? NULL:ap->next);
+        bp = (bp == NULL ? NULL:bp->next);
+    }
+    return result->next;
+}
+
+// ref code 2
+ListNode* plusAB2(ListNode* a, ListNode* b) {
+    // write code here
+    ListNode* c = new ListNode(0);
+    ListNode* pc = c;
+    ListNode* pa =a;
+    ListNode* pb =b;
+    int add=0;//进位制的东西
+    while (a != NULL || b != NULL) {
+        if (a != NULL && b != NULL) {
+            pc->next = new ListNode((a->val + b->val+add)%10);
+            pc = pc->next;
+            add=(a->val+b->val+add)/10;//进几个数
+            a = a->next;
+            b = b->next;
+        } else if (a != NULL) {
+            pc->next = new ListNode((a->val+add)%10);
+            pc = pc->next;
+            add=(add+a->val)/10;
+            a = a->next;
+        } else if (b != NULL) {
+            pc->next = new ListNode((b->val+add)%10);
+            pc = pc->next;
+            add=(add+b->val)/10;
+            b = b->next;
+        }
+    }
+    if(add>0){
+        pc->next=new ListNode(add);
+        pc=pc->next;
+    }
+    return c->next;
+}
+
+int main(){
+    int length = 6;
+    ListNode *head = new ListNode(-1);
+    ListNode *node;
+
+    create_linklist(head, length);
+    node = head->next;
+    while(node != NULL) {
+        cout << node->val << " ";
+        node = node->next;
+    }
+    cout << endl;
+
+    ListNode *head1 = new ListNode(-1);
+    ListNode *node1;
+
+    create_linklist(head1, length);
+    node = head1->next;
+    while(node != NULL) {
+        cout << node->val << " ";
+        node = node->next;
+    }
+    cout << endl;
+
+    node = plusAB(head->next, head1->next);
+    while(node != NULL) {
+        cout << node->val << " ";
+        node = node->next;
+    }
+    cout << endl;
+
+    node = plusAB1(head->next, head1->next);
+    while(node != NULL) {
+        cout << node->val << " ";
+        node = node->next;
+    }
+    cout << endl;
+
+    node = plusAB2(head->next, head1->next);
+    while(node != NULL) {
+        cout << node->val << " ";
+        node = node->next;
+    }
+    cout << endl;
+
+    return 0;
+}
+
+#endif
+
+#ifdef A2_7
+
+// 2.7 回文链表 
+/*
+请编写一个函数，检查链表是否为回文。
+测试样例：
+{1,2,3,2,1}
+返回：true
+{1,2,3,2,3}
+返回：false
+*/
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+bool create_linklist(ListNode *head, int length)
+{
+    ListNode *node = NULL;
+    ListNode *node1 = NULL;
+
+    node = new ListNode(0);
+    if (node == NULL) {
+        return false;
+    }
+    head->next = node;
+/*
+    for (int i = 1; i < length; i++) {
+        node1 = new ListNode(i);
+        if (node1 == NULL) {
+            return false;
+        }
+        node->next = node1;
+        node = node1;
+    }
+*/
+
+    for (int i = 1; i < length/2; i++) {
+        node1 = new ListNode(i);
+        if (node1 == NULL) {
+            return false;
+        }
+        node->next = node1;
+        node = node1;
+    }
+
+    for (int i = length/2; i < length; i++) {
+        node1 = new ListNode(length-1-i);
+        if (node1 == NULL) {
+            return false;
+        }
+        node->next = node1;
+        node = node1;
+    }
+
+    return true;
+}
+
+// my code
+bool isPalindrome(ListNode* pHead)
+{
+    vector<int> vec;
+
+    if (pHead == NULL) {
+        return NULL;
+    }
+
+    while (pHead != NULL) {
+        vec.push_back(pHead->val);
+        pHead = pHead->next;
+    }
+
+    for (int i = 0; i < vec.size()/2; i++) {
+        if (vec[i] != vec[vec.size()-1-i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main(){
+    int length = 10;
+    ListNode *head = new ListNode(-1);
+    ListNode *node;
+
+    create_linklist(head, length);
+    node = head->next;
+    while(node != NULL) {
+        cout << node->val << " ";
+        node = node->next;
+    }
+    cout << endl;
+
+    cout << isPalindrome(head->next) << endl;
+
+    return 0;
+}
+
+
+#endif
+
+
+#ifdef A3_3
+
+// 3.3 集合栈 
+/*
+请实现一种数据结构SetOfStacks，由多个栈组成，其中每个栈的大小为size，
+当前一个栈填满时，新建一个栈。该数据结构应支持与普通栈相同的push和pop操作。
+给定一个操作序列int[][2] ope(C++为vector&ltvector&ltint>>)，每个操作的第一个
+数代表操作类型，若为1，则为push操作，后一个数为应push的数字；若为2，则为pop操作，
+后一个数无意义。请返回一个int[][](C++为vector&ltvector&ltint>>)，为完成所有操作
+后的SetOfStacks，顺序应为从下到上，默认初始的SetOfStacks为空。保证数据合法。
+*/
+
+#include <iostream>
+
+
+using namespace std;
+
+// my code
+vector<vector<int> > setOfStacks(vector<vector<int> > ope, int size)
+{
+
+}
+
+int main(){
+    vector<vector<int> > vec_list;
+
+    return 0;
+}
+
+
+#endif
+
+
+#ifdef A3_6
+
+// 3.6 双栈排序 
+/*
+请编写一个程序，按升序对栈进行排序（即最大元素位于栈顶），要求最多只能使用一个
+额外的栈存放临时数据，但不得将元素复制到别的数据结构中。
+给定一个int[] numbers(C++中为vector&ltint>)，其中第一个元素为栈顶，请返回排序后的栈。
+请注意这是一个栈，意味着排序过程中你只能访问到第一个元素。
+测试样例：
+[1,2,3,4,5]
+返回：[5,4,3,2,1]
+*/
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// my code
+vector<int> twoStacksSort(vector<int> numbers)
+{
+    vector<int> vec;
+    int tmp;
+
+    if (numbers.empty()) {
+        return vec;
+    }
+
+    vec.push_back(numbers.back());
+    numbers.pop_back();
+    while (!numbers.empty()) {
+        if (numbers.back() <= vec.back()) {
+            vec.push_back(numbers.back());
+            numbers.pop_back();
+        } else {
+            tmp = numbers.back();
+            numbers.pop_back();
+            while (!vec.empty()) {
+                if (tmp > vec.back()) {
+                    numbers.push_back(vec.back());
+                    vec.pop_back();
+                } else {
+                    vec.push_back(tmp);
+                    break;
+                }
+            }
+            if (vec.empty()) {
+                vec.push_back(tmp);
+            }
+        }
+    }
+
+    return vec;
+}
+
+int main()
+{
+    int array[]={1,6,4,7,3,5,2,8};
+    int length = sizeof(array)/sizeof(int);
+    vector<int> numbers(array, array+length);
+    vector<int> out;
+
+    cout << "numbers:" << endl;
+    for (int i = 0; i < numbers.size(); i++) {
+        cout << numbers[i] << "\t";
+    }
+    cout << endl;
+
+    out = twoStacksSort(numbers);
+
+    cout << "out:" << endl;
+    for (int i = 0; i < numbers.size(); i++) {
+        cout << numbers[i] << "\t";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
+#endif
+
+
+#ifdef A3_7
+
+// 3.7 猫狗收容所 
+/*
+有家动物收容所只收留猫和狗，但有特殊的收养规则，收养人有两种收养方式，
+第一种为直接收养所有动物中最早进入收容所的，第二种为选择收养的动物类型（猫或狗），
+并收养该种动物中最早进入收容所的。
+
+给定一个操作序列int[][2] ope(C++中为vector<vector<int>>)代表所有事件。
+若第一个元素为1，则代表有动物进入收容所，第二个元素为动物的编号，正数代表狗，
+负数代表猫；若第一个元素为2，则代表有人收养动物，第二个元素若为0，则采取第一种
+收养方式，若为1，则指定收养狗，若为-1则指定收养猫。请按顺序返回收养的序列。
+若出现不合法的操作，即没有可以符合领养要求的动物，则将这次领养操作忽略。
+测试样例：
+
+[[1,1],[1,-1],[2,0],[2,-1]]
+
+返回：[1,-1]
+
+*/
+#endif
+
+#ifdef A4_2
+
+// 4.2 有向路径检查 
+/*
+对于一个有向图，请实现一个算法，找出两点之间是否存在一条路径。
+
+给定图中的两个结点的指针UndirectedGraphNode* a,UndirectedGraphNode* b
+(请不要在意数据类型，图是有向图),请返回一个bool，代表两点之间是否存在一条路径(a到b或b到a)。
+
+*/
+#endif
+
+
+#ifdef A4_3
+
+// 4.3 高度最小的BST  
+/*
+对于一个元素各不相同且按升序排列的有序序列，请编写一个算法，创建一棵高度最小的二叉查找树。
+给定一个有序序列int[] vals,请返回创建的二叉查找树的高度。
+*/
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// my code 1: 直接计算 log2(sizeof(vals))+1
+int buildMinimalBST(vector<int> vals)
+{
+    if (vals.empty()) {
+        return 0;
+    }
+
+    int mid = vals.size()/2;
+    int height = 1;
+
+    while (mid != 0) {
+        height++;
+        mid /= 2;
+    }
+
+    return height;
+}
+
+// my code 2: 创建BST
+void build(vector<int> vals, int begin, int end, int* height)
+{
+    if (vals.empty()) {
+        return;
+    }
+
+    if (begin == end) {
+        *height = 1;
+        return;
+    }
+    int height1 = 0;
+    int height2 = 0;
+
+    build(vals, begin, (begin+end)/2, &height1);
+    build(vals, (begin+end)/2+1, end, &height2);
+    if (height1 == height2) {
+        *height = height1 + 1;
+    } else {
+        *height = height2 + 1;
+    }
+}
+
+int buildMinimalBST1(vector<int> vals)
+{
+    if (vals.empty()) {
+        return 0;
+    }
+    int height;
+
+    build(vals, 0, vals.size(), &height);
+
+    return height;
+}
+
+
+int main()
+{
+    int array[]={1,6,4,7,3,5,2,8};
+    int length = sizeof(array)/sizeof(int);
+    vector<int> numbers(array, array+length);
+    int depth = 0;
+
+    cout << "numbers:" << endl;
+    for (int i = 0; i < numbers.size(); i++) {
+        cout << numbers[i] << "\t";
+    }
+    cout << endl;
+
+    depth = buildMinimalBST(numbers);
+    cout << "depth: " << depth << endl;
+
+    depth = buildMinimalBST1(numbers);
+    cout << "depth: " << depth << endl;
+
+    return 0;
+}
+
+
+#endif
+
+
+#ifdef A4_4
+
+// 4.4 输出单层结点
+/*
+对于一棵二叉树，请设计一个算法，创建含有某一深度上所有结点的链表。
+
+给定二叉树的根结点指针TreeNode* root，以及链表上结点的深度，请返回一个链表ListNode，
+代表该深度上所有结点的值，请按树上从左往右的顺序链接，保证深度不超过树的高度，
+树上结点的值为非负整数且不超过100000。
+*/
+
+// 等同于打印同层，用queue实现
+
+#endif
+
+
+#ifdef A4_5
+// 4.5 检查是否为BST
+
+/*
+// 自编代码
+bool checkBST(TreeNode* root)
+{
+    return true;
+}
+*/
+
+int main()
+{
+    struct TreeNode* node;
+/*node
+    TreeNode* pNode1 = createTreeNode(1);
+    TreeNode* pNode2 = createTreeNode(2);
+    TreeNode* pNode3 = createTreeNode(3);
+    TreeNode* pNode4 = createTreeNode(4);
+    TreeNode* pNode5 = createTreeNode(5);
+    TreeNode* pNode6 = createTreeNode(6);
+    TreeNode* pNode7 = createTreeNode(7);
+
+    connectTreeNode(pNode1, pNode2, pNode3);
+    connectTreeNode(pNode2, pNode4, pNode5);
+    connectTreeNode(pNode3, pNode6, pNode7);
+
+    printTreeFromTopToBottom(pNode1);
+
+    cout << checkBST(pNode1) << endl;
+*/
+    return 0;
+}
 
 #endif
 
@@ -550,17 +1189,17 @@ using namespace std;
 int binInsert(int n, int m, int j, int i)
 {
     if (j > i) {
-		return n;
-	}
+        return n;
+    }
 
-	int index = 0;
-	int ij = 1;
-	while (index < (i-j)) {
-		ij = (ij << 1)+1;
-		index++;
-	}
+    int index = 0;
+    int ij = 1;
+    while (index < (i-j)) {
+        ij = (ij << 1)+1;
+        index++;
+    }
 
-	return (n | ((m << j) & (ij << j)));
+    return (n | ((m << j) & (ij << j)));
 }
 
 int main()
@@ -592,37 +1231,37 @@ using namespace std;
 // MY CODE
 string printBin(double num)
 {
-	string str = "0.";
-	double tmp = num;
-	int count = 0;
-	if (num > 1) {
-		return "Error";
-	}
+    string str = "0.";
+    double tmp = num;
+    int count = 0;
+    if (num > 1) {
+        return "Error";
+    }
 
-	while (1) {
-		tmp *= 2.0;
-		if (-0.00000001 < (tmp - 1.0) && (tmp - 1.0) < 0.00000001) {
-			str += "1";
-			break;
-		} else if (tmp > 1.0) {
-			tmp = tmp - 1.0;
-			str += "1";
-		} else {
-			str += "0";
-		}
-		count++;
-		if (count > 32) {
-			return "Error";
-		}
-	}
+    while (1) {
+        tmp *= 2.0;
+        if (-0.00000001 < (tmp - 1.0) && (tmp - 1.0) < 0.00000001) {
+            str += "1";
+            break;
+        } else if (tmp > 1.0) {
+            tmp = tmp - 1.0;
+            str += "1";
+        } else {
+            str += "0";
+        }
+        count++;
+        if (count > 32) {
+            return "Error";
+        }
+    }
 
-	return str;
+    return str;
 }
 
 int main()
 {
     cout << 0.625 << " " << printBin(0.625) << endl;
- 	cout << 0.46502 << " " << printBin(0.46502) << endl;
+    cout << 0.46502 << " " << printBin(0.46502) << endl;
     return 0;
 }
 
@@ -648,19 +1287,19 @@ using namespace std;
 // MY CODE
 vector<int> getCloseNumber(int x)
 {
-	vector<int> vec;
+    vector<int> vec;
 
     return vec;
 }
 
 int main()
 {
-	vector<int> vec;
-	vec = getCloseNumber(2);
-	for (int i = 0; i < vec.size(); i++) {
-		cout << vec[i] << "\t";
-	}
-	cout << endl;
+    vector<int> vec;
+    vec = getCloseNumber(2);
+    for (int i = 0; i < vec.size(); i++) {
+        cout << vec[i] << "\t";
+    }
+    cout << endl;
  
     return 0;
 }

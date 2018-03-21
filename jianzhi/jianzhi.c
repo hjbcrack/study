@@ -121,51 +121,51 @@ using namespace std;
 //二维数组的查找（右上角版本）  
 bool find(int* matrix, int rows, int columns, int number)  //传入一维数繿 
 {  
-	if(matrix != NULL && rows >0 && columns >0)            //指针判空以及边界判断  
-	{  
-	    int row = 0;  
-	    int column = columns - 1;               //从矩阵的右上角开始判政 
-	    while(row < rows && column >= 0)  
-	    {  
-			if(matrix[row*columns+column] == number)  
-				return true;  
-			else if(matrix[row*columns+column] > number)  
-				--column;  
-			else
-				++row;  
-	    }  
-	}  
-	return false;  
+    if(matrix != NULL && rows >0 && columns >0)            //指针判空以及边界判断  
+    {  
+        int row = 0;  
+        int column = columns - 1;               //从矩阵的右上角开始判政 
+        while(row < rows && column >= 0)  
+        {  
+            if(matrix[row*columns+column] == number)  
+                return true;  
+            else if(matrix[row*columns+column] > number)  
+                --column;  
+            else
+                ++row;  
+        }  
+    }  
+    return false;  
 }  
      
 //左下角版本
 bool find2(int* matrix, int rows, int columns, int number)  
 {
-	if(matrix != NULL && rows > 0 && columns > 0)  
-	{  
-		int row = rows - 1;  
-		int column = 0;  
-		while(row >= 0 && column < columns)  
-		{  
-		    if(matrix[row*columns+column] == number)  
-		        return true;  
-		    else if(matrix[row*columns+column] > number)  
-		        --row;  
-		    else  
-		        ++column;  
-		}  
-	}  
-	return false;  
+    if(matrix != NULL && rows > 0 && columns > 0)  
+    {  
+        int row = rows - 1;  
+        int column = 0;  
+        while(row >= 0 && column < columns)  
+        {  
+            if(matrix[row*columns+column] == number)  
+                return true;  
+            else if(matrix[row*columns+column] > number)  
+                --row;  
+            else  
+                ++column;  
+        }  
+    }  
+    return false;  
 }
 
 int main()   
 {  
-	int matrix[16] = {1,2,8,9,2,4,9,12,4,7,10,13,6,8,11,15};  
-	if(find(matrix, 4, 4, 9))  
-		cout << "exist!" << endl;  
-	else  
-		cout << "none!" << endl;  
-	return 0;  
+    int matrix[16] = {1,2,8,9,2,4,9,12,4,7,10,13,6,8,11,15};  
+    if(find(matrix, 4, 4, 9))  
+        cout << "exist!" << endl;  
+    else  
+        cout << "none!" << endl;  
+    return 0;  
 }  
 
 #endif
@@ -182,35 +182,35 @@ using namespace std;
 // 自编代码
 void replace_blank(char array[], int length)
 {
-	int blank_number = 0;
-	int new_number = 0;
-	int index = 0;
-	int str_length = 0;
+    int blank_number = 0;
+    int new_number = 0;
+    int index = 0;
+    int str_length = 0;
 
-	for (int i = 0; i < length; i++) {
-		if (array[i] == '\0')
-			break;
-		if (array[i] == ' ')
-			blank_number++;
-		str_length++;
-	}
+    for (int i = 0; i < length; i++) {
+        if (array[i] == '\0')
+            break;
+        if (array[i] == ' ')
+            blank_number++;
+        str_length++;
+    }
 
-	new_number = str_length + blank_number*2;
-	if (new_number > length) {
-		cout << "the array is too lenght" << endl;
-		return;
-	}
+    new_number = str_length + blank_number*2;
+    if (new_number > length) {
+        cout << "the array is too lenght" << endl;
+        return;
+    }
 
-	index = new_number-1;
-	for (int i = str_length-1; i >= 0; i--) {
-		if (array[i] == ' ') {
-			array[index--] = '#';
-			array[index--] = '#';
-			array[index--] = '#';
-		} else {
-			array[index--] = array[i];
-		}
-	}
+    index = new_number-1;
+    for (int i = str_length-1; i >= 0; i--) {
+        if (array[i] == ' ') {
+            array[index--] = '#';
+            array[index--] = '#';
+            array[index--] = '#';
+        } else {
+            array[index--] = array[i];
+        }
+    }
 }
 
 // length为字符数组string的总容量
@@ -259,9 +259,9 @@ void test1()
     char test2[20] = "wearehappy ";
     char test3[20] = "we arehappy";
     char test4[20] = "we  arehappy";
-	char test5[20] = "wearehappy";
-	char test6[20] = " ";
-	char test7[20] = "   ";
+    char test5[20] = "wearehappy";
+    char test6[20] = " ";
+    char test7[20] = "   ";
 
     replace_blank(test1, 20);  
     replace_blank(test2, 20);  
@@ -284,9 +284,9 @@ void test1()
     char test12[20] = "wearehappy ";
     char test13[20] = "we arehappy";
     char test14[20] = "we  arehappy";
-	char test15[20] = "wearehappy";
-	char test16[20] = " ";
-	char test17[20] = "   ";
+    char test15[20] = "wearehappy";
+    char test16[20] = " ";
+    char test17[20] = "   ";
 
     ReplaceBlank(test11, 20);  
     ReplaceBlank(test12, 20);  
@@ -296,7 +296,7 @@ void test1()
     ReplaceBlank(test16, 20);  
     ReplaceBlank(test17, 20);
  
-	cout << "ref code:" << endl;
+    cout << "ref code:" << endl;
     cout << test11 << endl;  
     cout << test12 << endl;  
     cout << test13 << endl;  
@@ -308,9 +308,9 @@ void test1()
 
 int main()
 {
-	test1();
+    test1();
 
-	return 1; 
+    return 1; 
 }
 
 
@@ -431,54 +431,54 @@ int main()
 using namespace std;
 
 typedef struct node {
-	int data;
-	struct node *next;
+    int data;
+    struct node *next;
 } node_t;
 
 node_t* create_list(int number)
 {
-	node_t *head = NULL;
-	node_t *node = NULL;
-	node_t *node1 = NULL;
+    node_t *head = NULL;
+    node_t *node = NULL;
+    node_t *node1 = NULL;
 
-	head = new node_t;
-	if (head == NULL) {
-		return NULL;	
-	}
+    head = new node_t;
+    if (head == NULL) {
+        return NULL;
+    }
 
-	node = new node_t;
-	if (node == NULL) {
-		return head;
-	}
-	node->data = 0;
-	node->next = NULL;
-	head->next = node;
+    node = new node_t;
+    if (node == NULL) {
+        return head;
+    }
+    node->data = 0;
+    node->next = NULL;
+    head->next = node;
 
-	for (int i = 1; i < number; i++) {
-		node1 = new node_t;
-		if (node1 == NULL) {
-			return head;
-		} else {
-			node1->data = i;
-			node1->next = NULL;
-			node->next = node1;
-			node = node1;
-		}
-	}
+    for (int i = 1; i < number; i++) {
+        node1 = new node_t;
+        if (node1 == NULL) {
+            return head;
+        } else {
+            node1->data = i;
+            node1->next = NULL;
+            node->next = node1;
+            node = node1;
+        }
+    }
 
-	return head;
+    return head;
 }
 
 
 // 自己写，方法1 递归
 void printlist(node_t *node)
 {
-	if (node != NULL) {
-		if (node->next != NULL) {
-			printlist(node->next);
-		}
-		cout << node->data << endl;
-	}
+    if (node != NULL) {
+        if (node->next != NULL) {
+            printlist(node->next);
+        }
+        cout << node->data << endl;
+    }
 }
 
 // 方法2 利用栈先入后出的特点
@@ -506,15 +506,15 @@ void PrintListReversingly(node* L)
 
 int main()
 {
-	int number = 10;
-	node_t *head = NULL;
+    int number = 10;
+    node_t *head = NULL;
 
-	head = create_list(number);
-	cout << "create list ok" << endl;
+    head = create_list(number);
+    cout << "create list ok" << endl;
 
-	printlist(head->next);
+    printlist(head->next);
 
-	PrintListReversingly(head->next);
+    PrintListReversingly(head->next);
 }
 
 */
@@ -1149,9 +1149,9 @@ double Power(double base, int exponent) {
 
 int main()
 {
-	cout << Power(2, -3) << endl;
+    cout << Power(2, -3) << endl;
 
-	return 0;
+    return 0;
 }
 
 #endif
@@ -1903,100 +1903,100 @@ struct ListNode {
 
 ListNode* create_list(int begin, int number)
 {
-	ListNode *head = NULL;
-	ListNode *node = NULL;
-	ListNode *node1 = NULL;
+    ListNode *head = NULL;
+    ListNode *node = NULL;
+    ListNode *node1 = NULL;
 
-	head = new ListNode;
-	if (head == NULL) {
-		return NULL;	
-	}
+    head = new ListNode;
+    if (head == NULL) {
+        return NULL;
+    }
 
-	node = new ListNode;
-	if (node == NULL) {
-		return head;
-	}
-	node->data = begin;
-	node->next = NULL;
-	head->next = node;
+    node = new ListNode;
+    if (node == NULL) {
+        return head;
+    }
+    node->data = begin;
+    node->next = NULL;
+    head->next = node;
 
-	for (int i = begin+1; i < begin+number; i++) {
-		node1 = new ListNode;
-		if (node1 == NULL) {
-			return head;
-		} else {
-			node1->data = i;
-			node1->next = NULL;
-			node->next = node1;
-			node = node1;
-		}
-	}
+    for (int i = begin+1; i < begin+number; i++) {
+        node1 = new ListNode;
+        if (node1 == NULL) {
+            return head;
+        } else {
+            node1->data = i;
+            node1->next = NULL;
+            node->next = node1;
+            node = node1;
+        }
+    }
 
-	return head;
+    return head;
 }
 
 // 自编代码
 
 void printlist(ListNode *node)
 {
-	while (node != NULL) {
-		cout << node->data << endl;
-		node = node->next;
-	}
+    while (node != NULL) {
+        cout << node->data << endl;
+        node = node->next;
+    }
 }
 ListNode* merge(ListNode* head1, ListNode* head2)
 {
-	ListNode* node = new ListNode;
-	ListNode* head = node;
+    ListNode* node = new ListNode;
+    ListNode* head = node;
 
-	if(head1 == NULL && head2 == NULL) {
-		cout << "the list is empty" << endl;
-		return NULL;
-	}
+    if(head1 == NULL && head2 == NULL) {
+        cout << "the list is empty" << endl;
+        return NULL;
+    }
 
-	if (head1 == NULL)
-		return head2;
+    if (head1 == NULL)
+        return head2;
 
-	if (head2 == NULL)
-		return head1;
+    if (head2 == NULL)
+        return head1;
 
-	while(head1 != NULL && head2 != NULL) {
-		if (head1->data > head2->data) {
-			node->next = head2;
-			head2 = head2->next;
-		} else {
-			node->next = head1;
-			head1 = head1->next;
-		}
-		node = node->next;
-	}
+    while(head1 != NULL && head2 != NULL) {
+        if (head1->data > head2->data) {
+            node->next = head2;
+            head2 = head2->next;
+        } else {
+            node->next = head1;
+            head1 = head1->next;
+        }
+        node = node->next;
+    }
 
-	if (head1 != NULL) {
-		node->next = head1;
-	}
+    if (head1 != NULL) {
+        node->next = head1;
+    }
 
-	if (head2 != NULL) {
-		node->next = head2;
-	}
+    if (head2 != NULL) {
+        node->next = head2;
+    }
 
-	return head;
+    return head;
 }
 
 int main()
 {
-	int number = 10;
-	ListNode *head1 = NULL;
-	ListNode *head2 = NULL;
-	ListNode *head = NULL;
+    int number = 10;
+    ListNode *head1 = NULL;
+    ListNode *head2 = NULL;
+    ListNode *head = NULL;
 
-	head1 = create_list(1, number);
-	head2 = create_list(5, number);
+    head1 = create_list(1, number);
+    head2 = create_list(5, number);
 
-	printlist(head1->next);
-	printlist(head2->next);
+    printlist(head1->next);
+    printlist(head2->next);
 
-	head = merge(head1->next, head2->next);
-	printlist(head->next);
+    head = merge(head1->next, head2->next);
+    printlist(head->next);
 
 }
 
@@ -2040,60 +2040,60 @@ void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
 
 TreeNode* FindTheFirst(TreeNode* pRoot1, int data)
 {
-	TreeNode *node;
+    TreeNode *node;
 
-	if (pRoot1 == NULL) {
-		return NULL;
-	}
+    if (pRoot1 == NULL) {
+        return NULL;
+    }
 
-	if (pRoot1->val == data) {
-		return pRoot1;
-	}
+    if (pRoot1->val == data) {
+        return pRoot1;
+    }
 
-	if ((node=FindTheFirst(pRoot1->left, data)) != NULL) {
-		return node;
-	} else if ((node=FindTheFirst(pRoot1->right, data)) != NULL) {
-		return node;
-	}
+    if ((node=FindTheFirst(pRoot1->left, data)) != NULL) {
+        return node;
+    } else if ((node=FindTheFirst(pRoot1->right, data)) != NULL) {
+        return node;
+    }
 
-	return node;
+    return node;
 }
 
 bool HasSubtreeUnit(TreeNode* pRoot1, TreeNode* pRoot2, bool start)
 {
-	TreeNode* node = NULL;
+    TreeNode* node = NULL;
 
-	if (pRoot1 == NULL || pRoot2 == NULL) {
-		return true;
-	}
+    if (pRoot1 == NULL || pRoot2 == NULL) {
+        return true;
+    }
 
-	if (pRoot1->val == pRoot2->val) {
-		return (HasSubtreeUnit(pRoot1->left, pRoot2->left, true) &&
-					HasSubtreeUnit(pRoot1->right, pRoot2->right, true));
-	} else {
-		if (start == true) {
-			return false;
-		}
-	}
+    if (pRoot1->val == pRoot2->val) {
+        return (HasSubtreeUnit(pRoot1->left, pRoot2->left, true) &&
+                    HasSubtreeUnit(pRoot1->right, pRoot2->right, true));
+    } else {
+        if (start == true) {
+            return false;
+        }
+    }
 
-	return (HasSubtreeUnit(pRoot1->left, pRoot2->left, false) &&
-			HasSubtreeUnit(pRoot1->right, pRoot2->right, false));
+    return (HasSubtreeUnit(pRoot1->left, pRoot2->left, false) &&
+            HasSubtreeUnit(pRoot1->right, pRoot2->right, false));
 }
 
 bool HasSubtree(TreeNode* pRoot1, TreeNode* pRoot2)
 {
-	TreeNode* node = NULL;
+    TreeNode* node = NULL;
 
-	if (pRoot1 == NULL || pRoot2 == NULL) {
-		return false;
-	}
+    if (pRoot1 == NULL || pRoot2 == NULL) {
+        return false;
+    }
 
-	node = FindTheFirst(pRoot1, pRoot2->val);
-	if (node != NULL) {
-		return HasSubtreeUnit(node, pRoot2, false);
-	}
+    node = FindTheFirst(pRoot1, pRoot2->val);
+    if (node != NULL) {
+        return HasSubtreeUnit(node, pRoot2, false);
+    }
 
-	return false;
+    return false;
 }
 
 int main()
@@ -2106,7 +2106,7 @@ int main()
     TreeNode* pNode6 = createTreeNode(6);
     TreeNode* pNode7 = createTreeNode(7);
 
-	TreeNode* pNode8 = createTreeNode(5);
+    TreeNode* pNode8 = createTreeNode(5);
     TreeNode* pNode9 = createTreeNode(6);
     TreeNode* pNode10 = createTreeNode(7);
 
@@ -2114,7 +2114,7 @@ int main()
     connectTreeNode(pNode2, pNode4, pNode5);
     connectTreeNode(pNode5, pNode6, pNode7);
 
-	connectTreeNode(pNode8, pNode9, pNode10);
+    connectTreeNode(pNode8, pNode9, pNode10);
 
     cout << HasSubtree(pNode1, pNode8) << endl;
     /*测试用例:
@@ -2175,17 +2175,17 @@ void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
 // 自编代码
 void Mirror(TreeNode *pRoot)
 {
-	TreeNode* node = NULL;
+    TreeNode* node = NULL;
 
-	if (pRoot == NULL) {
-		return;
-	}
+    if (pRoot == NULL) {
+        return;
+    }
 
     node = pRoot->left;
     pRoot->left = pRoot->right;
     pRoot->right = node;
 
-	Mirror(pRoot->left);
+    Mirror(pRoot->left);
     Mirror(pRoot->right);
 }
 
@@ -2259,65 +2259,65 @@ using namespace std;
 
 void print_array(int array[][4], int row, int column)
 {
-	int rindex = 0;
-	int cindex = 0;
-	int count = 0;
-	int direction = 0;
+    int rindex = 0;
+    int cindex = 0;
+    int count = 0;
+    int direction = 0;
 
-	while (count < row*column) {
-		if (rindex >= 0 && rindex < row && cindex >= 0 && cindex < column &&
-			array[rindex][cindex] != -1) {
-			cout << array[rindex][cindex] << "\t"<< endl;
-			array[rindex][cindex] = -1;
-			count++;
-		    switch (direction) {
-				case 0:
-					cindex++;
-					break;
-				case 1:
-					rindex++;
-					break;
-				case 2:
-					cindex--;
-					break;
-				case 3:
-					rindex--;
-					break;
-				default:
-					break;
-			}
-		} else {
-			switch (direction) {
-				case 0:
-					cindex--;
-					rindex++;
-					break;
-				case 1:
-					rindex--;
-					cindex--;
-					break;
-				case 2:
-					cindex++;
-					rindex--;
-					break;
-				case 3:
-					rindex++;
-					cindex++;
-					break;
-				default:
-					break;
-			}
-			direction = (direction < 3) ? (direction+1) : 0;
-		}
-	}
+    while (count < row*column) {
+        if (rindex >= 0 && rindex < row && cindex >= 0 && cindex < column &&
+            array[rindex][cindex] != -1) {
+            cout << array[rindex][cindex] << "\t"<< endl;
+            array[rindex][cindex] = -1;
+            count++;
+            switch (direction) {
+                case 0:
+                    cindex++;
+                    break;
+                case 1:
+                    rindex++;
+                    break;
+                case 2:
+                    cindex--;
+                    break;
+                case 3:
+                    rindex--;
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            switch (direction) {
+                case 0:
+                    cindex--;
+                    rindex++;
+                    break;
+                case 1:
+                    rindex--;
+                    cindex--;
+                    break;
+                case 2:
+                    cindex++;
+                    rindex--;
+                    break;
+                case 3:
+                    rindex++;
+                    cindex++;
+                    break;
+                default:
+                    break;
+            }
+            direction = (direction < 3) ? (direction+1) : 0;
+        }
+    }
 }
 
 int main()
 {
-	int array[][4] = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-	print_array(array, 4, 4);
+    int array[][4] = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+    print_array(array, 4, 4);
 
-	return 0;
+    return 0;
 }
 
 
@@ -2498,24 +2498,24 @@ struct TreeNode{
 
 void PrintFromTopToBottom(TreeNode* root)
 {
-	queue<TreeNode*> list;
-	TreeNode* node = root;
+    queue<TreeNode*> list;
+    TreeNode* node = root;
 
-	if (root == NULL)
-		return;
+    if (root == NULL)
+        return;
 
-	list.push(root);
-	while(!list.empty()) {
-		node = list.front();
-		cout << node->val << endl;
-		list.pop();
-		if (node->left != NULL) {
-			list.push(node->left);
-		}
-		if (node->right != NULL) {
-			list.push(node->right);
-		}
-	}
+    list.push(root);
+    while(!list.empty()) {
+        node = list.front();
+        cout << node->val << endl;
+        list.pop();
+        if (node->left != NULL) {
+            list.push(node->left);
+        }
+        if (node->right != NULL) {
+            list.push(node->right);
+        }
+    }
 }
 /*
 // 参考代码
@@ -2539,7 +2539,7 @@ void PrintFromTopToBottom(TreeNode* root){
 */
 int main()
 {
-	TreeNode* root = new TreeNode;
+    TreeNode* root = new TreeNode;
     root->val = 1;
     root->left = new TreeNode;
     root->left->val = 2;
@@ -2555,7 +2555,7 @@ int main()
     root->right->right->val = 7;
     PrintFromTopToBottom(root);
 
-	return 0;
+    return 0;
 }
 
 
@@ -2684,24 +2684,24 @@ struct TreeNode{
 
 void PrintFromTopToBottom(TreeNode* root)
 {
-	queue<TreeNode*> list;
-	TreeNode* node = root;
+    queue<TreeNode*> list;
+    TreeNode* node = root;
 
-	if (root == NULL)
-		return;
+    if (root == NULL)
+        return;
 
-	list.push(root);
-	while(!list.empty()) {
-		node = list.front();
-		cout << node->val << endl;
-		list.pop();
-		if (node->left != NULL) {
-			list.push(node->left);
-		}
-		if (node->right != NULL) {
-			list.push(node->right);
-		}
-	}
+    list.push(root);
+    while(!list.empty()) {
+        node = list.front();
+        cout << node->val << endl;
+        list.pop();
+        if (node->left != NULL) {
+            list.push(node->left);
+        }
+        if (node->right != NULL) {
+            list.push(node->right);
+        }
+    }
 }
 /*
 // 参考代码
@@ -2726,7 +2726,7 @@ void PrintFromTopToBottom(TreeNode* root){
 */
 int main()
 {
-	TreeNode* root = new TreeNode;
+    TreeNode* root = new TreeNode;
     root->val = 1;
     root->left = new TreeNode;
     root->left->val = 2;
@@ -2742,7 +2742,7 @@ int main()
     root->right->right->val = 7;
     PrintFromTopToBottom(root);
 
-	return 0;
+    return 0;
 }
 
 #endif
@@ -2797,16 +2797,16 @@ vector<string> Permutation(string str) {
 
 int main()
 {
-	string str = "abc";
-	vector<string> output;
+    string str = "abc";
+    vector<string> output;
 
     output = Permutation(str);
 
-	for (int i = 0; i < output.size(); i++) {
-		cout << output[i] << endl;
-	}
+    for (int i = 0; i < output.size(); i++) {
+        cout << output[i] << endl;
+    }
 
-	return 0;
+    return 0;
 }
 
 #endif
@@ -2835,27 +2835,27 @@ using namespace std;
 
 int MoreThanHalfNum(int* numbers, int length)
 {
-	int num = 0;
-	int count = 0;
+    int num = 0;
+    int count = 0;
 
-	if (numbers == NULL || length == 0) {
-		return 0;
-	}
+    if (numbers == NULL || length == 0) {
+        return 0;
+    }
 
-	num = numbers[0];
-	for (int i = 0; i < length; i++) {
-		if (num == numbers[i]) {
-			count++;
-		} else {
-			count--;
-		}
+    num = numbers[0];
+    for (int i = 0; i < length; i++) {
+        if (num == numbers[i]) {
+            count++;
+        } else {
+            count--;
+        }
 
-		if (count == 0) {
-			num = numbers[i];
-			count = 1;
-		}
-		cout << count << ", " << num << endl;
-	}
+        if (count == 0) {
+            num = numbers[i];
+            count = 1;
+        }
+        cout << count << ", " << num << endl;
+    }
 
     return (count > 1 ? num : 0);
 }
@@ -2863,14 +2863,14 @@ int MoreThanHalfNum(int* numbers, int length)
  
 int main()
 {
-	//int array[] = {1, 3, 1, 3, 3, 3, 3, 4, 5, 3};
-	int array[] = {1,2,3,2,4,2,5,2,3};
-	int number = sizeof(array) / sizeof(int);
+    //int array[] = {1, 3, 1, 3, 3, 3, 3, 4, 5, 3};
+    int array[] = {1,2,3,2,4,2,5,2,3};
+    int number = sizeof(array) / sizeof(int);
 
-	for (int i = 0; i < number; i++) {
-		cout << array[i] << "\t";
-	}
-	cout << endl;
+    for (int i = 0; i < number; i++) {
+        cout << array[i] << "\t";
+    }
+    cout << endl;
 
     cout << MoreThanHalfNum(array, number) << endl;
 
@@ -2931,7 +2931,7 @@ void GetLeastNumbers(int* input,int n,int* output,int k){
 
 // 参考代码
 void GetLeastNumbers_1(const vector<int> &data, set<int> &leastNumbers,
-					   unsigned int k)
+                       unsigned int k)
 {
     leastNumbers.clear();
  
@@ -2954,35 +2954,35 @@ void GetLeastNumbers_1(const vector<int> &data, set<int> &leastNumbers,
 
 int main()
 {
-	int array[] = {4,5,1,6,2,7,3,8,0};;
-	int number = sizeof(array) / sizeof(int);
-	int k=4;
-	int minK[4];
+    int array[] = {4,5,1,6,2,7,3,8,0};;
+    int number = sizeof(array) / sizeof(int);
+    int k=4;
+    int minK[4];
 
-	for (int i = 0; i < number; i++) {
-		cout << array[i] << "\t";
-	}
-	cout << endl;
+    for (int i = 0; i < number; i++) {
+        cout << array[i] << "\t";
+    }
+    cout << endl;
 
     GetLeastNumbers(array, number, minK, k);
 
     for (int i = 0; i < k; i++) {
-		cout << minK[i] << "\t";
-	}
-	cout << endl;
+        cout << minK[i] << "\t";
+    }
+    cout << endl;
 
     // 大顶堆
-	vector<int> data(array, array+number);
+    vector<int> data(array, array+number);
 
     set<int> leastNumbers;
     GetLeastNumbers_1(data, leastNumbers, k);
 
     for(set<int>::const_iterator it=leastNumbers.begin();
-		it!=leastNumbers.end(); it++)
+        it!=leastNumbers.end(); it++)
         cout<<*it<<" ";
     cout<<endl;
 
-	return 0;
+    return 0;
 }
 
 
@@ -3003,22 +3003,22 @@ using namespace std;
 int findGreatestSumOfSubArray(int *pData, int nLength)
 {
     int sum = 0;
-	int maxSum = 0;
-	int index = 0;
+    int maxSum = 0;
+    int index = 0;
 
-	if (pData == NULL) {
-		return 0;
-	}
+    if (pData == NULL) {
+        return 0;
+    }
 
     while (index < nLength) {
-		if (sum + pData[index] < 0) {
-			sum = 0;
-		} else {
-			sum += pData[index];
-		}
-		maxSum = (maxSum <= sum) ? sum : maxSum;
-		index++;
-	}
+        if (sum + pData[index] < 0) {
+            sum = 0;
+        } else {
+            sum += pData[index];
+        }
+        maxSum = (maxSum <= sum) ? sum : maxSum;
+        index++;
+    }
 
     return maxSum;
 }
@@ -3048,19 +3048,19 @@ int findGreatestSumOfSubArray1(int *pData,int nLength){
 
 int main()
 {
-	int array[] = {1,-2,3,10,-4,7,2,-5, 100};
-	int number = sizeof(array) / sizeof(int);
+    int array[] = {1,-2,3,10,-4,7,2,-5, 100};
+    int number = sizeof(array) / sizeof(int);
 
-	for (int i = 0; i < number; i++) {
-		cout << array[i] << "\t";
-	}
-	cout << endl;
+    for (int i = 0; i < number; i++) {
+        cout << array[i] << "\t";
+    }
+    cout << endl;
 
     cout << findGreatestSumOfSubArray(array, number) << endl;
 
-	cout << findGreatestSumOfSubArray1(array, number) << endl;
+    cout << findGreatestSumOfSubArray1(array, number) << endl;
 
-	return 0;
+    return 0;
 }
 
 
@@ -3223,7 +3223,7 @@ int GetUglyNumber_Solution(int index)
     int index_2=0;
     int index_3=0;
     int index_5=0;
-     
+
     while(nextIndex<index){
         uglyNumbers[nextIndex]=min_3(uglyNumbers[index_2]*2,uglyNumbers[index_3]*3,uglyNumbers[index_5]*5);
         while(uglyNumbers[index_2]*2<=uglyNumbers[nextIndex]) ++index_2;
@@ -3330,8 +3330,8 @@ int InversePairs(vector<int> data)
 
 int main()
 {
-	int array[] = {1, 3, 2, 3, 4, 5, 3, 7, 8, 9};
-	int number = sizeof(array) / sizeof(int);
+    int array[] = {1, 3, 2, 3, 4, 5, 3, 7, 8, 9};
+    int number = sizeof(array) / sizeof(int);
     vector<int> data(array, array+number);
 
     cout << InversePairs(data) << endl;
@@ -3358,132 +3358,132 @@ struct ListNode{
 
 void create_list(ListNode** pHead1, ListNode** pHead2)
 {
-	ListNode *node = NULL;
-	ListNode *node1 = NULL;
-	ListNode *node2 = NULL;
+    ListNode *node = NULL;
+    ListNode *node1 = NULL;
+    ListNode *node2 = NULL;
 
-	*pHead1 = new ListNode;
-	if (pHead1 == NULL) {
-		return;	
-	}
+    *pHead1 = new ListNode;
+    if (pHead1 == NULL) {
+        return; 
+    }
 
-	node1 = new ListNode;
-	if (node1 == NULL) {
-		return;
-	}
-	node1->val = 0;
-	node1->next = NULL;
-	(*pHead1)->next = node1;
+    node1 = new ListNode;
+    if (node1 == NULL) {
+        return;
+    }
+    node1->val = 0;
+    node1->next = NULL;
+    (*pHead1)->next = node1;
 
-	for (int i = 1; i < 5; i++) {
-		node = new ListNode;
-		if (node == NULL) {
-			return;
-		} else {
-			node->val = i;
-			node->next = NULL;
-			node1->next = node;
-			node1 = node;
-		}
-	}
+    for (int i = 1; i < 5; i++) {
+        node = new ListNode;
+        if (node == NULL) {
+            return;
+        } else {
+            node->val = i;
+            node->next = NULL;
+            node1->next = node;
+            node1 = node;
+        }
+    }
 
-	*pHead2 = new ListNode;
-	if (pHead2 == NULL) {
-		return;	
-	}
+    *pHead2 = new ListNode;
+    if (pHead2 == NULL) {
+        return; 
+    }
 
-	node2 = new ListNode;
-	if (node2 == NULL) {
-		return;
-	}
-	node2->val = 100;
-	node2->next = NULL;
-	(*pHead2)->next = node2;
+    node2 = new ListNode;
+    if (node2 == NULL) {
+        return;
+    }
+    node2->val = 100;
+    node2->next = NULL;
+    (*pHead2)->next = node2;
 
-	for (int i = 101; i < 103; i++) {
-		node = new ListNode;
-		if (node == NULL) {
-			return;
-		} else {
-			node->val = i;
-			node->next = NULL;
-			node2->next = node;
-			node2 = node;
-		}
-	}
+    for (int i = 101; i < 103; i++) {
+        node = new ListNode;
+        if (node == NULL) {
+            return;
+        } else {
+            node->val = i;
+            node->next = NULL;
+            node2->next = node;
+            node2 = node;
+        }
+    }
 
-	for (int i = 10; i < 15; i++) {
-		node = new ListNode;
-		if (node == NULL) {
-			return;
-		} else {
-			node->val = i;
-			node->next = NULL;
-			node1->next = node;
-			node1 = node;
-			node2->next = node;
-			node2 = node;
-		}
-	}
+    for (int i = 10; i < 15; i++) {
+        node = new ListNode;
+        if (node == NULL) {
+            return;
+        } else {
+            node->val = i;
+            node->next = NULL;
+            node1->next = node;
+            node1 = node;
+            node2->next = node;
+            node2 = node;
+        }
+    }
 }
 
 ListNode* FindFirstCommonNode(ListNode* pHead1, ListNode* pHead2)
 {
-	stack<ListNode*> stack1;
-	stack<ListNode*> stack2;
+    stack<ListNode*> stack1;
+    stack<ListNode*> stack2;
 
-	if (pHead1 == NULL || pHead2 == NULL) {
-		return NULL;
-	}
+    if (pHead1 == NULL || pHead2 == NULL) {
+        return NULL;
+    }
 
-	while (pHead1 != NULL) {
-		stack1.push(pHead1);
-		pHead1 = pHead1->next;
-	}
+    while (pHead1 != NULL) {
+        stack1.push(pHead1);
+        pHead1 = pHead1->next;
+    }
 
-	while (pHead2 != NULL) {
-		stack2.push(pHead2);
-		pHead2 = pHead2->next;
-	}
+    while (pHead2 != NULL) {
+        stack2.push(pHead2);
+        pHead2 = pHead2->next;
+    }
 
-	while (!stack1.empty() && !stack2.empty() && stack1.top() == stack2.top()) {
+    while (!stack1.empty() && !stack2.empty() && stack1.top() == stack2.top()) {
         stack1.pop();
         stack2.pop();
-	}
+    }
 
-	return stack1.top()->next;
+    return stack1.top()->next;
 }
 
 int main()
 {
-	int number = 10;
-	ListNode *pHead1 = NULL;
-	ListNode *pHead2 = NULL;
-	ListNode *pHead = NULL;
+    int number = 10;
+    ListNode *pHead1 = NULL;
+    ListNode *pHead2 = NULL;
+    ListNode *pHead = NULL;
 
-	create_list(&pHead1, &pHead2);
-	cout << "create list ok" << endl;
-	
-	pHead = pHead1;
-	while (pHead != NULL) {
-		cout << pHead->val << "\t";
-		pHead = pHead->next;
-	}
-	cout << endl;
+    create_list(&pHead1, &pHead2);
+    cout << "create list ok" << endl;
+    
+    pHead = pHead1;
+    while (pHead != NULL) {
+        cout << pHead->val << "\t";
+        pHead = pHead->next;
+    }
+    cout << endl;
 
-	pHead = pHead2;
-	while (pHead != NULL) {
-		cout << pHead->val << "\t";
-		pHead = pHead->next;
-	}
-	cout << endl;
+    pHead = pHead2;
+    while (pHead != NULL) {
+        cout << pHead->val << "\t";
+        pHead = pHead->next;
+    }
+    cout << endl;
 
-	pHead = FindFirstCommonNode(pHead1->next, pHead2->next);
-	if (pHead != NULL) {
-		cout << "start node val = " << pHead->val << endl;
-	}
+    pHead = FindFirstCommonNode(pHead1->next, pHead2->next);
+    if (pHead != NULL) {
+        cout << "start node val = " << pHead->val << endl;
+    }
 
-	return 0;
+    return 0;
 }
 
 #endif
@@ -3500,38 +3500,38 @@ using namespace std;
 
 int getNumberOfK(int* data, int length, int k)
 {
-	int head = 0;
-	int tail = length-1;
-	int index = -1;
+    int head = 0;
+    int tail = length-1;
+    int index = -1;
 
-	if (data == NULL || length == 0) {
-		return 0;
-	}
+    if (data == NULL || length == 0) {
+        return 0;
+    }
 
-	while (head <= tail) {
-		if (data[(head+tail)/2] > k) {
-			tail = (head+tail)/2-1;
-		} else if (data[(head+tail)/2] < k){
-			head = (head+tail)/2+1;
-		} else {
-			index = (head+tail)/2;
-			break;
-		}
-	}
+    while (head <= tail) {
+        if (data[(head+tail)/2] > k) {
+            tail = (head+tail)/2-1;
+        } else if (data[(head+tail)/2] < k){
+            head = (head+tail)/2+1;
+        } else {
+            index = (head+tail)/2;
+            break;
+        }
+    }
 
-	if (index == -1) {
-		return 0;
-	}
+    if (index == -1) {
+        return 0;
+    }
 
-	head = tail = index;
-	while (data[head] == k || data[tail] == k) {
-		if (data[head] == k) {
-			head--;
-		}
-		if (data[tail] == k) {
-			tail++;
-		}
-	}
+    head = tail = index;
+    while (data[head] == k || data[tail] == k) {
+        if (data[head] == k) {
+            head--;
+        }
+        if (data[tail] == k) {
+            tail++;
+        }
+    }
 
     return (tail-head-1);
 }
@@ -3539,14 +3539,14 @@ int getNumberOfK(int* data, int length, int k)
  
 int main()
 {
-	int array[] = {1, 1, 1, 3, 3, 3, 3, 4, 5, 6};
-	int array1[] = {3, 3, 3, 3};
-	int number = sizeof(array) / sizeof(int);
+    int array[] = {1, 1, 1, 3, 3, 3, 3, 4, 5, 6};
+    int array1[] = {3, 3, 3, 3};
+    int number = sizeof(array) / sizeof(int);
 
     cout << getNumberOfK(array, number, 2) << endl;
-	cout << getNumberOfK(array, number, 3) << endl;
-	cout << getNumberOfK(array1, number, 3) << endl;
-	cout << getNumberOfK(array1, number, 2) << endl;
+    cout << getNumberOfK(array, number, 3) << endl;
+    cout << getNumberOfK(array1, number, 3) << endl;
+    cout << getNumberOfK(array1, number, 2) << endl;
 
     return 0;
 }
@@ -3751,47 +3751,47 @@ using namespace std;
 
 vector<int> FindNumbersWithSum(vector<int> array, int sum)
 {
-	vector<int> numbers;
+    vector<int> numbers;
     int head = 0;
-	int tail = array.size()-1;
+    int tail = array.size()-1;
 
-	if (tail == 0) {
-		return numbers;
-	}
+    if (tail == 0) {
+        return numbers;
+    }
 
-	while (head < tail) {
-		if (array[head] + array[tail] == sum) {
-			numbers.push_back(array[head]);
-			numbers.push_back(array[tail]);
-			break;
-		} else if (array[head] + array[tail] > sum) {
-			tail--;
-		} else {
-			head++;
-		}
-	}
+    while (head < tail) {
+        if (array[head] + array[tail] == sum) {
+            numbers.push_back(array[head]);
+            numbers.push_back(array[tail]);
+            break;
+        } else if (array[head] + array[tail] > sum) {
+            tail--;
+        } else {
+            head++;
+        }
+    }
 
-	return numbers;
+    return numbers;
 }
 
 int main()
 {
-	int array[] = {1,2,3,4,5,6,7,8,9,10};
-	vector<int> vec(array, array+sizeof(array)/sizeof(int));
-	vector<int> numbers;
+    int array[] = {1,2,3,4,5,6,7,8,9,10};
+    vector<int> vec(array, array+sizeof(array)/sizeof(int));
+    vector<int> numbers;
 
-	for (int i = 0; i < vec.size(); i++) {
-		cout << i << ":" << vec[i] << endl;
-	}
+    for (int i = 0; i < vec.size(); i++) {
+        cout << i << ":" << vec[i] << endl;
+    }
 
     numbers = FindNumbersWithSum(vec, 11);
-	if (numbers.empty()) {
-		cout << "numbers is empty!" << endl;
-	} else {
-		cout << "numbers = " << numbers[0] << "," << numbers[1] << endl;
-	}
+    if (numbers.empty()) {
+        cout << "numbers is empty!" << endl;
+    } else {
+        cout << "numbers = " << numbers[0] << "," << numbers[1] << endl;
+    }
 
-	return 0;
+    return 0;
 }
 
 
@@ -3809,65 +3809,65 @@ using namespace std;
 // 自编代码
 vector<int> FindNumbersWithSum(vector<int> array, int sum)
 {
-	vector<int> numbers;
-	int length = array.size();
+    vector<int> numbers;
+    int length = array.size();
     int head = 0;
-	int tail = 0;
-	int sum1 = 0;
+    int tail = 0;
+    int sum1 = 0;
 
-	if (array.empty()) {
-		return numbers;
-	}
+    if (array.empty()) {
+        return numbers;
+    }
 
-	while (head < length) {
-		sum1 += array[tail];
-		if (sum1 == sum) {
-			while (head <= tail) {
-				numbers.push_back(array[head++]);
-			}
-			numbers.push_back(-1);
-			head++;
-			tail=head;
-			sum1=0;
-		} else if (sum1 > sum) {
-			head++;
-			tail=head;
-			sum1=0;
-		} else {
-			if (tail >= length) {
-				head++;
-				tail=head;
-				sum1=0;
-			}
-			tail++;
-		}
-	}
+    while (head < length) {
+        sum1 += array[tail];
+        if (sum1 == sum) {
+            while (head <= tail) {
+                numbers.push_back(array[head++]);
+            }
+            numbers.push_back(-1);
+            head++;
+            tail=head;
+            sum1=0;
+        } else if (sum1 > sum) {
+            head++;
+            tail=head;
+            sum1=0;
+        } else {
+            if (tail >= length) {
+                head++;
+                tail=head;
+                sum1=0;
+            }
+            tail++;
+        }
+    }
 
-	return numbers;
+    return numbers;
 }
 
 int main()
 {
-	int array[] = {1,2,3,4,5,6,7,8,9,10};
-	vector<int> vec(array, array+sizeof(array)/sizeof(int));
-	vector<int> numbers;
-	int index = 0;
+    int array[] = {1,2,3,4,5,6,7,8,9,10};
+    vector<int> vec(array, array+sizeof(array)/sizeof(int));
+    vector<int> numbers;
+    int index = 0;
 
-	for (int i = 0; i < vec.size(); i++) {
-		cout << i << ":" << vec[i] << endl;
-	}
+    for (int i = 0; i < vec.size(); i++) {
+        cout << i << ":" << vec[i] << endl;
+    }
 
     numbers = FindNumbersWithSum(vec, 15);
-	if (numbers.empty()) {
-		cout << "numbers is empty!" << endl;
-	} else {
-		while (index < numbers.size()) {
-			cout << numbers[index++] << ", ";
-		}
-		cout << endl;
-	}
+    if (numbers.empty()) {
+        cout << "numbers is empty!" << endl;
+    } else {
+        while (index < numbers.size()) {
+            cout << numbers[index++] << ", ";
+        }
+        cout << endl;
+    }
 
-	return 0;
+    return 0;
 }
 
 
@@ -3932,12 +3932,12 @@ char* ReverseSentence(char* pData){
 
 int main()
 {
-	char str[] = "I am a student.";
-	char *str_rev;
+    char str[] = "I am a student.";
+    char *str_rev;
 
     str_rev = reverse(str);
 
-	return 0;
+    return 0;
 }
 
 
@@ -3983,24 +3983,24 @@ using namespace std;
 
 bool IsContinuous(vector<int> numbers)
 {
-	sort(numbers.begin(), numbers.end());
+    sort(numbers.begin(), numbers.end());
 
-	if ((numbers[1]-numbers[0]==1 || numbers[0]-numbers[1]==12) &&
-		(numbers[2]-numbers[1]==1 || numbers[1]-numbers[2]==12) &&
-		(numbers[3]-numbers[2]==1 || numbers[2]-numbers[3]==12) &&
-		(numbers[4]-numbers[3]==1 || numbers[4]-numbers[0]==12)) {
-		return true;
-	}
+    if ((numbers[1]-numbers[0]==1 || numbers[0]-numbers[1]==12) &&
+        (numbers[2]-numbers[1]==1 || numbers[1]-numbers[2]==12) &&
+        (numbers[3]-numbers[2]==1 || numbers[2]-numbers[3]==12) &&
+        (numbers[4]-numbers[3]==1 || numbers[4]-numbers[0]==12)) {
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 int main()
 {
     int array[] = {1,2,3,4,5};
-	vector<int> numbers(array, array+sizeof(array)/sizeof(int));
+    vector<int> numbers(array, array+sizeof(array)/sizeof(int));
 
-	cout << IsContinuous(numbers) << endl;
+    cout << IsContinuous(numbers) << endl;
 
     return 0;
 }
@@ -4059,7 +4059,7 @@ int Sum_Solution(int n)
 
 int main()
 {
-	cout << Sum_Solution(5) << endl;
+    cout << Sum_Solution(5) << endl;
 
     return 0;
 }
@@ -4223,65 +4223,65 @@ using namespace std;
  
 long long str2int(const char* str)
 {
-	int flag = 1;
-	bool number = false;
-	bool pre = false;
-	long long iNumber = 0;
-	int index = 0;
+    int flag = 1;
+    bool number = false;
+    bool pre = false;
+    long long iNumber = 0;
+    int index = 0;
 
-	if (str == NULL) {
-		return 0;
-	}
+    if (str == NULL) {
+        return 0;
+    }
 
-	while (str[index] != '\0') {
-		if (str[index] ==' ') {
-			;
-		} else if (str[index] == '+') {
-			flag = 1;
-			pre = true;
-			if (number == true) {
-				return 0;
-			}
-		} else if (str[index] == '-') {
-			flag = -1;
-			pre = true;
-			if (number == true) {
-				return 0;
-			}
-		} else if (str[index] >= '0' && str[index] <= '9') {
-			number = true;
-		} else {
-			return 0;
-		}
-		index++;
-	}
+    while (str[index] != '\0') {
+        if (str[index] ==' ') {
+            ;
+        } else if (str[index] == '+') {
+            flag = 1;
+            pre = true;
+            if (number == true) {
+                return 0;
+            }
+        } else if (str[index] == '-') {
+            flag = -1;
+            pre = true;
+            if (number == true) {
+                return 0;
+            }
+        } else if (str[index] >= '0' && str[index] <= '9') {
+            number = true;
+        } else {
+            return 0;
+        }
+        index++;
+    }
 
-	index = 0;
-	while (str[index] != '\0') {
-		if (str[index] >= '0' && str[index] <= '9') {
-			iNumber = 10*iNumber + flag*(str[index] - '0');
-			if ((flag == 1 && iNumber > 0x7fffffff) ||
-				(flag == -1 && (signed int)iNumber < 0x80000000) ) {
-				return 0;
-			}
-		}
-		index++;
-	}
+    index = 0;
+    while (str[index] != '\0') {
+        if (str[index] >= '0' && str[index] <= '9') {
+            iNumber = 10*iNumber + flag*(str[index] - '0');
+            if ((flag == 1 && iNumber > 0x7fffffff) ||
+                (flag == -1 && (signed int)iNumber < 0x80000000) ) {
+                return 0;
+            }
+        }
+        index++;
+    }
 
     return iNumber;
 }
 
 int main()
 {
-	long long number = 0;
+    long long number = 0;
 
     number = str2int("12345");
-	cout << "str = " << "12345" << ", number = "<< number << endl;
+    cout << "str = " << "12345" << ", number = "<< number << endl;
 
     number = str2int("-12345");
-	cout << "str = " << "-12345" << ", number = "<< number << endl;
+    cout << "str = " << "-12345" << ", number = "<< number << endl;
 
-	return 0;
+    return 0;
 }
 
 
@@ -4377,35 +4377,35 @@ using namespace std;
 bool duplicate(int numbers[], int length, int* duplication)
 {
     if (length <= 1) {
-		duplication = NULL;
-		return false;
-	}
+        duplication = NULL;
+        return false;
+    }
 
-	for (int i = 0; i < length; i++) {
-		while (numbers[i] != i) {
-			if (numbers[numbers[i]] == numbers[i]) {
-				*duplication = numbers[i];
-				return true;
-			}
-			int tmp = numbers[i];
-			numbers[i] = numbers[tmp];
-			numbers[tmp] = tmp;
-		}
-	}
+    for (int i = 0; i < length; i++) {
+        while (numbers[i] != i) {
+            if (numbers[numbers[i]] == numbers[i]) {
+                *duplication = numbers[i];
+                return true;
+            }
+            int tmp = numbers[i];
+            numbers[i] = numbers[tmp];
+            numbers[tmp] = tmp;
+        }
+    }
  
     return false;
 }
 
 int main()
 {
-	int array[] = {1, 3, 4, 5, 7, 2, 4};
-	int length = sizeof(array)/sizeof(int);
-	int duplication = -1;
+    int array[] = {1, 3, 4, 5, 7, 2, 4};
+    int length = sizeof(array)/sizeof(int);
+    int duplication = -1;
 
     bool rc = duplicate(array, length, &duplication);
-	cout << "rc = " << rc << ", duplication = "<< duplication << endl;
+    cout << "rc = " << rc << ", duplication = "<< duplication << endl;
 
-	return 0;
+    return 0;
 }
 
 
@@ -4541,9 +4541,9 @@ vector<int> multiply1(const vector<int>& A)
 
 int main()
 {
-	int array[] = {1, 2, 3, 4, 5};
-	int length = sizeof(array)/sizeof(int);
-	vector<int> vecA(array, array+length);
+    int array[] = {1, 2, 3, 4, 5};
+    int length = sizeof(array)/sizeof(int);
+    vector<int> vecA(array, array+length);
     vector<int> vecB;
 
     for (int i = 0; i < length; i++) {
@@ -4565,7 +4565,7 @@ int main()
         cout << vecB[i] << endl;
     }
 
-	return 0;
+    return 0;
 }
 
 #endif
@@ -5414,7 +5414,6 @@ int main()
     TreeNode* pNode6 = createTreeNode(6);
     TreeNode* pNode7 = createTreeNode(7);
 
-    vector<int> vec;
     vector<vector<int> > vec_list;
 
     connectTreeNode(pNode1, pNode2, pNode3);
