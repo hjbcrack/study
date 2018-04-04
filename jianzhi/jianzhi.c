@@ -2244,7 +2244,7 @@ void Permutation(string &str, int begin, vector<string> &result){
         }
     }
 }
- 
+
 vector<string> Permutation(string str) {
     vector<string> result;
     if(str.length() > 0){
@@ -2445,7 +2445,7 @@ int main()
 int findGreatestSumOfSubArray(int *pData, int nLength)
 {
     int sum = 0;
-    int maxSum = 0;
+    int maxSum = 0x80000000;
     int index = 0;
 
     if (pData == NULL) {
@@ -2453,12 +2453,13 @@ int findGreatestSumOfSubArray(int *pData, int nLength)
     }
 
     while (index < nLength) {
-        if (sum + pData[index] < 0) {
-            sum = 0;
+        if (sum < 0) {
+            sum = pData[index];
         } else {
             sum += pData[index];
         }
-        maxSum = (maxSum <= sum) ? sum : maxSum;
+        if(sum > maxSum)
+            maxSum = sum;
         index++;
     }
 
@@ -2466,13 +2467,10 @@ int findGreatestSumOfSubArray(int *pData, int nLength)
 }
 
 // ²Î¿¼´úÂë
-bool g_InvalidInput=false;
 int findGreatestSumOfSubArray1(int *pData,int nLength){
     if(pData==NULL || nLength<=0){
-        g_InvalidInput=true;
         return 0;
     }
-    g_InvalidInput=false;
     int nCurSum=0;
     int nGreatestSum=0x80000000;
  

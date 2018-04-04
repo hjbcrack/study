@@ -1,4 +1,4 @@
-#define A2_7
+#define A17_7
 
 #include "common.h"
 
@@ -227,7 +227,7 @@ int main()
 #ifdef A1_7
 
 // 1.7 清除行列
-/* 
+/*
 请编写一个算法，若N阶方阵中某个元素为0，则将其所在的行与列清零。
 给定一个N阶方阵int[][](C++中为vector<vector><int>>)mat和矩阵的阶数n，
 请返回完成操作后的int[][]方阵(C++中为vector<vector><int>>)，保证n小于等于300，
@@ -1055,7 +1055,7 @@ int main()
 #ifdef A5_1
 
 // 5.1 二进制插入
-/* 
+/*
 有两个32位整数n和m，请编写算法将m的二进制数位插入到n的二进制的第j到第i位,
 其中二进制的位数从低位数到高位且以0开始。
 给定两个数int n和int m，同时给定int j和int i，意义如题所述，请返回操作后的数，
@@ -1093,7 +1093,7 @@ int main()
 
 #ifdef A5_2
 // 5.2 二进制小数
-/* 
+/*
 有一个介于0和1之间的实数，类型为double，返回它的二进制表示。
 如果该数字无法精确地用32位以内的二进制表示，返回“Error”。
 
@@ -1146,7 +1146,7 @@ int main()
 #ifdef A5_3
 
 // 5.3 最接近的数
-/* 
+/*
 有一个正整数，请找出其二进制表示中1的个数相同、且大小最接近的那两个数。(一个略大，一个略小)
 给定正整数int x，请返回一个vector，代表所求的两个数（小的在前）。保证答案存在。
 测试样例：
@@ -1171,6 +1171,442 @@ int main()
     }
     cout << endl;
  
+    return 0;
+}
+
+#endif
+
+
+#ifdef A5_5
+
+// 5.5 整数转化
+/*
+编写一个函数，确定需要改变几个位，才能将整数A转变成整数B。
+给定两个整数int A，int B。请返回需要改变的数位个数。
+测试样例：
+10,5
+返回：4
+*/
+
+// MY CODE
+int calcCost(int A, int B)
+{
+    int tmp = A^B;
+    int count = 0;
+
+    while (tmp) {
+        if (tmp & 1) {
+            count++;
+        }
+        tmp >>= 1;
+    }
+
+    return count;
+}
+
+int main()
+{
+    cout << 10 << "\t" << 5 << "\t" << calcCost(10, 5) << endl;
+
+    return 0;
+}
+
+#endif
+
+
+#ifdef A5_6
+
+// 5.6 奇偶位交换
+/*
+请编写程序交换一个数的二进制的奇数位和偶数位。
+*/
+
+// MY CODE
+int exchangeOddEven(int x)
+{
+    return (((x & 0xaaaaaaaa) >> 1) + ((x & 0x55555555) << 1));
+}
+
+int main()
+{
+    cout << 10 << "\t" << exchangeOddEven(10) << endl;
+
+    return 0;
+}
+
+#endif
+
+
+#ifdef A17_2
+
+// 17.2 井字棋
+/*
+对于一个给定的井字棋棋盘，请设计一个高效算法判断当前玩家是否获胜。
+给定一个二维数组board，代表当前棋盘，其中元素为1的代表是当前玩家的棋子，
+为0表示没有棋子，为-1代表是对方玩家的棋子。
+测试样例：
+[[1,0,1],[1,-1,-1],[1,-1,0]]
+返回：true
+*/
+
+// MY CODE
+bool checkWon(vector<vector<int> > board)
+{
+    int row = board.size();
+    int column = board.front().size();
+
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            if (((i-1 >= 0) && (i+1 < row) && (board[i][j] == 1) && (board[i-1][j] == 1) && (board[i+1][j] == 1)) ||
+                ((j-1 >= 0) && (j+1 < column) && (board[i][j] == 1) && (board[i][j-1] == 1) && (board[i][j+1] == 1)) ||
+                ((i-1 >= 0) && (i+1 < row) && (j-1 >= 0) && (j+1 < column) && (board[i][j] == 1) && (board[i-1][j-1] == 1) && (board[i+1][j+1] == 1)) ||
+                ((i-1 >= 0) && (i+1 < row) && (j-1 >= 0) && (j+1 < column) && (board[i][j] == 1) && (board[i-1][j+1] == 1) && (board[i+1][j-1] == 1))) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+int main()
+{
+    int size = 3;
+    int array[][3] = {{1,0,1},{1,-1,-1},{1,-1,0}};
+
+    vector<vector<int> > board;
+    for (int i = 0; i < size; i++) {
+        vector<int> vec(array[i], array[i]+sizeof(array[i])/sizeof(int));
+        board.push_back(vec);
+    }
+
+    cout << checkWon(board) << endl;
+
+    return 0;
+}
+
+#endif
+
+
+#ifdef A17_3
+
+// 17.3 阶乘尾零 
+/*
+请设计一个算法，计算n的阶乘有多少个尾随零。
+给定一个int n，请返回n的阶乘的尾零个数。保证n为正整数。
+*/
+
+// REF CODE
+int getFactorSuffixZero(int n)
+{
+    int count = 0;
+    int j;
+
+    for (int i = 5; i <= n; i += 5){
+        j = i;
+        while (j % 5 == 0) {
+            count ++;
+            j /= 5;
+        }
+    }
+
+    return count ;
+}
+
+int getFactorSuffixZero1(int n)
+{
+    int count= 0;
+
+    while (n > 0) {
+        count += n / 5;
+        n = n / 5;
+    }
+
+    return count;
+}
+
+int main()
+{
+    cout << getFactorSuffixZero(169438) << endl;
+    cout << getFactorSuffixZero1(169438) << endl;
+
+    return 0;
+}
+
+
+#endif
+
+
+#ifdef A17_4
+
+// 17.4 无判断max
+/*
+找出两个数字中最大的那个。条件是不得使用if-else等比较和判断运算符。
+*/
+
+// MY CODE
+int getMax(int a, int b)
+{
+    return (((a + b) + abs(a - b)) / 2);
+}
+
+int main()
+{
+    cout << getMax(1, 2) << endl;
+
+    return 0;
+}
+
+#endif
+
+#ifdef A17_6
+
+// 17.6 最小调整有序
+/*
+有一个整数数组，请编写一个函数，找出索引m和n，只要将m和n之间的元素排好序，
+整个数组就是有序的。注意：n-m应该越小越好，也就是说，找出符合条件的最短序列。
+
+给定一个int数组A和数组的大小n，请返回一个二元组，代表所求序列的起点和终点。
+(原序列位置从0开始标号,若原序列有序，返回[0,0])。保证A中元素均为正整数。
+*/
+
+// MY CODE
+vector<int> findSegment(vector<int> A, int n)
+{
+    int min = 0;
+    int max = n-1;
+    int i, j;
+    vector<int> out;
+
+    for (i = 0; i < n-1; i++) {
+        if (A[i] >= A[min]) {
+            for (j = i+1; j < n; j++) {
+                if (A[j] < A[i]) {
+                    min = i;
+                    break;
+                }
+            }
+            if (j < n) {
+                break;
+            }
+            min = i;
+        } else {
+            min = i;
+            break;
+        }
+        cout << min << endl;
+    }
+    cout << endl;
+
+    for (i = n-1; i > 0; i--) {
+        if (A[i] <= A[max]) {
+            for (j = i-1; j >= 0; j--) {
+                if (A[j] > A[i]) {
+                    max = i;
+                    break;
+                }
+            }
+            if (j >= 0) {
+                break;
+            }
+            max = i;
+        } else {
+            max = i;
+            break;
+        }
+        cout << max << endl;
+    }
+
+    if (min == n-2) {
+        out.push_back(0);
+        out.push_back(0);
+    } else {
+        out.push_back(min);
+        out.push_back(max);
+    }
+
+    return out;
+}
+
+int main()
+{
+    //int array[]={1,2,6,7,3,5,4,8};
+    int array[]={1,2,3,3,8,9};
+
+    int length = sizeof(array)/sizeof(int);
+    vector<int> vec(array, array+length);
+    vector<int> out;
+
+    cout << "vec:" << endl;
+    for (int i = 0; i < vec.size(); i++) {
+        cout << i << "\t";
+    }
+    cout << endl;
+    for (int i = 0; i < vec.size(); i++) {
+        cout << vec[i] << "\t";
+    }
+    cout << endl;
+
+    out = findSegment(vec, length);
+
+    cout << "out:" << endl;
+    for (int i = 0; i < out.size(); i++) {
+        cout << out[i] << "\t";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+#endif
+
+
+#ifdef A17_7
+
+// 17.7 数字发音 
+/*
+有一个非负整数，请编写一个算法，打印该整数的英文描述。
+给定一个int x，请返回一个string，为该整数的英文描述。
+测试样例：
+1234
+返回："One Thousand,Two Hundred Thirty Four"
+*/
+
+// MY CODE
+string toString(int x)
+{
+    string base[20] = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                       "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
+                        "Eighteen", "Nineteen"};//0~19
+    string tyNum[10] = {"","","Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty","Ninety"};
+    string bigNum[4] = {"", "Thousand", "Million", "Billion"};
+    string result;
+    int k=0;
+    //将x每三位分成一组进行编码
+    if(x==0)
+        return "Zero";
+    while(x>0)
+    {
+        int val=x%1000;
+        //对三位数进行编码
+        string temp;
+        if(base[val/100]!="")//百位数
+        {
+            temp+=base[val/100];
+            temp+=" Hundred";
+        }
+        if(val%100<20)
+        {
+            if(!temp.empty())
+                temp+=" ";
+            temp+=base[val%100];
+        }
+        else
+        {
+                if(!temp.empty())
+                temp+=" ";
+                temp+=tyNum[val%100/10];
+                if(base[val%10]!="")
+                {
+                    if(!temp.empty())
+                        temp+=" ";
+                    temp+=base[val%10];
+                }
+        }
+        if(!temp.empty()&&bigNum[k]!="")
+        {
+            temp+=" ";
+            temp+=bigNum[k];
+            if(!result.empty())
+                temp+=",";
+        }
+        result=temp+result;
+        k++;
+        x/=1000;
+    }
+    return result;
+}
+
+int main()
+{
+    cout << toString(1234) << endl;
+
+    return 0;
+}
+
+#endif
+
+
+#ifdef A17_8
+
+// 17.8 最大连续数列和 
+/*
+有一个非负整数，请编写一个算法，打印该整数的英文描述。
+给定一个int x，请返回一个string，为该整数的英文描述。
+测试样例：
+1234
+返回："One Thousand,Two Hundred Thirty Four"
+*/
+
+// MY CODE
+string toString(int x)
+{
+    string base[20] = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                       "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
+                        "Eighteen", "Nineteen"};//0~19
+    string tyNum[10] = {"","","Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty","Ninety"};
+    string bigNum[4] = {"", "Thousand", "Million", "Billion"};
+    string result;
+    int k=0;
+    //将x每三位分成一组进行编码
+    if(x==0)
+        return "Zero";
+    while(x>0)
+    {
+        int val=x%1000;
+        //对三位数进行编码
+        string temp;
+        if(base[val/100]!="")//百位数
+        {
+            temp+=base[val/100];
+            temp+=" Hundred";
+        }
+        if(val%100<20)
+        {
+            if(!temp.empty())
+                temp+=" ";
+            temp+=base[val%100];
+        }
+        else
+        {
+                if(!temp.empty())
+                temp+=" ";
+                temp+=tyNum[val%100/10];
+                if(base[val%10]!="")
+                {
+                    if(!temp.empty())
+                        temp+=" ";
+                    temp+=base[val%10];
+                }
+        }
+        if(!temp.empty()&&bigNum[k]!="")
+        {
+            temp+=" ";
+            temp+=bigNum[k];
+            if(!result.empty())
+                temp+=",";
+        }
+        result=temp+result;
+        k++;
+        x/=1000;
+    }
+    return result;
+}
+
+int main()
+{
+    cout << toString(1234) << endl;
+
     return 0;
 }
 
