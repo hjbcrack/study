@@ -10,6 +10,8 @@
 #include <set>
 #include <algorithm>
 
+#include <time.h>
+
 using namespace std;
 
 struct ListNode {
@@ -56,4 +58,7 @@ TreeLinkNode* createTreeLinkNode(int value);
 
 void connectTreeLinkNode(TreeLinkNode* pParent, TreeLinkNode* pLeftChild,
                          TreeLinkNode* pRightChild);
+
+// 获取系统运行时间
+unsigned long GetTickCount();
 

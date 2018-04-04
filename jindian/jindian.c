@@ -1,4 +1,4 @@
-#define A17_7
+#define A17_9
 
 #include "common.h"
 
@@ -1612,4 +1612,75 @@ int main()
 
 #endif
 
+#ifdef A17_9
+
+// 17.9 词频统计 
+/*
+请设计一个高效的方法，找出任意指定单词在一篇文章中的出现频数。
+给定一个string数组article和数组大小n及一个待统计单词word，
+请返回该单词在文章中的出现频数。保证文章的词数小于等于1000。
+*/
+
+// MY CODE
+int getFrequency(vector<string> article, int n, string word)
+{
+    int count = 0;
+
+    for (int i = 0; i < article.size(); i++) {
+        if (article[i] == word) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+int getFrequency1(vector<string> article, int n, string word)
+{
+    int count = 0;
+    vector<string> array[256];
+    int index = word[0];
+
+    for (int i = 0; i < article.size(); i++) {
+        array[article[i].at(0)].push_back(article[i]);
+    }
+
+    for (int i = 0; i < array[index].size(); i++) {
+        if (array[index][i] == word) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+int main()
+{
+    string array[] = {"student", "teacher", "student", "school", "father",
+                      "student", "a"};
+    int number = sizeof(array)/sizeof(string);
+    vector<string> article(array, array+number);
+
+    unsigned long time1, time2, time3;
+
+    time1 = GetTickCount();
+    cout << getFrequency(article, number, "student") << endl;
+
+    for (int i = 0; i < 1000000; i++) {
+        getFrequency(article, number, "student");
+    }
+    time2 = GetTickCount();
+    cout << "time1 = " << time2-time1 << endl;
+
+    cout << getFrequency1(article, number, "student") << endl;
+    for (int i = 0; i < 1000000; i++) {
+        getFrequency1(article, number, "student");
+    }
+    time3 = GetTickCount();
+    cout << "time2 = " << time3-time2 << endl;
+
+    return 0;
+}
+
+#endif
 

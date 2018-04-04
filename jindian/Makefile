@@ -4,7 +4,7 @@ INCLUDE_DIR="./../common/"
 COMMON_DIR="./../common/common.c"
 
 jindian: clean
-	$(CC) jindian.c $(COMMON_DIR) -o $(BIN) -I$(INCLUDE_DIR)
+	$(CC) jindian.c $(COMMON_DIR) -o $(BIN) -I$(INCLUDE_DIR) -lrt
 
 all: jindian
 
