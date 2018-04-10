@@ -15,17 +15,17 @@ int nArray = sizeof(Array)/sizeof(int);
 
 void output(int array[], int number)
 {
-	for (int i = 0; i < number; i++) {
-		printf("%d ", array[i]);
-	}
-	printf("\n");
+    for (int i = 0; i < number; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
 }
 
 void swap(int *a, int *b)
 {
-	int tmp = *a;
-	*a = *b;
-	*b = tmp;
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,15 +34,15 @@ void swap(int *a, int *b)
 
 void maopao(int array[], int number)
 {
-	for (int i = 0; i < number-1; i++) {
-		for (int j = 0; j < number-1-i; j++) {
-			if (array[j] > array[j+1]) {
-				swap(&array[j], &array[j+1]);
-			}
-		}
+    for (int i = 0; i < number-1; i++) {
+        for (int j = 0; j < number-1-i; j++) {
+            if (array[j] > array[j+1]) {
+                swap(&array[j], &array[j+1]);
+            }
+        }
 
-		output(array, nArray);
-	}
+        output(array, nArray);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,28 +50,28 @@ void maopao(int array[], int number)
 
 void cocktail(int array[], int number)
 {
-	int left =0;
-	int right = number;
+    int left =0;
+    int right = number;
 
-	while(left < right) {
-		for (int i = left; i < right-1; i++) {
-			if (array[i] > array[i+1]) {
-				swap(&array[i], &array[i+1]);
-			}
-		}
-		right--;
+    while(left < right) {
+        for (int i = left; i < right-1; i++) {
+            if (array[i] > array[i+1]) {
+                swap(&array[i], &array[i+1]);
+            }
+        }
+        right--;
 
-		output(array, nArray);
+        output(array, nArray);
 
-		for (int i = right; i > left; i--) {
-			if (array[i] < array[i-1]) {
-				swap(&array[i], &array[i-1]);
-			}
-		}
-		left++;
+        for (int i = right; i > left; i--) {
+            if (array[i] < array[i-1]) {
+                swap(&array[i], &array[i-1]);
+            }
+        }
+        left++;
 
-		output(array, nArray);
-	}
+        output(array, nArray);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -80,17 +80,17 @@ void cocktail(int array[], int number)
 
 void xuanze(int array[], int number)
 {
-	for (int i = 0; i < number-1; i++) {
-		int min = i;
+    for (int i = 0; i < number-1; i++) {
+        int min = i;
         for (int j = i+1; j < number; j++) {
-			if (array[j] < array[min]) {
-				min = j;
-			}
-		}
-		swap(&array[i], &array[min]);
+            if (array[j] < array[min]) {
+                min = j;
+            }
+        }
+        swap(&array[i], &array[min]);
 
-		output(array, nArray);
-	}
+        output(array, nArray);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ void xuanze(int array[], int number)
 
 void charu(int array[], int number)
 {
-	for (int i = 1; i < number; i++) {
+    for (int i = 1; i < number; i++) {
         if(array[i] < array[i-1]) {
             int j = i;
             int tmp = array[i];
@@ -111,8 +111,8 @@ void charu(int array[], int number)
             array[j] = tmp;
         }
 
-		output(array, nArray);
-	}
+        output(array, nArray);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -121,22 +121,22 @@ void charu(int array[], int number)
 
 void erfencharu(int array[], int number)
 {
-	for (int i = 1; i < number; i++) {
+    for (int i = 1; i < number; i++) {
         if(array[i] < array[i-1]) {
             int tmp = array[i];
-			int left = 0;
-	        int right = i-1;
-			int mid;
+            int left = 0;
+            int right = i-1;
+            int mid;
 
-			while(left <= right) {
-				mid = (left+right) / 2;
-				if (tmp > array[mid]) {
-					left = mid+1;
-				} else {
-					right = mid-1;
-				}
-			}
-			int j = i;
+            while(left <= right) {
+                mid = (left+right) / 2;
+                if (tmp > array[mid]) {
+                    left = mid+1;
+                } else {
+                    right = mid-1;
+                }
+            }
+            int j = i;
             while(j > left) {
                 array[j] = array[j-1];
                 j--;
@@ -144,8 +144,8 @@ void erfencharu(int array[], int number)
             array[j] = tmp;
         }
 
-		output(array, nArray);
-	}
+        output(array, nArray);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -166,38 +166,38 @@ void shell(int array[], int number)
     {
         for (int i = h; i < number; i++)
         {
-			if(array[i] < array[i-h]) {
-	            int j = i;
-	            int tmp = array[i];
-	            while(j >= h && tmp < array[j-h]) {
-	                array[j] = array[j-h];
-	                j -= h;
-	            }
+            if(array[i] < array[i-h]) {
+                int j = i;
+                int tmp = array[i];
+                while(j >= h && tmp < array[j-h]) {
+                    array[j] = array[j-h];
+                    j -= h;
+                }
 
-	            array[j] = tmp;
-	        }
+                array[j] = tmp;
+            }
         }
 
         h = (h - 1) / 3;                    // µİ¼õÔöÁ¿
 
-		output(array, nArray);
+        output(array, nArray);
     }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 /* ¿ìËÙ£¬´Óindex i=0¿ªÊ¼£¬Ã¿´Î´ÓºóÃæµÄÔªËØÀïÑ­»·²éÕÒ×îĞ¡Öµ·ÅÔÚindex iµÄÎ»ÖÃ¡£
-	¿ìËÙÅÅĞòµÄÊ±¼äÖ÷ÒªºÄ·ÑÔÚ»®·Ö²Ù×÷ÉÏ£¬¶Ô³¤¶ÈÎªkµÄÇø¼ä½øĞĞ»®·Ö£¬¹²Ğèk-1´Î¹Ø¼ü×ÖµÄ±È½Ï¡£
+    ¿ìËÙÅÅĞòµÄÊ±¼äÖ÷ÒªºÄ·ÑÔÚ»®·Ö²Ù×÷ÉÏ£¬¶Ô³¤¶ÈÎªkµÄÇø¼ä½øĞĞ»®·Ö£¬¹²Ğèk-1´Î¹Ø¼ü×ÖµÄ±È½Ï¡£
 
-	×î»µÇé¿öÊÇÃ¿´Î»®·ÖÑ¡È¡µÄ»ù×¼¶¼ÊÇµ±Ç°ÎŞĞòÇøÖĞ¹Ø¼ü×Ö×îĞ¡(»ò×î´ó)µÄ¼ÇÂ¼£¬»®·ÖµÄ½á¹ûÊÇ
-	»ù×¼×ó±ßµÄ×ÓÇø¼äÎª¿Õ(»òÓÒ±ßµÄ×ÓÇø¼äÎª¿Õ)£¬¶ø»®·ÖËùµÃµÄÁíÒ»¸ö·Ç¿ÕµÄ×ÓÇø¼äÖĞ¼ÇÂ¼ÊıÄ¿£¬
-	½ö½ö±È»®·ÖÇ°µÄÎŞĞòÇøÖĞ¼ÇÂ¼¸öÊı¼õÉÙÒ»¸ö¡£Ê±¼ä¸´ÔÓ¶ÈÎªO(n*n)
+    ×î»µÇé¿öÊÇÃ¿´Î»®·ÖÑ¡È¡µÄ»ù×¼¶¼ÊÇµ±Ç°ÎŞĞòÇøÖĞ¹Ø¼ü×Ö×îĞ¡(»ò×î´ó)µÄ¼ÇÂ¼£¬»®·ÖµÄ½á¹ûÊÇ
+    »ù×¼×ó±ßµÄ×ÓÇø¼äÎª¿Õ(»òÓÒ±ßµÄ×ÓÇø¼äÎª¿Õ)£¬¶ø»®·ÖËùµÃµÄÁíÒ»¸ö·Ç¿ÕµÄ×ÓÇø¼äÖĞ¼ÇÂ¼ÊıÄ¿£¬
+    ½ö½ö±È»®·ÖÇ°µÄÎŞĞòÇøÖĞ¼ÇÂ¼¸öÊı¼õÉÙÒ»¸ö¡£Ê±¼ä¸´ÔÓ¶ÈÎªO(n*n)
 
-	ÔÚ×îºÃÇé¿öÏÂ£¬Ã¿´Î»®·ÖËùÈ¡µÄ»ù×¼¶¼ÊÇµ±Ç°ÎŞĞòÇøµÄ"ÖĞÖµ"¼ÇÂ¼£¬»®·ÖµÄ½á¹ûÊÇ»ù×¼µÄ×ó¡¢
-	ÓÒÁ½¸öÎŞĞò×ÓÇø¼äµÄ³¤¶È´óÖÂÏàµÈ¡£×ÜµÄ¹Ø¼ü×Ö±È½Ï´ÎÊı£ºO(nlgn)
+    ÔÚ×îºÃÇé¿öÏÂ£¬Ã¿´Î»®·ÖËùÈ¡µÄ»ù×¼¶¼ÊÇµ±Ç°ÎŞĞòÇøµÄ"ÖĞÖµ"¼ÇÂ¼£¬»®·ÖµÄ½á¹ûÊÇ»ù×¼µÄ×ó¡¢
+    ÓÒÁ½¸öÎŞĞò×ÓÇø¼äµÄ³¤¶È´óÖÂÏàµÈ¡£×ÜµÄ¹Ø¼ü×Ö±È½Ï´ÎÊı£ºO(nlgn)
 
-	¾¡¹Ü¿ìËÙÅÅĞòµÄ×î»µÊ±¼äÎªO(n2)£¬µ«¾ÍÆ½¾ùĞÔÄÜ¶øÑÔ£¬ËüÊÇ»ùÓÚ¹Ø¼ü×Ö±È½ÏµÄÄÚ²¿ÅÅĞòËã·¨ÖĞ
-	ËÙ¶È×î¿ìÕß£¬¿ìËÙÅÅĞòÒàÒò´Ë¶øµÃÃû¡£ËüµÄÆ½¾ùÊ±¼ä¸´ÔÓ¶ÈÎªO(nlgn)¡£
+    ¾¡¹Ü¿ìËÙÅÅĞòµÄ×î»µÊ±¼äÎªO(n2)£¬µ«¾ÍÆ½¾ùĞÔÄÜ¶øÑÔ£¬ËüÊÇ»ùÓÚ¹Ø¼ü×Ö±È½ÏµÄÄÚ²¿ÅÅĞòËã·¨ÖĞ
+    ËÙ¶È×î¿ìÕß£¬¿ìËÙÅÅĞòÒàÒò´Ë¶øµÃÃû¡£ËüµÄÆ½¾ùÊ±¼ä¸´ÔÓ¶ÈÎªO(nlgn)¡£
 
 */
 int Partition(int array[], int left, int right)  // »®·Öº¯Êı
@@ -209,13 +209,13 @@ int Partition(int array[], int left, int right)  // »®·Öº¯Êı
     {
         if (array[i] <= pivot)              // °ÑĞ¡ÓÚµÈÓÚ»ù×¼µÄÔªËØ·Åµ½Ç°Ò»¸ö×ÓÊı×éÄ©Î²
         {
-			swap(&array[++tail], &array[i]);
+            swap(&array[++tail], &array[i]);
         }
     }
 
-	swap(&array[tail + 1], &array[right]);  // ×îºó°Ñ»ù×¼·Åµ½Ç°Ò»¸ö×ÓÊı×éµÄºó±ß£¬Ê£ÏÂµÄ×ÓÊı×é¼ÈÊÇ´óÓÚ»ù×¼µÄ×ÓÊı×é
+    swap(&array[tail + 1], &array[right]);  // ×îºó°Ñ»ù×¼·Åµ½Ç°Ò»¸ö×ÓÊı×éµÄºó±ß£¬Ê£ÏÂµÄ×ÓÊı×é¼ÈÊÇ´óÓÚ»ù×¼µÄ×ÓÊı×é
                                             // ¸Ã²Ù×÷ºÜÓĞ¿ÉÄÜ°ÑºóÃæÔªËØµÄÎÈ¶¨ĞÔ´òÂÒ£¬ËùÒÔ¿ìËÙÅÅĞòÊÇ²»ÎÈ¶¨µÄÅÅĞòËã·¨
-	output(array, nArray);
+    output(array, nArray);
     return tail + 1;                        // ·µ»Ø»ù×¼µÄË÷Òı
 }
 
@@ -231,14 +231,14 @@ void QuickSort(int array[], int left, int right)
 ////////////////////////////////////////////////////////////////////////////////
 
 /*
-	¶ÑÅÅĞò
-	¶ÑÅÅĞòÊÇÖ¸ÀûÓÃ¶ÑÕâÖÖÊı¾İ½á¹¹ËùÉè¼ÆµÄÒ»ÖÖÑ¡ÔñÅÅĞòËã·¨¡£¶ÑÊÇÒ»ÖÖ½üËÆÍêÈ«¶ş²æÊ÷µÄ½á¹¹£¨Í¨³£¶ÑÊÇÍ¨¹ıÒ»Î¬Êı×éÀ´ÊµÏÖµÄ£©£¬
-	²¢Âú×ãĞÔÖÊ£ºÒÔ×î´ó¶Ñ£¨Ò²½Ğ´ó¸ù¶Ñ¡¢´ó¶¥¶Ñ£©ÎªÀı£¬ÆäÖĞ¸¸½áµãµÄÖµ×ÜÊÇ´óÓÚËüµÄº¢×Ó½Úµã¡£
+    ¶ÑÅÅĞò
+    ¶ÑÅÅĞòÊÇÖ¸ÀûÓÃ¶ÑÕâÖÖÊı¾İ½á¹¹ËùÉè¼ÆµÄÒ»ÖÖÑ¡ÔñÅÅĞòËã·¨¡£¶ÑÊÇÒ»ÖÖ½üËÆÍêÈ«¶ş²æÊ÷µÄ½á¹¹£¨Í¨³£¶ÑÊÇÍ¨¹ıÒ»Î¬Êı×éÀ´ÊµÏÖµÄ£©£¬
+    ²¢Âú×ãĞÔÖÊ£ºÒÔ×î´ó¶Ñ£¨Ò²½Ğ´ó¸ù¶Ñ¡¢´ó¶¥¶Ñ£©ÎªÀı£¬ÆäÖĞ¸¸½áµãµÄÖµ×ÜÊÇ´óÓÚËüµÄº¢×Ó½Úµã¡£
 
-	1. ÓÉÊäÈëµÄÎŞĞòÊı×é¹¹ÔìÒ»¸ö×î´ó¶Ñ£¬×÷Îª³õÊ¼µÄÎŞĞòÇø
-	2. °Ñ¶Ñ¶¥ÔªËØ£¨×î´óÖµ£©ºÍ¶ÑÎ²ÔªËØ»¥»»
-	3. °Ñ¶Ñ£¨ÎŞĞòÇø£©µÄ³ß´çËõĞ¡1£¬²¢µ÷ÓÃheapify(A, 0)´ÓĞÂµÄ¶Ñ¶¥ÔªËØ¿ªÊ¼½øĞĞ¶Ñµ÷Õû
-	4. ÖØ¸´²½Öè2£¬Ö±µ½¶ÑµÄ³ß´çÎª1
+    1. ÓÉÊäÈëµÄÎŞĞòÊı×é¹¹ÔìÒ»¸ö×î´ó¶Ñ£¬×÷Îª³õÊ¼µÄÎŞĞòÇø
+    2. °Ñ¶Ñ¶¥ÔªËØ£¨×î´óÖµ£©ºÍ¶ÑÎ²ÔªËØ»¥»»
+    3. °Ñ¶Ñ£¨ÎŞĞòÇø£©µÄ³ß´çËõĞ¡1£¬²¢µ÷ÓÃheapify(A, 0)´ÓĞÂµÄ¶Ñ¶¥ÔªËØ¿ªÊ¼½øĞĞ¶Ñµ÷Õû
+    4. ÖØ¸´²½Öè2£¬Ö±µ½¶ÑµÄ³ß´çÎª1
 */
 
 #include <stdio.h>
@@ -266,7 +266,7 @@ void Heapify(int A[], int i, int size)  // ´ÓA[i]ÏòÏÂ½øĞĞ¶Ñµ÷Õû
         swap(&A[i], &A[max]);           // °Ñµ±Ç°½áµãºÍËüµÄ×î´ó(Ö±½Ó)×Ó½Úµã½øĞĞ½»»»
         Heapify(A, max, size);          // µİ¹éµ÷ÓÃ£¬¼ÌĞø´Óµ±Ç°½áµãÏòÏÂ½øĞĞ¶Ñµ÷Õû
 
-		output(A, nArray);
+        output(A, nArray);
     }
 }
 
@@ -299,11 +299,11 @@ void HeapSort(int A[], int n)
 
 ¡¡¡¡¹é²¢ÅÅĞòËã·¨Ö÷ÒªÒÀÀµ¹é²¢(Merge)²Ù×÷¡£¹é²¢²Ù×÷Ö¸µÄÊÇ½«Á½¸öÒÑ¾­ÅÅĞòµÄĞòÁĞºÏ²¢³ÉÒ»¸öĞòÁĞµÄ²Ù×÷£¬¹é²¢²Ù×÷²½ÖèÈçÏÂ£º
 
-	ÉêÇë¿Õ¼ä£¬Ê¹Æä´óĞ¡ÎªÁ½¸öÒÑ¾­ÅÅĞòĞòÁĞÖ®ºÍ£¬¸Ã¿Õ¼äÓÃÀ´´æ·ÅºÏ²¢ºóµÄĞòÁĞ
-	Éè¶¨Á½¸öÖ¸Õë£¬×î³õÎ»ÖÃ·Ö±ğÎªÁ½¸öÒÑ¾­ÅÅĞòĞòÁĞµÄÆğÊ¼Î»ÖÃ
-	±È½ÏÁ½¸öÖ¸ÕëËùÖ¸ÏòµÄÔªËØ£¬Ñ¡ÔñÏà¶ÔĞ¡µÄÔªËØ·ÅÈëµ½ºÏ²¢¿Õ¼ä£¬²¢ÒÆ¶¯Ö¸Õëµ½ÏÂÒ»Î»ÖÃ
-	ÖØ¸´²½Öè3Ö±µ½Ä³Ò»Ö¸Õëµ½´ïĞòÁĞÎ²
-	½«ÁíÒ»ĞòÁĞÊ£ÏÂµÄËùÓĞÔªËØÖ±½Ó¸´ÖÆµ½ºÏ²¢ĞòÁĞÎ²
+    ÉêÇë¿Õ¼ä£¬Ê¹Æä´óĞ¡ÎªÁ½¸öÒÑ¾­ÅÅĞòĞòÁĞÖ®ºÍ£¬¸Ã¿Õ¼äÓÃÀ´´æ·ÅºÏ²¢ºóµÄĞòÁĞ
+    Éè¶¨Á½¸öÖ¸Õë£¬×î³õÎ»ÖÃ·Ö±ğÎªÁ½¸öÒÑ¾­ÅÅĞòĞòÁĞµÄÆğÊ¼Î»ÖÃ
+    ±È½ÏÁ½¸öÖ¸ÕëËùÖ¸ÏòµÄÔªËØ£¬Ñ¡ÔñÏà¶ÔĞ¡µÄÔªËØ·ÅÈëµ½ºÏ²¢¿Õ¼ä£¬²¢ÒÆ¶¯Ö¸Õëµ½ÏÂÒ»Î»ÖÃ
+    ÖØ¸´²½Öè3Ö±µ½Ä³Ò»Ö¸Õëµ½´ïĞòÁĞÎ²
+    ½«ÁíÒ»ĞòÁĞÊ£ÏÂµÄËùÓĞÔªËØÖ±½Ó¸´ÖÆµ½ºÏ²¢ĞòÁĞÎ²
 */
 
 // ·ÖÀà -------------- ÄÚ²¿±È½ÏÅÅĞò
@@ -323,23 +323,23 @@ void Merge(int A[], int left, int mid, int right)// ºÏ²¢Á½¸öÒÑÅÅºÃĞòµÄÊı×éA[left
     int i = left;                   // Ç°Ò»Êı×éµÄÆğÊ¼ÔªËØ
     int j = mid + 1;                // ºóÒ»Êı×éµÄÆğÊ¼ÔªËØ
 
-	while (index < len)
+    while (index < len)
     {
-    	if (i <= mid && j <= right) {
-        	temp[index++] = A[i] <= A[j] ? A[i++] : A[j++];  // ´øµÈºÅ±£Ö¤¹é²¢ÅÅĞòµÄÎÈ¶¨ĞÔ
-    	} else if (i <= mid) {
-			temp[index++] = A[i++];
-		} if (j <= right) {
-			temp[index++] = A[j++];
-		}
+        if (i <= mid && j <= right) {
+            temp[index++] = A[i] <= A[j] ? A[i++] : A[j++];  // ´øµÈºÅ±£Ö¤¹é²¢ÅÅĞòµÄÎÈ¶¨ĞÔ
+        } else if (i <= mid) {
+            temp[index++] = A[i++];
+        } if (j <= right) {
+            temp[index++] = A[j++];
+        }
     }
 
-	for (index = 0; index < len; index++)
+    for (index = 0; index < len; index++)
     {
         A[left++] = temp[index];
     }
 
-	output(temp, len);
+    output(temp, len);
 }
 
 void MergeSortRecursion(int A[], int left, int right)    // µİ¹éÊµÏÖµÄ¹é²¢ÅÅĞò(×Ô¶¥ÏòÏÂ)
@@ -365,48 +365,48 @@ void MergeSortIteration(int A[], int len)    // ·Çµİ¹é(µü´ú)ÊµÏÖµÄ¹é²¢ÅÅĞò(×Ôµ×Ï
             Merge(A, left, mid, right);
             left = right + 1;               // Ç°Ò»¸ö×ÓÊı×éË÷ÒıÏòºóÒÆ¶¯
 
-			output(A, len);
+            output(A, len);
         }
     }
 }
 
 int main()
 {
-	printf("input: \n");
-	output(Array, nArray);
-	printf("------------------------------\n");
+    printf("input: \n");
+    output(Array, nArray);
+    printf("------------------------------\n");
 
-	//maopao(Array, nArray);
-	//cocktail(Array, nArray);
-	
-	//charu(Array, nArray);
-	//erfencharu(Array, nArray);
-	//shell(Array, nArray);
-	
-	//xuanze(Array, nArray);
-	//QuickSort(Array, 0, nArray-1);
-	HeapSort(Array, nArray);
+    //maopao(Array, nArray);
+    //cocktail(Array, nArray);
+    
+    //charu(Array, nArray);
+    //erfencharu(Array, nArray);
+    //shell(Array, nArray);
+    
+    //xuanze(Array, nArray);
+    //QuickSort(Array, 0, nArray-1);
+    HeapSort(Array, nArray);
 
-	printf("------------------------------\n");
-	printf("output: \n");
+    printf("------------------------------\n");
+    printf("output: \n");
 
-	output(Array, nArray);
+    output(Array, nArray);
 
-	int A1[] = { 6, 5, 3, 1, 8, 7, 2, 4 };		// ´ÓĞ¡µ½´ó¹é²¢ÅÅĞò
-	int A2[] = { 6, 5, 3, 1, 8, 7, 2, 4 };
-	int n1 = sizeof(A1) / sizeof(int);
-	int n2 = sizeof(A2) / sizeof(int);
+    int A1[] = { 6, 5, 3, 1, 8, 7, 2, 4 };      // ´ÓĞ¡µ½´ó¹é²¢ÅÅĞò
+    int A2[] = { 6, 5, 3, 1, 8, 7, 2, 4 };
+    int n1 = sizeof(A1) / sizeof(int);
+    int n2 = sizeof(A2) / sizeof(int);
 
-	output(A1, n1);
-	MergeSortRecursion(A1, 0, n1 - 1);			// µİ¹éÊµÏÖ
-	printf("µİ¹éÊµÏÖµÄ¹é²¢ÅÅĞò½á¹û£º");
-	output(A1, n1);
+    output(A1, n1);
+    MergeSortRecursion(A1, 0, n1 - 1);          // µİ¹éÊµÏÖ
+    printf("µİ¹éÊµÏÖµÄ¹é²¢ÅÅĞò½á¹û£º");
+    output(A1, n1);
 
-	MergeSortIteration(A2, n2); 				// ·Çµİ¹éÊµÏÖ
-	printf("·Çµİ¹éÊµÏÖµÄ¹é²¢ÅÅĞò½á¹û£º");
-	output(A2, n2);
+    MergeSortIteration(A2, n2);                 // ·Çµİ¹éÊµÏÖ
+    printf("·Çµİ¹éÊµÏÖµÄ¹é²¢ÅÅĞò½á¹û£º");
+    output(A2, n2);
 
 
-	return 0;
+    return 0;
 }
 
