@@ -1,21 +1,17 @@
 
+#define SUAN    17
 
+#include "common.h"
 
 ////////////////////////////////////////////////////////////////////////////////
+
+#if (SUAN == 1)
 
 /* 兔子问题：
    有一对兔子，从出生后第3个月起每个月都生一对兔子，小兔子长到第三个月后每个月
    又生一对兔子，假如兔子都不死，问每个月的兔子总数为多少对？
    兔子规律对: 1, 1, 2, 3, 
 */
-
-#if 0
-
-// 标准
-
-
-#include <stdlib.h>
-#include <stdio.h>
 
 int fun(int m)
 {
@@ -25,53 +21,46 @@ int fun(int m)
         return (fun(m-1) + fun(m-2));
 }
 
+int fun1(int m)
+{
+    long f1, f2;
+    int i;
+    f1 = f2 = 1;
+    for(i = 0; i < m; i+=2) {
+        printf("%12ld %12ld", f1, f2);
+        if(i%2 == 0)
+            printf("\n");  /*控制输出，每行四个*/
+        f1 = f1 + f2;  /*前两个月加起来赋值给第三个月*/
+        f2 = f1 + f2;  /*前两个月加起来赋值给第三个月*/
+    }
+}
+
 int main()
 {
     int month = 12;
     int i;
 
+    printf("fun: \n");
     for (i = 1; i <= month; ++i) {
         printf("month %d: %d \n", i, fun(i));
     }
+
+    printf("fun1: \n");
+    fun1(month);
 
     return 0;
 }
 
 #endif
 
-#if 0
-#include <stdlib.h>
-#include <stdio.h>
-
-// 标准
-
-main()
-{
-    long f1,f2;
-    int i;
-    f1=f2=1;
-    for(i=1;i<=20;i++) {
-        printf("%12ld %12ld",f1,f2);
-        if(i%2==0)
-            printf("\n");/*控制输出，每行四个*/
-        f1=f1+f2;/*前两个月加起来赋值给第三个月*/
-        f2=f1+f2;/*前两个月加起来赋值给第三个月*/
-    }
-}
-
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#if 0
+#if (SUAN == 2)
 /*
     判断101-200之间有多少个素数，并输出所有素数。
     1, 2, 3, 5, 7, 11, 13, 17, 19,
 */
-
-#include <stdlib.h>
-#include <stdio.h>
-#include "math.h"
 
 int fun(int number)
 {
@@ -102,18 +91,13 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#if (SUAN == 3)
 /*
     打印出所有的“水仙花数”，所谓“水仙花数”是指一个三位数，其各位数字立方和
     等于该数本身。例如：153是一个“水仙花数”，因为153=1的三次方＋5的三次方＋3的三次方。
 
     程序分析：利用for循环控制100-999个数，每个数分解出个位，十位，百位。
 */
-
-#if 0
-
-#include <stdlib.h>
-#include <stdio.h>
-#include "math.h"
 
 int fun(int number)
 {
@@ -146,6 +130,7 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#if (SUAN == 4)
 /*
 将一个正整数分解质因数。例如：输入90,打印出90=2*3*3*5。
 
@@ -155,15 +140,6 @@ int main()
    整数你n,重复执行第一步。
 (3)如果n不能被k整除，则用k+1作为k的值,重复执行第一步。
 */
-
-#if 0
-
-// 标准
-
-#include <stdlib.h>
-#include <stdio.h>
-#include "math.h"
-
 
 int main()
 {
@@ -187,34 +163,21 @@ int main()
     return 0;
 }
 
-
-
 #endif
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#if (SUAN == 5)
 /*
     输入两个正整数m和n，求其最大公约数和最小公倍数。 **************************
-
     参考算法: 辗除法，即辗转相除法，又名欧几里德算法，乃求两个正整数之最大公因子的算法。
 */
 
-#if 0
-
-#include <stdlib.h>
-#include <stdio.h>
-
-/*
-int main()
+// MY CODE
+int gcd(int num1, int num2)
 {
-    int num1, num2, i, num;
+    int i, num;
     int big, small;
-
-    printf("\nplease input a number:\n");
-    scanf("%d %d", &num1, &num2);
-    printf("%d, %d \n", num1, num2);
 
     num = (num1 > num2) ? num2 : num1;
     for (i = num; i > 1; --i){
@@ -235,113 +198,103 @@ int main()
 
     return 0;
 }
-*/
 
-// 标准
-
-main()
+// REF CODE
+int gcd1(int num1, int num2)
 {
-    int a,b,num1,num2,temp;
-
-    printf("please input two numbers:\n");
-    scanf("%d %d",&num1,&num2);
+    int a,b,temp;
 
     if(num1) {
-        temp=num1;
-        num1=num2;
-        num2=temp;
+        temp = num1;
+        num1 = num2;
+        num2 = temp;
     }
 
-    a=num1;b=num2;
+    a = num1;
+    b = num2;
     while(b!=0)/*利用辗除法，直到b为0为止*/
     {
         temp=a%b;
         a=b;
         b=temp;
-
-        printf("a = %d, b = %d, t = %d \n", a, b, temp);
     }
 
     printf("gongyueshu:%d\n",a);
     printf("gongbeishu:%d\n",num1*num2/a);
 }
 
+main()
+{
+    int num1,num2;
+
+    printf("please input two numbers:\n");
+    scanf("%d %d",&num1,&num2);
+
+    printf("gcd: \n");
+    gcd(num1, num2);
+
+    printf("gcd1: \n");
+    gcd(num1, num2);
+}
 
 #endif
 
-
 ////////////////////////////////////////////////////////////////////////////////
 
+#if (SUAN == 6)
 /*
     题目：求s=a+aa+aaa+aaaa+aa...a的值，其中a是一个数字。例如
     2+22+222+2222+22222(此时共有5个数相加)，几个数相加有键盘控制。
 */
-#if 0
 
-#include <stdlib.h>
-#include <stdio.h>
-
-
-int main()
+int fun(int a, int n)
 {
-    int a, n, sum=0;
-    int i;
-
-    printf("please input a and n:\n");
-    scanf("%d %d", &a, &n);
+    int sum = 0;
 
     for (int i = 1; i <= n; ++i) {
         sum *= 10;
         sum += i * a;
     }
 
-    printf("sum: %d\n", sum);
+    return sum;
 }
 
-
-#endif
-
-// 参考
-
-#if 0
-#include <stdio.h>
-
-main()
+int fun1(int a, int n)
 {
-    int a,n,count=1;
-    long int sn=0,tn=0;
-    printf("please input a and n\n");
-    scanf("%d,%d",&a,&n);
-    printf("a=%d,n=%d\n",a,n);
-    while(count<=n)
+    long int sum=0,tn=0;
+    long count = 0;
+
+    while(count < n)
     {
-        tn=tn+a;
-        sn=sn+tn;
-        a=a*10;
+        tn = tn + a;
+        sum = sum + tn;
+        a = a*10;
         ++count;
     }
-    printf("a+aa+...=%ld\n",sn);
+
+    return sum;
 }
 
-#endif
+int main()
+{
+    int a, n;
 
+    printf("please input a and n:\n");
+    scanf("%d %d", &a, &n);
+
+    printf("fun: a+aa+...=%ld\n", fun(a, n));
+    printf("fun1: a+aa+...=%ld\n", fun1(a, n));
+
+    return 1;
+}
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#if (SUAN == 7)
 /* 同步/互斥: 哲学家就餐问题 */
 
-#if 0
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <memory.h>
-#include <pthread.h>
-#include <errno.h>
-#include <math.h>
-#include <unistd.h>
-
-
-//筷子作为mutex
+// 筷子作为mutex
 pthread_mutex_t chopstick[6];
 void *eat_think(void *arg)
 {
@@ -416,120 +369,9 @@ int main(){
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
-// gcc suanfa.c -lm -o suanfa
 
-/* 等额本息 */
-
-#if 0
-#include <stdio.h>
-#include <math.h>
-
-main()
-{
-    double sum = 10000;
-    double rate = 0.0042;
-    double mom_rate = rate / 12;
-    double mon_benxi = 0;
-    double mons = 12;
-    double sum_lixi;
-    double mon_lixi;
-
-    /* sum：贷款本金
-       rate: 贷款月利率
-       month：贷款月数
-    */
-    //monPay = sum * [rate*(1+rate)^n]/[(1+rate)^n-1]
-    sum_lixi = sum * mons * mom_rate * pow((1+mom_rate), mons) / (pow((1+mom_rate), mons) - 1) - sum;
-    mon_benxi = (sum * rate * pow((1+rate), mons)) / (pow((1+rate), mons) - 1);
-
-    printf("monPay = %f", monPay);
-    /*
-    　　每月利息 = 剩余本金x贷款月利率
-    　　还款总利息=贷款额*贷款月数*月利率*（1+月利率）贷款月数/【（1+月利率）还款月数 - 1】-贷款额
-        还款总额=还款月数*贷款额*月利率*（1+月利率）贷款月数/【（1+月利率）还款月数 - 1】
-
-    */
-    printf("\n");
-}
-#endif
-
-
-#if 0
-
-#include<stdio.h>
-#include<stdlib.h>
-#include<math.h>
-
-//AC    等额本金 Average Capital
-//ACPI  等额本息 Average Capital Plus Interest
-float fLoanSum;//总需要贷款金额
-float fMonthIRate;//月利率（年利率求得）
-float fACPI_MonthPay;//ACPI月付
-float fACPI_PaidI = 0;//ACPI已经付清的金额
-float fAC_PaidP = 0;//AC已经付清的金额
-float fACPI_Sum = 0;//ACPI贷款还款的本息和
-float fAC_Sum = 0;//AC贷款还款的本息和
-int iMonth, i;
-
-int main()
-{
-    float fMonthI, fMonthP;//月息和本金
-
-    puts("请输入：\n贷款总额(元)\t贷款年限\t贷款利率%：");
-    scanf("%f %d %f", &fLoanSum, &iMonth, &fMonthIRate);
-    fMonthIRate /= 12;//求得月利率
-    fMonthIRate /= 100;//去掉%，直接算得月利率：x%的值
-    iMonth *= 12;
-
-    //等额本息
-    fACPI_MonthPay = fLoanSum*fMonthIRate*pow(1 + fMonthIRate, iMonth) / (pow(1 + fMonthIRate, iMonth) - 1); //每月本息和
-
-    printf("等额本息:\n");
-    printf("  月份\t 月还款\t 月本金\t 月利息\n");
-    for (i = 1; i <= iMonth; i++)
-    {
-        fMonthI = (fLoanSum - fACPI_PaidI)*fMonthIRate; //每月利息
-        fACPI_Sum += fMonthI;                           //纳入还款总额
-
-        fMonthP = fACPI_MonthPay - fMonthI;             //每月本金
-        fACPI_PaidI += fMonthP;                         //已付本金
-
-        //printf("   Month[%d]:Sum:%.2f  MonthInterest:%.2f  MonthPrincipal:%.2f\n", i, fMonthI + fMonthP, fMonthI, fMonthP);
-        printf("  %d月:\t %.2f\t %.2f\t %.2f\n", i, fMonthI + fMonthP, fMonthP, fMonthI);
-    }
-    printf("总利息:\t %.2f 本息总和:%.2f\n\n", fACPI_Sum, fACPI_Sum + fLoanSum);
-
-    //等额本金
-    fMonthP = fLoanSum / iMonth;                        //每月本金
-
-    printf("等额本金: \n");
-    printf("  月份\t 月还款\t 月本金\t 月利息\n");
-    for (i = 1; i <= iMonth; i++)
-    {
-        fMonthI = (fLoanSum - fAC_PaidP)*fMonthIRate;   //月利息
-        fAC_Sum += fMonthI;                             //计入还款额
-
-        fAC_PaidP += fMonthP;                           //已付本金
-        //printf("   Month[%d]:Sum:%.2f  MonthInterest:%.2f  MonthPrincipal:%.2f\n", i, fMonthI + fMonthP, fMonthI, fMonthP);
-        printf("  %d月:\t %.2f\t %.2f\t %.2f\n", i, fMonthI + fMonthP, fMonthP, fMonthI);
-    }
-
-    printf("总利息:\t %.2f 本息总和:%.2f\n", fAC_Sum, fAC_Sum + fLoanSum);
-
-    return 0;
-}
-
-#endif
-
-
-////////////////////////////////////////////////////////////////////////////////
-
+#if (SUAN == 8)
 // KMP算法
-
-#if 0
-
-#include<stdio.h>
-#include<stdlib.h>
 
 void cal_next(char *str, int *next, int len)
 {
@@ -592,12 +434,8 @@ int main(){
 
 
 ////////////////////////////////////////////////////////////////////////////////
-#if 0
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
+#if (SUAN == 9)
 
 class testC{
 public:
@@ -643,11 +481,8 @@ int main(){
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#if 0
+#if (SUAN == 10)
 //链表的基本操作(无表头)
-
-#include <stdio.h>
-#include <stdlib.h>
 
 typedef int ElemType;
 
@@ -907,8 +742,7 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////////////
 
-
-#if 0
+#if (SUAN == 11)
 
 // 请用普通的互斥锁编程实现一个读写锁
 
@@ -959,11 +793,7 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#if 0
-
-#include <stdio.h>
-#include <stdlib.h>
-
+#if (SUAN == 12)
 
 int main(){
 
@@ -986,62 +816,14 @@ int main(){
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#if (SUAN == 13)
 // 双向链表的相邻的奇偶Node调换顺序
 
-#if 0
-
-// 自己编写
-
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct Node {
-    int data;
-    Node *pre;
-    Node *next;
-} NODE;
-
-bool create_linklist(NODE *head, int length)
+// MY CODE
+bool swap_dlist(DListNode *head)
 {
-    NODE *node = NULL;
-    NODE *node1 = NULL;
-
-    head->data = -1;
-    head->pre = NULL;
-
-    node = new NODE;
-    if (node == NULL) {
-        return false;
-    }
-    node->data = 0;
-    node->pre = head;
-    head->next = node;
-
-    for (int i = 1; i < length; i++) {
-        node1 = new NODE;
-        if (node1 == NULL) {
-            return false;
-        }
-
-        node1->data = i;
-        node1->pre = node;
-        node1->next = NULL;
-        node->next = node1;
-        node = node1;
-    }
-
-    for (node = head->next; node != NULL; node = node->next) {
-        printf("%d ", node->data);
-    }
-    printf("\n");
-
-    return true;
-}
-
-bool swap_list(NODE *head)
-{
-    NODE *node = NULL;
-    NODE *node1 = NULL;
+    DListNode *node = NULL;
+    DListNode *node1 = NULL;
 
     if (head == NULL) {
         return false;
@@ -1061,43 +843,27 @@ bool swap_list(NODE *head)
  
         node->next = node1->next;
         node1->next = node;
-
-        //printf("b %d %d", node->data, node->pre->data);
-        //printf("\n");
     }
-
-    printf("swap: ");
-    for (node = head->next; node != NULL; node = node->next) {
-        printf("%d ", node->data);
-    }
-    printf("\n");
 }
 
 int main(){
     int length = 10;
-    NODE *head = new NODE;
+    DListNode *head = new DListNode(-1);
 
-    create_linklist(head, length);
+    create_dlinklist(head, length);
 
-    swap_list(head);
+    swap_dlist(head);
+
+    print_dlinklist(head);
 
     return 0;
 }
-
-
 
 #endif
 
 
 #if 0
 
-#include <stdlib.h>  
-#include <stdio.h>  
-
-#include <iostream>  
-#include <string.h>  
-#include <vector>  
-#include <iterator>  
 using namespace std;  
   
 typedef struct Node  
@@ -1215,60 +981,16 @@ void func(D_List& l)
 #endif
 
 
+
+#if (SUAN == 14)
 // 单链表的相邻的奇偶Node调换顺序
 
-#if 0
-
-// 自己编写
-
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct Node {
-    int data;
-    Node *next;
-} NODE;
-
-bool create_linklist(NODE *head, int length)
+// MY CODE
+bool swap_linklist(ListNode *head)
 {
-    NODE *node = NULL;
-    NODE *node1 = NULL;
-
-    head->data = -1;
-
-    node = new NODE;
-    if (node == NULL) {
-        return false;
-    }
-    node->data = 0;
-    node->next = NULL;
-    head->next = node;
-
-    for (int i = 1; i < length; i++) {
-        node1 = new NODE;
-        if (node1 == NULL) {
-            return false;
-        }
-
-        node1->data = i;
-        node1->next = NULL;
-        node->next = node1;
-        node = node1;
-    }
-
-    for (node = head->next; node != NULL; node = node->next) {
-        printf("%d ", node->data);
-    }
-    printf("\n");
-
-    return true;
-}
-
-bool swap_list(NODE *head)
-{
-    NODE *node = NULL;
-    NODE *node1 = NULL;  // 记录下一个结点
-    NODE *nodepre = NULL;  // 记录前一个结点
+    ListNode *node = NULL;
+    ListNode *node1 = NULL;  // 记录下一个结点
+    ListNode *nodepre = NULL;  // 记录前一个结点
 
     if (head == NULL) {
         return false;
@@ -1282,36 +1004,28 @@ bool swap_list(NODE *head)
         nodepre->next = node1;
         nodepre = node;
     }
-
-    printf("swap: ");
-    for (node = head->next; node != NULL; node = node->next) {
-        printf("%d ", node->data);
-    }
-    printf("\n");
 }
 
-int main(){
+int main()
+{
     int length = 10;
-    NODE *head = new NODE;
+    ListNode *head = new ListNode(-1);
 
     create_linklist(head, length);
-    swap_list(head);
+    swap_linklist(head);
+  
+    print_linklist(head);
 
     return 0;
 }
 
-
-
 #endif
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#if 0
+#if (SUAN == 15)
+// 八皇后问题
 
-#include<iostream>
-using namespace std;
 static int gEightQueen[8] = { 0 }, gCount = 0;
 void print()//输出每一种情况下棋盘中皇后的摆放情况
 {
@@ -1327,6 +1041,7 @@ void print()//输出每一种情况下棋盘中皇后的摆放情况
     }
     cout << "==========================\n";
 }
+
 int check_pos_valid(int loop, int value)//检查是否存在有多个皇后在同一行/列/对角线的情况
 {
     int index;
@@ -1343,6 +1058,7 @@ int check_pos_valid(int loop, int value)//检查是否存在有多个皇后在同一行/列/对角
     }
     return 1;
 }
+
 void eight_queen(int index)
 {
     int loop;
@@ -1362,6 +1078,7 @@ void eight_queen(int index)
         }
     }
 }
+
 int main(int argc, char*argv[])
 {
     eight_queen(0);
@@ -1371,9 +1088,9 @@ int main(int argc, char*argv[])
 
 #endif
 
-#if 0
+#if (SUAN == 16)
 
-// 自己编写
+// MY CODE
 /* 如果在同一条斜线判断:
     方法1: 只有两种可能，一是横纵坐标之和相等，一是横纵坐标之差相等;
     \ 这样的斜线，同一对角线，那么x1-y1=x2-y2;
@@ -1382,9 +1099,6 @@ int main(int argc, char*argv[])
     方法2: 用math函数abs，则abs(x2-x1) == abs(y2-y1)
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 
 static int g_eight_queen[8] = { 0 };
 int g_count = 0;
@@ -1423,8 +1137,8 @@ int check_pos_valid(int loop, int value)
     }
     return 1;
 }
-/*
-int check_pos_valid(int loop, int value)
+
+int check_pos_valid1(int loop, int value)
 {
     int index;
     int data;
@@ -1437,7 +1151,7 @@ int check_pos_valid(int loop, int value)
     }
     return 1;
 }
-*/
+
 void eight_queen(int index)
 {
     int loop;
@@ -1467,26 +1181,16 @@ int main(int argc, char*argv[])
     return 0;
 }
 
-
 #endif
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#if 1
+#if (SUAN == 17)
+// 无序数组中最小的k个数 
 
-// 自己编写
+// MY CODE
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#define MINK 5
-
-int g_min[MINK] = {0};
-
-void sort(int array[], int number)
+void sort(vector<int> &array, int number)
 {
     int i = 0;
     int j = 0;
@@ -1503,58 +1207,46 @@ void sort(int array[], int number)
     }
 }
 
-void insert_compare(int value)
+vector<int> get_minK(vector<int> input, int k)
 {
     int i = 0;
+    int number = input.size();
+    vector<int> out;
 
-    if (value < g_min[4])
-        g_min[4] = value;
-
-    for (i = 0; i < MINK; i++) {
-        sort(g_min, MINK);
+    if (input.empty()) {
+        return out;
     }
+
+    for (i = 0; i < k; i++) {
+        out.push_back(input[i]);
+    }
+
+    sort(out, k);
+
+    for (i = k; i < number; i++) {
+        if (input[i] < out[k-1]) {
+            out[k-1] = input[i];
+            sort(out, k);
+        }
+    }
+
+    return out;
 }
-
-void get_minK(int array[], int number)
-{
-    int i = 0;
-
-    for (i = 0; i < MINK; i++) {
-        g_min[i] = array[i];
-    }
-
-    sort(g_min, MINK);
-
-    for (i = MINK; i < number; i++) {
-        insert_compare(array[i]);
-    }
-}
-
-#include <math.h>
 
 int main(int argc, char*argv[])
 {
     int array[] = {0,13,5,38,4,10,13,22,55,42,36,1,5,-3,78,11,32,18};
     int number = sizeof(array)/sizeof(int);
+    vector<int> vec(array, array+number);
+    int minK = 4;
+    vector<int> out;
 
-    get_minK(array, number);
+    out = get_minK(vec, minK);
 
-    for (int i = 0; i < MINK; i++) {
-        printf("%d ", g_min[i]);
+    for (int i = 0; i < minK; i++) {
+        printf("%d ", out[i]);
     }
     printf("\n");
-
-    
-    for (int i = 1; i < 200; i++) {
-        printf("%d ", i);
-    }
-    printf("\n");
-    for (int i = 1; i < 200; i++) {
-        printf("%f ", log2((double)i));
-    }
-    printf("\n");
-
-    printf("N = %d, logN = %f, N = %d, logN = %f, N = %d, logN = %f, N = %d, logN = %f, N = %d, logN = %f\n", 10, log2(10), 100, log2(100), 1000, log2(1000), 10000, log2(10000), 100000, log2(100000));
 
     return 0;
 }
@@ -1562,15 +1254,6 @@ int main(int argc, char*argv[])
 #endif
 
 
-
 ////////////////////////////////////////////////////////////////////////////////
 
-
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
 

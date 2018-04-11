@@ -98,6 +98,41 @@ void print_linklist(ListNode *node)
     }
 }
 
+// Ë«ÏòÁ´±í
+bool create_dlinklist(DListNode *head, int length)
+{
+    DListNode *node = NULL;
+    DListNode *node1 = NULL;
+
+    node = new DListNode(0);
+    if (node == NULL) {
+        return false;
+    }
+
+    node->pre = head;
+    head->next = node;
+
+    for (int i = 1; i < length; i++) {
+        node1 = new DListNode(i);
+        if (node1 == NULL) {
+            return false;
+        }
+        node1->pre = node;
+        node->next = node1;
+        node = node1;
+    }
+
+    return true;
+}
+
+void print_dlinklist(DListNode *node)
+{
+    while (node != NULL) {
+        cout << node->val << endl;
+        node = node->next;
+    }
+}
+
 // tree
 
 TreeNode* createTreeNode(int value)

@@ -9,6 +9,11 @@
 #include <stack>
 #include <set>
 #include <algorithm>
+#include <memory.h>
+#include <pthread.h>
+#include <errno.h>
+#include <math.h>
+#include <unistd.h>
 
 #include <time.h>
 
@@ -19,6 +24,14 @@ struct ListNode {
     struct ListNode *next;
     ListNode() {}
     ListNode(int x) : val(x), next(NULL) {}
+};
+
+struct DListNode {
+    int val;
+    struct DListNode *pre;
+    struct DListNode *next;
+    DListNode() {}
+    DListNode(int x) : val(x), pre(NULL), next(NULL) {}
 };
 
 struct TreeNode {
@@ -38,6 +51,7 @@ struct TreeLinkNode {
     TreeLinkNode(int x) :val(x), left(NULL), right(NULL), next(NULL) {}
 };
 
+// 单链表
 bool create_linklist(ListNode *head, int length);
 
 ListNode* create_beginlist(int begin, int number);
@@ -46,6 +60,12 @@ bool create_huiwenlist(ListNode *head, int length);
 
 void print_linklist(ListNode *node);
 
+// 双向链表
+bool create_dlinklist(DListNode *head, int length);
+
+void print_dlinklist(DListNode *node);
+
+// 树
 TreeNode* createTreeNode(int value);
 
 void connectTreeNode(TreeNode* pParent, TreeNode* pLeftChild,
