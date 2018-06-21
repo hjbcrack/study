@@ -1523,15 +1523,15 @@ ListNode* ReverseList(ListNode* pHead)
     ListNode* pReverseHead;
     ListNode* pCur = pHead;
     ListNode* pPrev = NULL;
-    ListNode* tmp;
+    ListNode* pNext = NULL;
 
     while(pCur != NULL){
-        tmp = pCur->next;
-        if (tmp == NULL)
+        pNext = pCur->next;
+        if (pNext == NULL)
             pReverseHead = pCur;
         pCur->next = pPrev;
         pPrev = pCur;
-        pCur = tmp;
+        pCur = pNext;
     }
 
     return pReverseHead;
