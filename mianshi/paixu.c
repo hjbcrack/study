@@ -6,7 +6,7 @@
 
 int Array[] = {2, 5, 3, 9, 8, 6, 10, 2, 7};
 //int Array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-//int Array[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+//int Array[] = {2,3,4,5,1};
 
 int nArray = sizeof(Array)/sizeof(int);
 
@@ -50,23 +50,34 @@ void cocktail(int array[], int number)
 {
     int left =0;
     int right = number;
+    int move = 0;
 
     while(left < right) {
         for (int i = left; i < right-1; i++) {
             if (array[i] > array[i+1]) {
                 swap(&array[i], &array[i+1]);
+                move = 1;
             }
         }
+
+        if (move == 0)
+            break;
         right--;
+        move = 0;
 
         output(array, nArray);
 
         for (int i = right; i > left; i--) {
             if (array[i] < array[i-1]) {
                 swap(&array[i], &array[i-1]);
+                move = 1;
             }
         }
+
+        if (move == 0)
+            break;
         left++;
+        move = 0;
 
         output(array, nArray);
     }
@@ -368,6 +379,89 @@ void MergeSortIteration(int A[], int len)    // ·Çµİ¹é(µü´ú)ÊµÏÖµÄ¹é²¢ÅÅĞò(×Ôµ×Ï
     }
 }
 
+int t_maopao(int A[], int number)
+{
+    for (int i = 0; i < number-1; i++) {
+        for (int j = 0; j < number-1-i; j++) {
+            if (A[j] > A[j+1]) {
+                swap(A[j], A[j+1]);
+            }
+        }
+        output(A, number);
+    }
+}
+
+int t_cocktail(int A[], int number)
+{
+    int left = 0;
+    int right = number;
+    int move = 0;
+
+    while (left < right) {
+        for (int i = left; i < right-1; i++) {
+            if (A[i] > A[i+1]) {
+                swap(A[i], A[i+1]);
+                move = 1;
+            }
+        }
+        output(A, number);
+
+        if (move == 0)
+            break;
+        right--;
+        move = 0;
+
+        for (int i = right-1; i > left; i--) {
+            if (A[i] < A[i-1]) {
+                swap(A[i], A[i-1]);
+                move = 1;
+            }
+        }
+
+        output(A, number);
+
+        if (move == 0)
+            break;
+        left++;
+        move = 0;
+    }
+}
+
+int t_xuanze(int A[], int number)
+{
+    int index;
+
+    for (int i = 0; i < number-1; i++) {
+        index = i;
+        for (int j = i+1; j < number; j++) {
+            if (A[index] > A[j]) {
+                index = j;
+            }
+        }
+        swap(A[i], A[index]);
+        output(A, number);
+    }
+}
+
+int t_charu(int A[], int number)
+{
+    for (int i = 1; i < number; i++) {
+        if(A[i] < A[i-1]) {
+            int j = i;
+            int tmp = A[i];
+            while(j >= 1 && tmp < A[j-1]) {
+                A[j] = A[j-1];
+                j--;
+            }
+
+            A[j] = tmp;
+        }
+
+        output(A, nArray);
+    }
+}
+
+
 int main()
 {
     printf("input: \n");
@@ -376,15 +470,13 @@ int main()
 
     //maopao(Array, nArray);
     //cocktail(Array, nArray);
-    
+    //xuanze(Array, nArray);
     //charu(Array, nArray);
     //erfencharu(Array, nArray);
     //shell(Array, nArray);
-    
-    //xuanze(Array, nArray);
     //QuickSort(Array, 0, nArray-1);
-    HeapSort(Array, nArray);
-
+    //HeapSort(Array, nArray);
+/*
     printf("------------------------------\n");
     printf("output: \n");
 
@@ -403,6 +495,17 @@ int main()
     MergeSortIteration(A2, n2);                 // ·Çµİ¹éÊµÏÖ
     printf("·Çµİ¹éÊµÏÖµÄ¹é²¢ÅÅĞò½á¹û£º");
     output(A2, n2);
+*/
+
+    //t_maopao(Array, nArray);
+
+    //t_cocktail(Array, nArray);
+
+    //t_xuanze(Array, nArray);
+
+    //t_charu(Array, nArray);
+
+    output(Array, nArray);
 
 
     return 0;
