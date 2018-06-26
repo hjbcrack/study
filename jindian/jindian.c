@@ -1,4 +1,4 @@
-#define A17_9
+#define A4_5
 
 #include "common.h"
 
@@ -355,24 +355,17 @@ bool checkReverseEqual1(string s1, string s2) {
 
 int main()
 {
-/*
     string str1("waterbottle");
     string str2("erbottlewat");
+
+    string str3("Hello world");
+    string str4("worldhello ");
 
     cout << checkReverseEqual(str1, str2) << endl;
 
-    string str3("Hello world");
-    string str4("worldhello ");
-
     cout << checkReverseEqual(str3, str4) << endl;
-*/
-    string str1("waterbottle");
-    string str2("erbottlewat");
 
     cout << checkReverseEqual1(str1, str2) << endl;
-
-    string str3("Hello world");
-    string str4("worldhello ");
 
     cout << checkReverseEqual1(str3, str4) << endl;
 
@@ -401,13 +394,7 @@ int main()
 注意：分割以后保持原来的数据顺序不变。
 */
 
-struct ListNode {
-    int val;
-    struct ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
-
-bool create_linklist(ListNode *head, int length)
+bool create_linklist_rand(ListNode *head, int length)
 {
     ListNode *node = NULL;
     ListNode *node1 = NULL;
@@ -428,7 +415,7 @@ bool create_linklist(ListNode *head, int length)
             return false;
         }
 
-        node1->val = (i%2) ? i+1 : i;
+        node1->val = (i * 3) % 10;
         node1->next = NULL;
         node->next = node1;
         node = node1;
@@ -444,24 +431,34 @@ bool create_linklist(ListNode *head, int length)
 
 ListNode* partition(ListNode* pHead, int x)
 {
-    ListNode* node;
-
-    if (pHead == NULL) {
+    if(pHead == NULL)
         return NULL;
-    }
 
-    node = pHead;
-    while(pHead->next != NULL){
-        if (pHead->val == pHead->next->val) {
-            tmp_node = pHead->next;
-            pHead->next = pHead->next->next;
-            delete tmp_node;
-        } else {
-            pHead = pHead->next;
+    ListNode *pNode = pHead;
+    ListNode *small = new ListNode(0);
+    ListNode *big = new ListNode(0);
+    ListNode *ptr1 = small;
+    ListNode *ptr2 = big;
+
+    while(pNode)
+    {
+        if(pNode->val < x)
+        {
+            ptr1->next = pNode;
+            pNode = pNode->next;
+            ptr1 = ptr1->next;
+            ptr1->next = NULL;
+        }
+        else
+        {
+            ptr2->next = pNode;
+            pNode = pNode->next;
+            ptr2 = ptr2->next;
+            ptr2->next = NULL;
         }
     }
-
-    return node;
+    ptr1->next = big->next;
+    return small->next;
 }
 
 int main(){
@@ -469,7 +466,7 @@ int main(){
     ListNode *head = new ListNode;
     ListNode *node;
 
-    create_linklist(head, length);
+    create_linklist_rand(head, length);
     node = head->next;
     while(node != NULL) {
         cout << node->val << " ";
@@ -477,7 +474,7 @@ int main(){
     }
     cout << endl;
 
-    node = deleteDuplication(head->next);
+    node = partition(head->next, 5);
     while(node != NULL) {
         cout << node->val << " ";
         node = node->next;
@@ -501,29 +498,6 @@ int main(){
 {1,2,3},{3,2,1}
 返回：{4,4,4}
 */
-
-bool create_linklist(ListNode *head, int length)
-{
-    ListNode *node = NULL;
-    ListNode *node1 = NULL;
-
-    node = new ListNode(0);
-    if (node == NULL) {
-        return false;
-    }
-    head->next = node;
-
-    for (int i = 1; i < length; i++) {
-        node1 = new ListNode(i);
-        if (node1 == NULL) {
-            return false;
-        }
-        node->next = node1;
-        node = node1;
-    }
-
-    return true;
-}
 
 // my code
 ListNode* plusAB(ListNode* a, ListNode* b)
@@ -849,6 +823,36 @@ vector<int> twoStacksSort(vector<int> numbers)
     return vec;
 }
 
+vector<int> t_twoStacksSort(vector<int> numbers)
+{
+    vector<int> vec;
+    int tmp;
+
+    if (numbers.empty()) {
+        return vec;
+    }
+
+    tmp = numbers.back();
+    vec.push_back(tmp);
+    numbers.pop_back();
+    while (!numbers.empty()) {
+        tmp = numbers.back();
+        if (tmp < vec.back()) {
+            vec.push_back(tmp);
+            numbers.pop_back();
+        } else {
+            numbers.pop_back();
+            while (!vec.empty() && vec.back() < tmp) {
+                numbers.push_back(vec.back());
+                vec.pop_back();
+            }
+            vec.push_back(tmp);
+        }
+    }
+
+    return vec;
+}
+
 int main()
 {
     int array[]={1,6,4,7,3,5,2,8};
@@ -865,8 +869,16 @@ int main()
     out = twoStacksSort(numbers);
 
     cout << "out:" << endl;
-    for (int i = 0; i < numbers.size(); i++) {
-        cout << numbers[i] << "\t";
+    for (int i = 0; i < out.size(); i++) {
+        cout << out[i] << "\t";
+    }
+    cout << endl;
+
+    out = t_twoStacksSort(numbers);
+
+    cout << "out t:" << endl;
+    for (int i = 0; i < out.size(); i++) {
+        cout << out[i] << "\t";
     }
     cout << endl;
 
@@ -977,7 +989,7 @@ int buildMinimalBST1(vector<int> vals)
 
 int main()
 {
-    int array[]={1,6,4,7,3,5,2,8};
+    int array[]={1,2,3,4,5,6,7,8};
     int length = sizeof(array)/sizeof(int);
     vector<int> numbers(array, array+length);
     int depth = 0;
