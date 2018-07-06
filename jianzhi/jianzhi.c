@@ -1,5 +1,5 @@
 
-#define TIMU    61
+#define TIMU    58
 
 #include "common.h"
 
@@ -110,15 +110,15 @@ int main()
 
 #if (TIMU == 3)
 
-// 3. 二位数组查找
+// 3. 二维数组查找
 
 //二维数组的查找（右上角版本）  
-bool find(int* matrix, int rows, int columns, int number)  //传入一维数繿 
+bool find(int* matrix, int rows, int columns, int number)  //传入一维数组
 {  
     if(matrix != NULL && rows >0 && columns >0)            //指针判空以及边界判断  
     {  
         int row = 0;  
-        int column = columns - 1;               //从矩阵的右上角开始判政 
+        int column = columns - 1;               //从矩阵的右上角开始判断
         while(row < rows && column >= 0)  
         {  
             if(matrix[row*columns+column] == number)  
@@ -188,7 +188,7 @@ void replace_blank(char array[], int length)
 
     new_number = str_length + blank_number*2;
     if (new_number > length) {
-        cout << "the array is too lenght" << endl;
+        cout << "the array is too long" << endl;
         return;
     }
 
@@ -878,7 +878,7 @@ int fun(int n)
 // 延伸: 一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶，求该青蛙跳上一个n级台阶总共有多少种跳法？
 int tiao(int n)
 {
-    if (n == 1 || n == 27) {
+    if (n == 1 || n == 2) {
         return n;
     } else {
         return (tiao(n-1) + tiao(n-2));
@@ -927,19 +927,28 @@ int NumberOf1(int n){
     return count;
 }
 
-/*
-4、位运算相关题目
 
+/* 位运算相关题目
     用一条语句判断一个整数是不是2的整数次方。
-
-if(n&(n-1)==0) return true;
-
-    输入两个整数m,n,计算需要改变m的二进制表示中的多少位才能得到n？
-
-int x=m^n; return NumberOf1(x);　　
-
+    if((n&(n-1))==0) return true;
 */
+bool Nof2(int n)
+{
+    if((n&(n-1)) == 0) {
+        return true;
+    }
 
+    return false;
+}
+
+// 输入两个整数m,n,计算需要改变m的二进制表示中的多少位才能得到n？
+bool chgnumberof1(int m, int n)
+{
+    int x=m^n;
+    return NumberOf1(x);
+}
+
+// 是否可被2整除
 bool multipleof2(int value)
 {
     if (value & 1)
@@ -951,7 +960,11 @@ bool multipleof2(int value)
 
 int main()
 {
-    cout << "Number of 1: " << fun(0xff0f) << endl;
+    cout << 0xff0f << " Number of 1: " << fun(0xff0f) << endl;
+
+    cout << 10 << " is 2^n ? " << Nof2(8) << endl;
+
+    cout << "change number beween 10 and 4: " << chgnumberof1(10, 4) << endl;
 
     cout << "Is multiple of 2: " << multipleof2(0xff0e) << endl;
 
@@ -1044,9 +1057,35 @@ void fun(int n)
     return;
 }
 
+// 传统办法，可能int越界
+void fun1(int n)
+{
+    int max = 9;
+    int i = 0;
+
+    if(n <= 0)
+        return;
+    n--;
+    while(n) {
+        max *= 10;
+        max += 9;
+        n--;
+    }
+
+    for (i = 1; i <= max; i++) {
+        cout << i << " ";
+    }
+    cout << endl;
+
+    return;
+}
+
 int main()
 {
     fun(2);
+
+    fun1(2);
+
     return 0;
 }
 
@@ -1313,6 +1352,28 @@ void reOrderArray(vector<int> &array)
         array[k++]=evens[i];
 }
 
+void t_ReOrderOddEven(int array[], int number)
+{
+    int i, j;
+
+    if(number <= 0)
+        return;
+
+    for (i = 0; i < number; ++i) {
+        if (array[i]&1) {
+            for (j = i; j > 0; --j) {
+                if (!(array[j-1]&1)) {
+                    int tmp = array[j];
+                    array[j] = array[j-1];
+                    array[j-1] = tmp;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+}
+
 int main()
 {
     int array[] = {1,4,6,2,8,9,4,5,7,2,11,65,32,17};
@@ -1330,6 +1391,13 @@ int main()
 
     for (int i = 0; i < number; i++){
         cout << vArray[i] << " ";
+    }
+    cout << endl;
+
+    t_ReOrderOddEven(array, number);
+
+    for (int i = 0; i < number; i++){
+        cout << array[i] << " ";
     }
     cout << endl;
 }
@@ -1637,7 +1705,8 @@ int main()
 
 #if (TIMU == 18)
 
-// 18. 树的子结构
+// 18. 树的子结构 *****
+// 输入两颗二叉树A，B，判断B是不是A的子结构。
 
 TreeNode* FindTheFirst(TreeNode* pRoot1, int data)
 {
@@ -1856,7 +1925,7 @@ int main()
 
 #if (TIMU == 21)
 
-// 21. 包含min函数的栈
+// 21. 包含min函数的栈  *****
 
 template<typename T>
 class CStackwithmin{
@@ -1930,7 +1999,7 @@ int main(){
 
 #if (TIMU == 22)
 
-// 22. 栈的压入、弹出序列
+// 22. 栈的压入、弹出序列  *****
 
 bool IsPopOrder(const int* push, const int* pop, int length)
 {
@@ -1986,10 +2055,11 @@ bool IsPopOrder(const int* push, const int* pop, int length)
 }
 
 int main(){
-    int array1[] = {1,2,3,4,5};
-    int array2[] = {5,4,3,2,1};
+    int push[] = {1,2,3,4,5};
+    //int push[] = {5,4,3,1,2};
+    int pop[] = {5,4,3,2,1};
 
-    bool rc = IsPopOrder(array1, array2, 5);
+    bool rc = IsPopOrder(push, pop, 5);
 
     cout << "is pop order:" << rc << endl;
 
@@ -2000,7 +2070,7 @@ int main(){
 
 #if (TIMU == 23)
 
-// 23. 从上到下打印二叉树
+// 23. 从上到下打印二叉树  *****
 
 
 // queue是单向队列，deque（double-ended-queue）是双向队列
@@ -2028,43 +2098,75 @@ void PrintFromTopToBottom(TreeNode* root)
     }
 }
 
-/*
 // 参考代码
-void PrintFromTopToBottom(TreeNode* root){
+void PrintFromTopToBottom1(TreeNode* root){
     if(root==NULL)
         return;
+
     std::deque<TreeNode*> dequeTree;
     dequeTree.push_back(root);
     TreeNode* node;
+
     while(!dequeTree.empty()){
         node=dequeTree.front();
+        printf("%d \n",node->val);
         dequeTree.pop_front();
-        printf("%d ",node->val);
- 
-        if(root->left)
-            dequeTree.push_back(root->left);
-        if(root->right)
-            dequeTree.push_back(root->right);
+
+        if(node->left)
+            dequeTree.push_back(node->left);
+        if(node->right)
+            dequeTree.push_back(node->right);
     }
 }
-*/
+
+void t_PrintFromTopToBottom(TreeNode* root)
+{
+    queue<TreeNode*> list;
+    TreeNode* node = root;
+
+    if (root == NULL) {
+        return;
+    }
+
+    list.push(node);
+    while (!list.empty()) {
+        node = list.front();
+        cout << node->val << endl;
+        list.pop();
+
+        if (node->left != NULL) {
+            list.push(node->left);
+        }
+
+        if (node->right != NULL) {
+            list.push(node->right);
+        }
+    }
+}
+
+
 int main()
 {
-    TreeNode* root = new TreeNode();
-    root->val = 1;
-    root->left = new TreeNode();
-    root->left->val = 2;
-    root->left->left = new TreeNode();
-    root->left->left->val = 3;
-    root->left->right = new TreeNode();
-    root->left->right->val = 4;
-    root->right = new TreeNode();
-    root->right->val = 5;
-    root->right->left = new TreeNode();
-    root->right->left->val = 6;
-    root->right->right = new TreeNode();
-    root->right->right->val = 7;
-    PrintFromTopToBottom(root);
+    TreeNode* pNode1 = createTreeNode(1);
+    TreeNode* pNode2 = createTreeNode(2);
+    TreeNode* pNode3 = createTreeNode(3);
+    TreeNode* pNode4 = createTreeNode(4);
+    TreeNode* pNode5 = createTreeNode(5);
+    TreeNode* pNode6 = createTreeNode(6);
+    TreeNode* pNode7 = createTreeNode(7);
+
+    connectTreeNode(pNode1, pNode2, pNode3);
+    connectTreeNode(pNode2, pNode4, pNode5);
+    connectTreeNode(pNode5, pNode6, pNode7);
+
+    PrintFromTopToBottom(pNode1);
+    cout << endl;
+
+    PrintFromTopToBottom1(pNode1);
+    cout << endl;
+
+    t_PrintFromTopToBottom(pNode1);
+    cout << endl;
 
     return 0;
 }
@@ -2093,6 +2195,7 @@ bool VerifySquence(vector<int> sequence, int begin, int end)
     if (begin >= end) {
         return true;
     }
+
     while (index < end) {
         if (sequence[index] > sequence[end]) {
             break;
@@ -2144,52 +2247,20 @@ int main()
    要求不能创建任何新的结点，只能调整树中结点指针的指向
 */
 
-// queue是单向队列，deque（double-ended-queue）是双向队列?
-
 // 自编代码
 
-void PrintFromTopToBottom(TreeNode* root)
+TreeNode* Convert(TreeNode* pRootOfTree)
 {
-    queue<TreeNode*> list;
-    TreeNode* node = root;
+    TreeNode* root = pRootOfTree;
 
-    if (root == NULL)
-        return;
-
-    list.push(root);
-    while(!list.empty()) {
-        node = list.front();
-        cout << node->val << endl;
-        list.pop();
-        if (node->left != NULL) {
-            list.push(node->left);
-        }
-        if (node->right != NULL) {
-            list.push(node->right);
-        }
+    if (pRootOfTree) {
+        return NULL;
     }
-}
-/*
-// 参考代码
 
-void PrintFromTopToBottom(TreeNode* root){
-    if(root==NULL)
-        return;
-    std::deque<TreeNode*> dequeTree;
-    dequeTree.push_back(root);
-    TreeNode* node;
-    while(!dequeTree.empty()){
-        node=dequeTree.front();
-        dequeTree.pop_front();
-        printf("%d ",node->val);
- 
-        if(root->left)
-            dequeTree.push_back(root->left);
-        if(root->right)
-            dequeTree.push_back(root->right);
-    }
+   // reverse(root, root->left);
 }
-*/
+
+
 int main()
 {
     TreeNode* pNode1 = createTreeNode(1);
@@ -2204,9 +2275,9 @@ int main()
     connectTreeNode(pNode2, pNode4, pNode5);
     connectTreeNode(pNode5, pNode6, pNode7);
 
-    printTreeFromTopToBottom(pNode1);
+    Convert(pNode1);
 
-    PrintFromTopToBottom(pNode1);
+    printTreeFromTopToBottom(pNode1);
 
     return 0;
 }
@@ -2230,16 +2301,18 @@ void swap(char* c1,char* c2){
     *c2 = tmp;
 }
  
-void Permutation(string &str, int begin, vector<string> &result){
+void Permutation(string &str, int begin, vector<string> &result)
+{
     int len = str.length();
-    if(begin == len-1)
+
+    if (begin == (len-1)) {
         result.push_back(str);
-    else{
-        for(int i = begin; i < len; i++){
+    } else {
+        for (int i = begin; i < len; ++i) {
             if(i == begin || str[i] != str[begin]){
-                swap(&str[begin], &str[i]);
+                swap(&str[i], &str[begin]);
                 Permutation(str, begin+1, result);
-                swap(&str[begin], &str[i]);  
+                swap(&str[i], &str[begin]);
             }
         }
     }
@@ -2251,19 +2324,35 @@ vector<string> Permutation(string str) {
         Permutation(str, 0, result);
         sort(result.begin(), result.end());
     }
+
     return result;
 }
 
 int main()
 {
-    string str = "abc";
+    string str1 = "abc";
+    string str2 = "aa";
+    string str3 = "aab";
     vector<string> output;
 
-    output = Permutation(str);
+    output = Permutation(str1);
 
     for (int i = 0; i < output.size(); i++) {
         cout << output[i] << endl;
     }
+    cout << endl;
+
+    output = Permutation(str2);
+    for (int i = 0; i < output.size(); i++) {
+        cout << output[i] << endl;
+    }
+    cout << endl;
+
+    output = Permutation(str3);
+    for (int i = 0; i < output.size(); i++) {
+        cout << output[i] << endl;
+    }
+    cout << endl;
 
     return 0;
 }
@@ -2335,7 +2424,7 @@ int main()
 
 #if (TIMU == 30)
 
-// 30. 最小的k个数
+// 30. 最小的k个数  *****
 
 // Partition
 int Partition(int* numbers,int start,int end){
@@ -2544,7 +2633,7 @@ int main()
 
 #if (TIMU == 33)
 
-// 33. 把数组排成最小的数
+// 33. 把数组排成最小的数  *****
 
 /*
 1、全排列
@@ -2561,19 +2650,23 @@ int main()
 
 bool compare(int a,int b)
 {
-    string strNum1=to_string(a);
-    string strNum2=to_string(b);
-    return (strNum1+strNum2)<(strNum2+strNum1);
+    string strNum1 = to_string(a);
+    string strNum2 = to_string(b);
+    return ((strNum1+strNum2)<(strNum2+strNum1));
 }
 
 string PrintMinNumber(vector<int> numbers)
 {
     string result;
+
     if(numbers.empty())
         return result;
-    sort(numbers.begin(),numbers.end(),compare);
-    for(unsigned int i=0;i<numbers.size();i++)
-        result+=to_string(numbers[i]);
+
+    sort(numbers.begin(), numbers.end(), compare);
+    for(unsigned int i = 0; i < numbers.size(); i++) {
+        result += to_string(numbers[i]);
+    }
+
     return result;
 }
 
@@ -2581,8 +2674,10 @@ string PrintMinNumber(vector<int> numbers)
 int main()
 {
     int array[] = {3, 32, 321};
+    int number = sizeof(array) / sizeof(int);
+    vector<int> data(array, array+number);
 
-    cout << PrintMinNumber(array) << endl;
+    cout << PrintMinNumber(data) << endl;
 
     return 0;
 }
@@ -2651,9 +2746,9 @@ int GetUglyNumber_Solution(int index)
 
     while(nextIndex<index){
         uglyNumbers[nextIndex]=min_3(uglyNumbers[index_2]*2,uglyNumbers[index_3]*3,uglyNumbers[index_5]*5);
-        while(uglyNumbers[index_2]*2<=uglyNumbers[nextIndex]) ++index_2;
-        while(uglyNumbers[index_3]*3<=uglyNumbers[nextIndex]) ++index_3;
-        while(uglyNumbers[index_5]*5<=uglyNumbers[nextIndex]) ++index_5;
+        if(uglyNumbers[index_2]*2<=uglyNumbers[nextIndex]) ++index_2;
+        if(uglyNumbers[index_3]*3<=uglyNumbers[nextIndex]) ++index_3;
+        if(uglyNumbers[index_5]*5<=uglyNumbers[nextIndex]) ++index_5;
         ++nextIndex;
     }
     return uglyNumbers[index-1];
@@ -2663,7 +2758,7 @@ int main()
 {
     int number = 20;
 
-    //getUglyNumber(number);
+    getUglyNumber(number);
     for (int i = 1; i < 100; i++) {
         cout << "index" << i << " = " << getUglyNumber(i) << endl;
     }
@@ -2673,9 +2768,6 @@ int main()
     for (int i = 1; i < 100; i++) {
         cout << "index" << i << " = " << GetUglyNumber_Solution(i) << endl;
     }
-
-    //cout << "ugly number 1" << number << " = " << getUglyNumber(number) << endl;
-    //cout << "ugly number 2" << number << " = " << GetUglyNumber_Solution(number) << endl;
 
     return 0;
 }
@@ -2729,12 +2821,12 @@ int main()
 
 // 36. 数组中的逆序对
 
-int InversePairs(vector<int> data)
+int Inverse_next(vector<int> data, int start)
 {
     int number = 0;
 
-    for (int i = 0; i < data.size()-1; i++) {
-        if (data[i] > data[i+1]) {
+    for (int i = start+1; i < data.size(); i++) {
+        if (data[start] > data[i]) {
             number++;
         }
     }
@@ -2742,9 +2834,22 @@ int InversePairs(vector<int> data)
     return number;
 }
 
+
+int InversePairs(vector<int> data)
+{
+    int number = 0;
+
+    for (int i = 0; i < data.size(); i++) {
+        number += Inverse_next(data, i);
+    }
+
+    return number;
+}
+
 int main()
 {
-    int array[] = {1, 3, 2, 3, 4, 5, 3, 7, 8, 9};
+    //int array[] = {1, 3, 2, 3, 4, 5, 3, 7, 8, 9};
+    int array[] = {1,2,3,4,5,6,7,0};
     int number = sizeof(array) / sizeof(int);
     vector<int> data(array, array+number);
 
@@ -3119,7 +3224,8 @@ int main()
 
 
 #if (TIMU == 412)
-// 41.2 和为s的连续正数序列
+
+// 41.2 和为s的连续正数序列  ***** 有问题
 
 // 自编代码
 vector<int> FindNumbersWithSum(vector<int> array, int sum)
@@ -3161,14 +3267,51 @@ vector<int> FindNumbersWithSum(vector<int> array, int sum)
     return numbers;
 }
 
+vector<vector<int> > FindContinuousSequence(int sum)
+{
+    vector<vector<int> > sequence;
+    vector<int> numbers;
+    int head = 0;
+    int tail = 0;
+    int sum1 = 0;
+
+    while (head < sum) {
+        sum1 += tail;
+        if (sum1 == sum) {
+            while (head <= tail) {
+                numbers.push_back(head++);
+            }
+            numbers.push_back(-1);
+            head++;
+            tail=head;
+            sum1=0;
+        } else if (sum1 > sum) {
+            head++;
+            tail=head;
+            sum1=0;
+        } else {
+            if (tail >= sum) {
+                head++;
+                tail=head;
+                sum1=0;
+            }
+            tail++;
+        }
+    }
+    sequence.push_back(numbers);
+
+    return sequence;
+}
+
 int main()
 {
     int array[] = {1,2,3,4,5,6,7,8,9,10};
     vector<int> vec(array, array+sizeof(array)/sizeof(int));
     vector<int> numbers;
+    int i = 0;
     int index = 0;
 
-    for (int i = 0; i < vec.size(); i++) {
+    for (i = 0; i < vec.size(); i++) {
         cout << i << ":" << vec[i] << endl;
     }
 
@@ -3178,6 +3321,20 @@ int main()
     } else {
         while (index < numbers.size()) {
             cout << numbers[index++] << ", ";
+        }
+        cout << endl;
+    }
+
+    vector<vector<int> > sequence;
+    sequence = FindContinuousSequence(15);
+    if (sequence.empty()) {
+        cout << "sequence is empty!" << endl;
+    } else {
+        for (i = 0; i < sequence.size(); i++) {
+            numbers = sequence[i];
+            while (index < numbers.size()) {
+                cout << numbers[index++] << ", ";
+            }
         }
         cout << endl;
     }
@@ -3244,7 +3401,10 @@ int main()
     char str[] = "I am a student.";
     char *str_rev;
 
-    str_rev = reverse(str);
+    cout << str << endl;
+
+    str_rev = ReverseSentence(str);
+    cout << str_rev << endl;
 
     return 0;
 }
@@ -3276,7 +3436,7 @@ int main()
 #if (TIMU == 44)
 
 // 44. 扑克牌的顺子
-// 从扑克牌中随机抽5张牌，判断是不是一个顺子
+// 从扑克牌中随机抽5张牌，判断是不是一个顺子，大小王可看成任何数字
 
 
 // 自编代码
@@ -3489,6 +3649,7 @@ private:
 
 int main()
 {
+    //SealedClass a;
 
     return 0;
 }
@@ -3669,7 +3830,8 @@ bool duplicate(int numbers[], int length, int* duplication)
 
 int main()
 {
-    int array[] = {1, 3, 4, 5, 7, 2, 4};
+    int array[] = {1, 3, 4, 4, 6, 2, 5};
+    //int array[] = {1, 2, 3, 4, 6, 5, 4};
     int length = sizeof(array)/sizeof(int);
     int duplication = -1;
 
@@ -4035,12 +4197,16 @@ int main(){
 
 #if (TIMU == 57)
 
-// 57. 删除链表中的重复结点
+// 57. 删除链表中的重复结点  *****
+/* 在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点
+   不保留，返回链表头指针。 例如，链表1->2->3->3->4->4->5 处理后为 1->2->5
+*/
 
 ListNode* deleteDuplication(ListNode* pHead)
 {
     ListNode* node;
-    ListNode* tmp_node;
+    int       dupli_val;
+    ListNode* pre_node;
 
     if (pHead == NULL) {
         return NULL;
@@ -4049,10 +4215,14 @@ ListNode* deleteDuplication(ListNode* pHead)
     node = pHead;
     while(pHead->next != NULL){
         if (pHead->val == pHead->next->val) {
-            tmp_node = pHead->next;
-            pHead->next = pHead->next->next;
-            delete tmp_node;
+            dupli_val = pHead->val;
+            while (dupli_val == pHead->val) {
+                pre_node->next = pHead->next;
+                delete pHead;
+                pHead = pHead->next;
+            }
         } else {
+            pre_node = pHead;
             pHead = pHead->next;
         }
     }
@@ -4060,12 +4230,14 @@ ListNode* deleteDuplication(ListNode* pHead)
     return node;
 }
 
-int main(){
-    int length = 10;
+int main()
+{
     ListNode *head = new ListNode();
     ListNode *node;
+    int array[] = {1, 2, 3, 3, 4, 5, 5, 6, 7};
+    int length = sizeof(array)/sizeof(int);
 
-    create_linklist(head, length);
+    create_linklist_with_array(head, array, length);
     node = head->next;
     while(node != NULL) {
         cout << node->val << " ";
@@ -4248,7 +4420,7 @@ int main()
 
 
 // 自编代码
-bool Symetrical(TreeNode* pLeft,TreeNode* pRight){
+bool Symetrical(TreeNode* pLeft, TreeNode* pRight){
     if(pLeft==NULL && pRight==NULL)
         return true;
     if(pLeft==NULL || pRight==NULL)

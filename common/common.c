@@ -90,6 +90,29 @@ bool create_huiwenlist(ListNode *head, int length)
     return true;
 }
 
+bool create_linklist_with_array(ListNode *head, int array[], int length)
+{
+    ListNode *node = NULL;
+    ListNode *node1 = NULL;
+
+    node = new ListNode(0);
+    if (node == NULL) {
+        return false;
+    }
+    head->next = node;
+
+    for (int i = 1; i < length; i++) {
+        node1 = new ListNode(array[i]);
+        if (node1 == NULL) {
+            return false;
+        }
+        node->next = node1;
+        node = node1;
+    }
+
+    return true;
+}
+
 void print_linklist(ListNode *node)
 {
     while (node != NULL) {

@@ -1,4 +1,4 @@
-#define A4_5
+#define A17_8
 
 #include "common.h"
 
@@ -1030,26 +1030,40 @@ int main()
 
 
 #ifdef A4_5
+
 // 4.5 检查是否为BST
 
 
 // 自编代码
 bool checkBST(TreeNode* root)
 {
-    return true;
+    if (root == NULL) {
+        return true;
+    }
+
+    if ((root->left != NULL) && (root->left->val > root->val)) {
+        return false;
+    }
+
+    if ((root->right != NULL) && (root->right->val < root->val)) {
+        return false;
+    }
+
+    return (checkBST(root->left) && checkBST(root->right));
 }
 
 int main()
 {
     struct TreeNode* node;
-
-    TreeNode* pNode1 = createTreeNode(1);
-    TreeNode* pNode2 = createTreeNode(2);
-    TreeNode* pNode3 = createTreeNode(3);
-    TreeNode* pNode4 = createTreeNode(4);
-    TreeNode* pNode5 = createTreeNode(5);
-    TreeNode* pNode6 = createTreeNode(6);
-    TreeNode* pNode7 = createTreeNode(7);
+    //int array[] = {1,2,3,4,5,6,7};  // false
+    int array[] = {4,2,6,1,3,5,7};  // true
+    TreeNode* pNode1 = createTreeNode(array[0]);
+    TreeNode* pNode2 = createTreeNode(array[1]);
+    TreeNode* pNode3 = createTreeNode(array[2]);
+    TreeNode* pNode4 = createTreeNode(array[3]);
+    TreeNode* pNode5 = createTreeNode(array[4]);
+    TreeNode* pNode6 = createTreeNode(array[5]);
+    TreeNode* pNode7 = createTreeNode(array[6]);
 
     connectTreeNode(pNode1, pNode2, pNode3);
     connectTreeNode(pNode2, pNode4, pNode5);
@@ -1057,7 +1071,7 @@ int main()
 
     printTreeFromTopToBottom(pNode1);
 
-    cout << checkBST(pNode1) << endl;
+    cout << "check BST = " << checkBST(pNode1) << endl;
 
     return 0;
 }
@@ -1094,10 +1108,20 @@ int binInsert(int n, int m, int j, int i)
     return (n | ((m << j) & (ij << j)));
 }
 
+int t_binInsert(int n, int m, int j, int i)
+{
+    if (j > i) {
+        return n;
+    }
+
+    return (n | (m << j));
+}
+
 int main()
 {
     cout << binInsert(1024, 19, 2, 6) << endl;
- 
+    cout << t_binInsert(1024, 19, 2, 6) << endl;
+
     return 0;
 }
 
@@ -1167,9 +1191,38 @@ int main()
 */
 
 // MY CODE
+int getNum(int x)
+{
+    int count = 0;
+    while(x>0){
+        if((x&1)!=0){
+            count++;
+        }
+        x >>= 1;
+    }
+    return count;
+}
+
 vector<int> getCloseNumber(int x)
 {
     vector<int> vec;
+    int num = getNum(x);
+    int left = x - 1;
+    int right = x + 1;
+    while (left > 0) {
+       if(num == getNum(left)) {
+           break;
+       }
+       left--;
+    }
+    vec.push_back(left);
+    while(true){
+       if(num == getNum(right)){
+           break;
+       }
+       right++;
+    }
+    vec.push_back(right);
 
     return vec;
 }
@@ -1317,7 +1370,7 @@ int getFactorSuffixZero(int n)
     for (int i = 5; i <= n; i += 5){
         j = i;
         while (j % 5 == 0) {
-            count ++;
+            count++;
             j /= 5;
         }
     }
@@ -1553,71 +1606,43 @@ int main()
 
 // 17.8 最大连续数列和 
 /*
-有一个非负整数，请编写一个算法，打印该整数的英文描述。
-给定一个int x，请返回一个string，为该整数的英文描述。
+对于一个有正有负的整数数组，请找出总和最大的连续数列。
+给定一个int数组A和数组大小n，请返回最大的连续数列的和。保证n的大小小于等于3000。
 测试样例：
-1234
-返回："One Thousand,Two Hundred Thirty Four"
+[1,2,3,-6,1]
+返回：6
 */
 
 // MY CODE
-string toString(int x)
+int getMaxSum(vector<int> A, int n)
 {
-    string base[20] = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
-                       "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
-                        "Eighteen", "Nineteen"};//0~19
-    string tyNum[10] = {"","","Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty","Ninety"};
-    string bigNum[4] = {"", "Thousand", "Million", "Billion"};
-    string result;
-    int k=0;
-    //将x每三位分成一组进行编码
-    if(x==0)
-        return "Zero";
-    while(x>0)
-    {
-        int val=x%1000;
-        //对三位数进行编码
-        string temp;
-        if(base[val/100]!="")//百位数
-        {
-            temp+=base[val/100];
-            temp+=" Hundred";
+    int sum = 0;
+    int maxSum = 0x80000000;
+    int index = 0;
+
+    while (index < n) {
+        if (sum < 0) {
+            sum = A[index];
+        } else {
+            sum += A[index];
         }
-        if(val%100<20)
-        {
-            if(!temp.empty())
-                temp+=" ";
-            temp+=base[val%100];
-        }
-        else
-        {
-                if(!temp.empty())
-                temp+=" ";
-                temp+=tyNum[val%100/10];
-                if(base[val%10]!="")
-                {
-                    if(!temp.empty())
-                        temp+=" ";
-                    temp+=base[val%10];
-                }
-        }
-        if(!temp.empty()&&bigNum[k]!="")
-        {
-            temp+=" ";
-            temp+=bigNum[k];
-            if(!result.empty())
-                temp+=",";
-        }
-        result=temp+result;
-        k++;
-        x/=1000;
+        if(sum > maxSum)
+            maxSum = sum;
+        index++;
     }
-    return result;
+
+    return maxSum;
 }
+
 
 int main()
 {
-    cout << toString(1234) << endl;
+    int array[]={1,2,3,-6,1};
+
+    int length = sizeof(array)/sizeof(int);
+    vector<int> vec(array, array+length);
+    
+    cout << getMaxSum(vec, length) << endl;
 
     return 0;
 }

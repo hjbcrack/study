@@ -58,6 +58,8 @@ ListNode* create_beginlist(int begin, int number);
 
 bool create_huiwenlist(ListNode *head, int length);
 
+bool create_linklist_with_array(ListNode *head, int array[], int length);
+
 void print_linklist(ListNode *node);
 
 // Ë«ÏòÁ´±í
