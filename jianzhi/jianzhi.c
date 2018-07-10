@@ -1,5 +1,5 @@
 
-#define TIMU    58
+#define TIMU    36
 
 #include "common.h"
 
@@ -170,7 +170,7 @@ int main()
 // 4. 替换空格
 
 
-// 自编代码
+// my code
 void replace_blank(char array[], int length)
 {
     int blank_number = 0;
@@ -370,7 +370,7 @@ int main()
 }
 
 /*
-// 参考代码
+// ref code
 
 
 typedef struct node {
@@ -522,7 +522,7 @@ TreeNode* reConstructBinaryTree(vector<int> pre, vector<int> in)
     return node;
 }
 
-// 参考代码
+// ref code
 /*
 前序遍历{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}
 
@@ -586,7 +586,7 @@ int main()
 
 // 7. 用两个栈实现队列
 
-// 自编代码
+// my code
 class CQueue {
 public:
     //CQueue();
@@ -660,7 +660,7 @@ int main()
 
 #endif
 
-// 参考代码
+// ref code
 
 /*
 template <typename T>
@@ -805,7 +805,7 @@ int minNumberInRotateArray1(vector<int> rotateArray)
     return -1;
 }
 
-// 参考代码
+// ref code
 int MinInOrder(const vector<int> &arr,int left,int right){
     int result=arr[left];
     for(int i=left+1;i<=right;i++){
@@ -865,7 +865,7 @@ int main()
 
 // 9. 斐波那契数列
 
-// 自编代码
+// my code
 int fun(int n)
 {
     if (n == 0 || n == 1) {
@@ -902,7 +902,7 @@ int main()
 
 // 10. 二进制中1的个数
 
-// 自编代码
+// my code
 int fun(int value)
 {
     int number = 0;
@@ -916,7 +916,7 @@ int fun(int value)
     return number;
 }
 
-// 参考代码
+// ref code
 int NumberOf1(int n){
     int count=0;
     while(n){
@@ -1012,7 +1012,7 @@ int main()
 
 // 12. 打印1到最大的n位数
 
-// 参考自编代码
+// 参考my code
 /*
 n位所有十进制数其实就是n个从0到9的全排列。即把数字的每一位都从0到9排列一遍，就得到了所有的十进制数。
 
@@ -1093,7 +1093,7 @@ int main()
 
 /*
 
-// 参考代码 1
+// ref code 1
 bool Increment(char* number){
     bool isOverflow=false;
     int nTakeOver=0;
@@ -1164,7 +1164,7 @@ int main()
 
 /*
 
-// 参考代码 2
+// ref code 2
 
 void PrintNumber(char* number){
     int i=0;
@@ -1283,7 +1283,7 @@ int main()
 
 // 14. 调整数组顺序使奇数位于偶数前面
 
-// 自编代码
+// my code
 void ReOrderOddEven(int array[], int number)
 {
     int *tmpArr = new int(number*sizeof(int));
@@ -1306,7 +1306,7 @@ void ReOrderOddEven(int array[], int number)
     memcpy(array, tmpArr, number*sizeof(int));
 }
 
-// 自编代码 1
+// my code 1
 void reOrderArray1(vector<int> &array)
 {
     int number = (int)array.size();
@@ -1329,7 +1329,7 @@ void reOrderArray1(vector<int> &array)
     }
 }
 
-// 参考代码
+// ref code
 void reOrderArray(vector<int> &array)
 {
     if(array.size() <= 0)
@@ -1500,7 +1500,7 @@ int main()
 
 // 15. 链表中倒数第k个结点
 
-// 自编代码
+// my code
 ListNode* FindKthToTail(ListNode* head, int k)
 {
     int number = 0;
@@ -1534,7 +1534,7 @@ ListNode* FindKthToTail(ListNode* head, int k)
     return NULL;
 }
 
-// 参考代码
+// ref code
 ListNode* FindKthToTail1(ListNode* pListHead, unsigned int k) {
     if(pListHead == NULL || k <= 0)
         return NULL;
@@ -1584,7 +1584,7 @@ int main(){
 
 // 16. 反转链表
 
-// 参考代码
+// ref code
 
 ListNode* ReverseList(ListNode* pHead)
 {
@@ -1642,7 +1642,7 @@ int main(){
 
 // 17. 合并两个排序的链表
 
-// 自编代码
+// my code
 
 ListNode* merge(ListNode* head1, ListNode* head2)
 {
@@ -1808,7 +1808,7 @@ int main()
 
 // 19. 二叉树的镜像
 
-// 自编代码
+// my code
 void Mirror(TreeNode *pRoot)
 {
     TreeNode* node = NULL;
@@ -1855,7 +1855,7 @@ int main()
 // 20. 顺时针打印矩阵
 
 
-// 自编代码
+// my code
 void print_array(int array[][4], int row, int column)
 {
     int rindex = 0;
@@ -2074,7 +2074,7 @@ int main(){
 
 
 // queue是单向队列，deque（double-ended-queue）是双向队列
-// 自编代码
+// my code
 
 void PrintFromTopToBottom(TreeNode* root)
 {
@@ -2098,7 +2098,7 @@ void PrintFromTopToBottom(TreeNode* root)
     }
 }
 
-// 参考代码
+// ref code
 void PrintFromTopToBottom1(TreeNode* root){
     if(root==NULL)
         return;
@@ -2185,7 +2185,7 @@ int main()
       2 left < root < right
 */
 
-// 自编代码
+// my code
 bool VerifySquence(vector<int> sequence, int begin, int end)
 {
     int index = begin;
@@ -2215,7 +2215,7 @@ bool VerifySquence(vector<int> sequence, int begin, int end)
             VerifySquence(sequence, mid, end-1));
 }
 
-// 自编代码
+// my code
 bool VerifySquenceOfBST(vector<int> sequence)
 {
     if (sequence.empty()) {
@@ -2247,7 +2247,7 @@ int main()
    要求不能创建任何新的结点，只能调整树中结点指针的指向
 */
 
-// 自编代码
+// my code
 
 TreeNode* Convert(TreeNode* pRootOfTree)
 {
@@ -2465,7 +2465,7 @@ void GetLeastNumbers(int* input,int n,int* output,int k){
         output[i]=input[i];
 }
 
-// 参考代码
+// ref code
 void GetLeastNumbers_1(const vector<int> &data, set<int> &leastNumbers,
                        unsigned int k)
 {
@@ -2529,7 +2529,7 @@ int main()
 
 // 31. 连续子数组的最大和
 
-// 自编代码
+// my code
 
 int findGreatestSumOfSubArray(int *pData, int nLength)
 {
@@ -2555,7 +2555,7 @@ int findGreatestSumOfSubArray(int *pData, int nLength)
     return maxSum;
 }
 
-// 参考代码
+// ref code
 int findGreatestSumOfSubArray1(int *pData,int nLength){
     if(pData==NULL || nLength<=0){
         return 0;
@@ -2599,7 +2599,7 @@ int main()
 
 // 32. 从1到n整数中1出现的次数
 
-// 参考代码
+// ref code
 int numberOf1(int n){
     int count = 0;
     while(n) {
@@ -2690,7 +2690,7 @@ int main()
 // 34. 丑数
 // 求按从小到大的顺序的第N个丑数。
 
-// 自编代码
+// my code
 // 问题: 运行超时
 bool isUglyNumber(int index) {
     if (index == 1 || index == 0) {
@@ -2725,7 +2725,7 @@ int getUglyNumber(int index)
     return n-1;
 }
 
-// 参考代码
+// ref code
 
 int min_3(int num1,int num2,int num3){
     num1=(num1<num2)?num1:num2;
@@ -2779,7 +2779,7 @@ int main()
 
 // 35. 第一个只出现一次的字符
 
-// 自编代码
+// my code
 char firstNotRepeatingChar(char* pString)
 {
     int counts[256] = {0};
@@ -2821,30 +2821,76 @@ int main()
 
 // 36. 数组中的逆序对
 
-int Inverse_next(vector<int> data, int start)
+// my code
+int InversePairs(vector<int> data)
 {
     int number = 0;
 
-    for (int i = start+1; i < data.size(); i++) {
-        if (data[start] > data[i]) {
-            number++;
+    for (int i = 0; i < data.size(); i++) {
+        for (int j = i+1; j < data.size(); j++) {
+            if (data[j] < data[i]) {
+                number++;
+            }
         }
     }
 
     return number;
 }
 
+// ref code
 
-int InversePairs(vector<int> data)
+int g_count = 0;
+
+void merge(int a[], int left, int mid, int right)
 {
-    int number = 0;
-
-    for (int i = 0; i < data.size(); i++) {
-        number += Inverse_next(data, i);
+    int *tmp = new int[right - left + 1];
+    int t = right - left;//临时数组下标
+    int l = mid;
+    int r = right;
+    while (l >= left && r >= mid + 1) {
+        if (a[l] > a[r]) {
+            g_count += (r - mid);
+            tmp[t--] = a[l--];
+            if (g_count >= 1000000007) {
+                g_count %= 1000000007;
+            }
+        } else {
+            tmp[t--] = a[r--];
+        }
     }
-
-    return number;
+    while (l >= left) {
+        tmp[t--] = a[l--];
+    }
+    while (r >= mid + 1) {
+        tmp[t--] = a[r--];
+    }
+    for (int i = 0; i <= right - left; i++) {
+        a[left + i] = tmp[i];
+    }
 }
+
+void mergeSort(int a[], int left, int right)
+{
+    if (left < right) {
+        int mid = (left + right) / 2;
+        mergeSort(a, left, mid);
+        mergeSort(a, mid + 1, right);
+        merge(a, left, mid, right);
+    }
+}
+
+int InversePairs1(vector<int> data)
+{
+    int length = data.size();
+
+    if (length == 0)
+        return -1;
+
+    mergeSort(data.data(), 0, length - 1);
+
+    return g_count;
+}
+
 
 int main()
 {
@@ -2854,6 +2900,8 @@ int main()
     vector<int> data(array, array+number);
 
     cout << InversePairs(data) << endl;
+
+    cout << InversePairs1(data) << endl;
 
     return 0;
 }
@@ -2926,6 +2974,7 @@ void create_reflist(ListNode** pHead1, ListNode** pHead2)
     }
 }
 
+// my code
 ListNode* FindFirstCommonNode(ListNode* pHead1, ListNode* pHead2)
 {
     stack<ListNode*> stack1;
@@ -2951,6 +3000,20 @@ ListNode* FindFirstCommonNode(ListNode* pHead1, ListNode* pHead2)
     }
 
     return stack1.top()->next;
+}
+
+// ref code
+ListNode* FindFirstCommonNode1( ListNode* pHead1, ListNode* pHead2)
+{
+    ListNode *p1 = pHead1;
+    ListNode *p2 = pHead2;
+
+    while(p1 != p2) {
+        p1 = (p1==NULL ? pHead2 : p1->next);
+        p2 = (p2==NULL ? pHead1 : p2->next);
+    }
+
+    return p1;
 }
 
 int main()
@@ -2980,6 +3043,12 @@ int main()
     pHead = FindFirstCommonNode(pHead1->next, pHead2->next);
     if (pHead != NULL) {
         cout << "start node val = " << pHead->val << endl;
+    }
+
+    ListNode *pHead_same = NULL;
+    pHead_same = FindFirstCommonNode1(pHead1->next, pHead2->next);
+    if (pHead != NULL) {
+        cout << "start node val = " << pHead_same->val << endl;
     }
 
     return 0;
@@ -3098,7 +3167,7 @@ int main()
 递归的结束条件就是：该结点为空，深度为0；
 */
 
-// 参考代码 1: 重复遍历结点
+// ref code 1: 重复遍历结点
 int TreeDepth(TreeNode* pRoot){
     if(pRoot == NULL)
         return 0;
@@ -3120,7 +3189,7 @@ bool IsBalanced(TreeNode* pRoot)
     return IsBalanced(pRoot->left) && IsBalanced(pRoot->right);
 }
 
-// 参考代码 2: 遍历一遍结点
+// ref code 2: 遍历一遍结点
 bool IsBalanced_1(TreeNode* pRoot, int& depth){
     if(pRoot == NULL){
         depth = 0;
@@ -3172,7 +3241,7 @@ int main()
 #if (TIMU == 411)
 // 41.1 和为s的两个数字
 
-// 自编代码
+// my code
 
 vector<int> FindNumbersWithSum(vector<int> array, int sum)
 {
@@ -3225,9 +3294,9 @@ int main()
 
 #if (TIMU == 412)
 
-// 41.2 和为s的连续正数序列  ***** 有问题
+// 41.2 和为s的连续正数序列  *****
 
-// 自编代码
+// my code
 vector<int> FindNumbersWithSum(vector<int> array, int sum)
 {
     vector<int> numbers;
@@ -3267,38 +3336,33 @@ vector<int> FindNumbersWithSum(vector<int> array, int sum)
     return numbers;
 }
 
+// my code
 vector<vector<int> > FindContinuousSequence(int sum)
 {
     vector<vector<int> > sequence;
-    vector<int> numbers;
-    int head = 0;
-    int tail = 0;
+    vector<int> vec;
     int sum1 = 0;
 
-    while (head < sum) {
-        sum1 += tail;
-        if (sum1 == sum) {
-            while (head <= tail) {
-                numbers.push_back(head++);
+    if (sum <= 1) {
+        return sequence;
+    }
+
+    for (int i = 1; i <= sum/2+1; i++) {
+        sum1 = 0;
+        vec.clear();
+        for (int j = i; j <= sum/2+1; j++) {
+            sum1 += j;
+            if (sum1 == sum) {
+                for (int k = i; k <= j; k++) {
+                    vec.push_back(k);
+                }
+                sequence.push_back(vec);
+                break;
+            } else if (sum1 > sum) {
+                break;
             }
-            numbers.push_back(-1);
-            head++;
-            tail=head;
-            sum1=0;
-        } else if (sum1 > sum) {
-            head++;
-            tail=head;
-            sum1=0;
-        } else {
-            if (tail >= sum) {
-                head++;
-                tail=head;
-                sum1=0;
-            }
-            tail++;
         }
     }
-    sequence.push_back(numbers);
 
     return sequence;
 }
@@ -3332,11 +3396,12 @@ int main()
     } else {
         for (i = 0; i < sequence.size(); i++) {
             numbers = sequence[i];
+            index = 0;
             while (index < numbers.size()) {
                 cout << numbers[index++] << ", ";
             }
+            cout << endl;
         }
-        cout << endl;
     }
 
     return 0;
@@ -3348,7 +3413,7 @@ int main()
 #if (TIMU == 42)
 
 // 42. 翻转单词顺序
-
+// 方法: 先整体翻转，然后从头开始翻转每个单词即可
 void Reverse(char* pBegin,char* pEnd){
     if(pBegin==NULL || pEnd==NULL)
         return;
@@ -3418,7 +3483,7 @@ int main()
 // 43. n个骰子的点数
 // 把n个骰子仍在地上，所有骰子朝上一面的点数之和为s。输入n，打印出s的所有可能的值出现的概率。
 
-// 自编代码
+// my code
 void PrintProbability(int n)
 {
 }
@@ -3439,16 +3504,34 @@ int main()
 // 从扑克牌中随机抽5张牌，判断是不是一个顺子，大小王可看成任何数字
 
 
-// 自编代码
+// my code
 
 bool IsContinuous(vector<int> numbers)
 {
+    int numOfZero = 0;
+    int numOfInterval = 0;
+    int length = numbers.size();
+
+    if(length == 0){
+        return false;
+    }
+
     sort(numbers.begin(), numbers.end());
 
-    if ((numbers[1]-numbers[0]==1 || numbers[0]-numbers[1]==12) &&
-        (numbers[2]-numbers[1]==1 || numbers[1]-numbers[2]==12) &&
-        (numbers[3]-numbers[2]==1 || numbers[2]-numbers[3]==12) &&
-        (numbers[4]-numbers[3]==1 || numbers[4]-numbers[0]==12)) {
+    for (int i = 0; i < length - 1; i++) {
+        // 计算大小王数量
+        if (numbers[i] == 0) {
+            numOfZero++;
+            continue;
+        }
+        // 对子，直接返回
+        if (numbers[i] == numbers[i + 1]) {
+            return false;
+        }
+        numOfInterval += numbers[i + 1] - numbers[i] - 1;
+    }
+
+    if (numOfZero >= numOfInterval) {
         return true;
     }
 
@@ -3457,7 +3540,8 @@ bool IsContinuous(vector<int> numbers)
 
 int main()
 {
-    int array[] = {1,2,3,4,5};
+    //int array[] = {12,11,10,8,9};
+    int array[] = {12,11,10,8,4};
     vector<int> numbers(array, array+sizeof(array)/sizeof(int));
 
     cout << IsContinuous(numbers) << endl;
@@ -3487,7 +3571,7 @@ int main()
 让编译器帮助完成类似于递归的计算。
 */
 
-// 参考代码
+// ref code
 
 class Sum{
 public:
@@ -3543,7 +3627,7 @@ void print_2(int val2)
     }
 }
 
-// 自编代码
+// my code
 int Add(int num1, int num2)
 {
     int bit = 1;
@@ -3573,7 +3657,7 @@ int Add(int num1, int num2)
     return num;
 }
 
-// 参考代码
+// ref code
 // non-recursive
 int BitAdd(int num1,int num2)
 {
@@ -3730,7 +3814,7 @@ int main()
 
 #if 0
 
-// 参考代码
+// ref code
 
  
  
@@ -3847,7 +3931,7 @@ int main()
 
 #if 0
 
-// 参考代码
+// ref code
  
  
 enum Status {kValid=0,kInvalid};
@@ -3920,7 +4004,7 @@ int main()
    其中B中的元素B[i]=A[0]*A[1]*...*A[i-1]*A[i+1]*...*A[n-1]。不能使用除法。
 */
 
-// 自编代码
+// my code
 vector<int> multiply(const vector<int>& A)
 {
     int length = A.size();
@@ -3941,7 +4025,7 @@ vector<int> multiply(const vector<int>& A)
     return B;
 }
 
-// 参考代码
+// ref code
 vector<int> multiply1(const vector<int>& A)
 {
     int len=A.size();
@@ -4005,7 +4089,7 @@ int main()
 字符匹配整个模式。例如，字符串"aaa"与模式"a.a"和"ab*ac*a"匹配，但是与"aa.a"和"ab*a"均不匹配
 */
 
-// 参考代码
+// ref code
 bool matchCore(char* str,char* pattern)
 {
     if(*str=='\0' && *pattern=='\0')
@@ -4201,25 +4285,28 @@ int main(){
 /* 在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点
    不保留，返回链表头指针。 例如，链表1->2->3->3->4->4->5 处理后为 1->2->5
 */
-
+// my code : 牛客网堆栈溢出
 ListNode* deleteDuplication(ListNode* pHead)
 {
-    ListNode* node;
+    ListNode* node = new ListNode(-1);
     int       dupli_val;
+    ListNode* dupli_node;
     ListNode* pre_node;
 
     if (pHead == NULL) {
         return NULL;
     }
 
-    node = pHead;
-    while(pHead->next != NULL){
+    node->next = pHead;
+    pre_node = node;
+    while(pHead!= NULL && pHead->next != NULL){
         if (pHead->val == pHead->next->val) {
             dupli_val = pHead->val;
-            while (dupli_val == pHead->val) {
+            while (pHead!= NULL && dupli_val == pHead->val) {
                 pre_node->next = pHead->next;
-                delete pHead;
+                dupli_node = pHead;
                 pHead = pHead->next;
+                delete dupli_node;
             }
         } else {
             pre_node = pHead;
@@ -4227,14 +4314,38 @@ ListNode* deleteDuplication(ListNode* pHead)
         }
     }
 
-    return node;
+    return node->next;
 }
+
+// ref code
+ListNode* deleteDuplication1(ListNode* pHead)
+{
+    ListNode *first = new ListNode(-1);
+    first->next = pHead;
+    ListNode *p = pHead;
+    ListNode *last = first;
+
+    while (p != NULL && p->next != NULL) {
+        if (p->val == p->next->val) {
+            int val = p->val;
+            while (p!= NULL && p->val == val)
+                p = p->next;
+            last->next = p;
+        } else {
+            last = p;
+            p = p->next;
+        }
+    }
+
+    return first->next;
+}
+
 
 int main()
 {
-    ListNode *head = new ListNode();
+    ListNode *head = new ListNode(0);
     ListNode *node;
-    int array[] = {1, 2, 3, 3, 4, 5, 5, 6, 7};
+    int array[] = {1, 1, 2, 3, 3, 4, 5, 5, 6, 7};
     int length = sizeof(array)/sizeof(int);
 
     create_linklist_with_array(head, array, length);
@@ -4245,7 +4356,14 @@ int main()
     }
     cout << endl;
 
-    node = deleteDuplication(head->next);
+    node = deleteDuplication(head);
+    while(node != NULL) {
+        cout << node->val << " ";
+        node = node->next;
+    }
+    cout << endl;
+
+    node = deleteDuplication1(head);
     while(node != NULL) {
         cout << node->val << " ";
         node = node->next;
@@ -4315,7 +4433,7 @@ TreeLinkNode* GetNext1(TreeLinkNode* pNode)
     return NULL;
 }
 
-// 自编代码
+// my code
 TreeLinkNode* GetNext2(TreeLinkNode* pNode)
 {
     TreeLinkNode* curNode = NULL;
@@ -4419,7 +4537,7 @@ int main()
 // 59. 对称的二叉树: 判断二叉树是否对称
 
 
-// 自编代码
+// my code
 bool Symetrical(TreeNode* pLeft, TreeNode* pRight){
     if(pLeft==NULL && pRight==NULL)
         return true;
