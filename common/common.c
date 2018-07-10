@@ -95,7 +95,7 @@ bool create_linklist_with_array(ListNode *head, int array[], int length)
     ListNode *node = NULL;
     ListNode *node1 = NULL;
 
-    node = new ListNode(0);
+    node = new ListNode(array[0]);
     if (node == NULL) {
         return false;
     }
