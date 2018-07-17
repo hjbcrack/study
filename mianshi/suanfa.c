@@ -1,5 +1,5 @@
 
-#define SUAN    17
+#define SUAN    19
 
 #include "common.h"
 
@@ -443,10 +443,19 @@ public:
     //int x;
 };
 
+class testD{
+public:
+    //char ch;
+    //int x;
+};
+
 int main(){
 
     testC A;
     testC B[100];
+    testD D;
+
+    printf("sizeof(class) = %x\n", sizeof(D));
 
     printf("testC = %d, A = %d 0x%08x, B = %d 0x%08x, \n", sizeof(testC), sizeof(A), &A, sizeof(B), &B);
 
@@ -928,13 +937,13 @@ int main()
     insert_DList(l,11);  
     insert_DList(l,12);  
     insert_DList(l,13);  
-    cout<<l.head->data<<l.head->next->data<<endl;  
-    cout<<l.tail->data<<l.tail->pre->data<<endl;  
+    cout <<l.head->data<<l.head->next->data<<endl;  
+    cout <<l.tail->data<<l.tail->pre->data<<endl;  
     func(l);  
     Node *p=l.head;  
     while(p)  
     {  
-        cout<<p->data<<endl;  
+        cout <<p->data<<endl;  
         p=p->next;  
     }
     return 0;  
@@ -1253,6 +1262,198 @@ int main(int argc, char*argv[])
 
 #endif
 
+
+////////////////////////////////////////////////////////////////////////////////
+
+#if (SUAN == 18)
+
+//前序遍历-递归实现 
+void pre_order(TreeNode* root)
+{
+    if(root == NULL)
+        return;
+
+    cout << root->val << '\t';
+    pre_order(root->left);
+    pre_order(root->right);
+}
+
+//前序遍历-非递归实现 
+void pre_order0(TreeNode* root)
+{
+    if(root == NULL)
+        return;
+
+    stack<TreeNode*> nodes;
+    TreeNode* tmp = root;
+    while(tmp != NULL) {
+        cout << tmp->val << '\t';
+        if(tmp->right)
+            nodes.push(tmp->right);
+        if(tmp->left)
+            nodes.push(tmp->left);
+        if(nodes.empty())
+            break;
+        tmp = nodes.top();
+        nodes.pop();
+    }
+}
+
+//中序遍历-递归实现 
+void in_order(TreeNode* root)
+{
+    if(root == NULL)
+        return;
+    in_order(root->left);
+    cout << root->val << '\t';
+    in_order(root->right);
+}
+
+//中序遍历-非递归实现
+void in_order0(TreeNode* root)
+{
+    stack<TreeNode*> nodes;
+    TreeNode* tmp = root;
+    while(!nodes.empty() || tmp){
+        if (tmp) {
+            nodes.push(tmp);
+            tmp = tmp->left; 
+        } else {
+            tmp = nodes.top();
+            cout << tmp->val << '\t';
+            nodes.pop();
+            tmp = tmp->right; 
+        }
+    }
+}
+
+//后序遍历-递归实现
+void post_order(TreeNode* root)
+{
+    if(root == NULL)
+        return;
+    post_order(root->left);
+    post_order(root->right);    
+    cout << root->val << '\t';
+}
+
+//后序遍历-非递归实现
+void post_order0(TreeNode* root)
+{
+    stack<TreeNode*> nodes;
+    TreeNode* tmp = root;
+
+    if(root == NULL)
+        return;
+
+    nodes.push(root);
+    while(!nodes.empty()) {
+        TreeNode* cur = nodes.top();
+        if(cur->left != NULL && tmp != cur->left && tmp != cur->right) {
+            nodes.push(cur->left);
+        } else if (cur->right != NULL && tmp != cur->right) {
+            nodes.push(cur->right);
+        } else {
+            cout << cur->val << '\t';
+            nodes.pop();
+            tmp = cur;
+        }
+    }
+}
+
+int main()
+{
+    TreeNode* pNode1 = createTreeNode(1);
+    TreeNode* pNode2 = createTreeNode(2);
+    TreeNode* pNode3 = createTreeNode(3);
+    TreeNode* pNode4 = createTreeNode(4);
+    TreeNode* pNode5 = createTreeNode(5);
+    TreeNode* pNode6 = createTreeNode(6);
+    TreeNode* pNode7 = createTreeNode(7);
+
+    connectTreeNode(pNode1, pNode2, pNode3);
+    connectTreeNode(pNode2, pNode4, pNode5);
+    connectTreeNode(pNode3, pNode6, pNode7);
+
+    printTreeFromTopToBottom(pNode1);
+
+    pre_order(pNode1);
+    cout << endl;
+    pre_order0(pNode1);
+    cout << endl;
+    in_order(pNode1);
+    cout << endl;
+    in_order0(pNode1);
+    cout << endl;
+    post_order(pNode1);
+    cout << endl;
+    post_order0(pNode1);
+    cout << endl;
+
+    return 0;
+}
+
+#endif
+
+////////////////////////////////////////////////////////////////////////////////
+
+#if (SUAN == 19)
+
+int BinarySearch1(int a[], int n, int value)
+{
+    int low, high, mid;
+    low = 0;
+    high = n-1;
+
+    while(low<=high)
+    {
+        mid = (low+high)/2;
+        if(a[mid]==value)
+            return mid;
+        if(a[mid]>value)
+            high = mid-1;
+        if(a[mid]<value)
+            low = mid+1;
+    }
+
+    return -1;
+}
+
+//二分查找，递归版本
+int BinarySearch(int a[], int value, int low, int high)
+{
+    int mid = low+(high-low)/2;
+
+    if(a[mid] == value)
+        return mid;
+    if (low == high)
+        return -1;
+    if(a[mid]>value)
+        return BinarySearch(a, value, low, mid-1);
+    if(a[mid]<value)
+        return BinarySearch(a, value, mid+1, high);
+}
+
+int BinarySearch2(int a[], int n, int value)
+{
+    return BinarySearch(a, value, 0, n-1);
+}
+
+int main()
+{
+    int array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int number = sizeof(array) / sizeof(int);
+
+    cout << BinarySearch1(array, number, 4) << endl;
+    cout << BinarySearch1(array, number, 11) << endl;
+
+    cout << BinarySearch2(array, number, 6) << endl;
+    cout << BinarySearch2(array, number, -2) << endl;
+
+    return 0;
+}
+
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 
