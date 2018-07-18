@@ -1,5 +1,5 @@
 
-#define SUAN    19
+#define SUAN    20
 
 #include "common.h"
 
@@ -1449,6 +1449,73 @@ int main()
 
     cout << BinarySearch2(array, number, 6) << endl;
     cout << BinarySearch2(array, number, -2) << endl;
+
+    return 0;
+}
+
+#endif
+
+////////////////////////////////////////////////////////////////////////////////
+
+#if (SUAN == 20)
+// 在一个数组中有一个数字只出现1次外，其它数字都成对出现，如何找出这个数字？如果有两个数字出现1次呢？
+// 只出现一次的数字
+bool FindOneRepeatNumberInArray(int *a, int n, int *pN1)  
+{
+    int number = 0;
+
+    if (a == NULL || n == 0) {
+        return false;
+    }
+
+    for (int i = 0; i < n; ++i) {
+        number ^= a[i];
+    }
+    *pN1 = number;
+
+    return true;
+}
+
+// 两个数字出现1次
+void FindTwoNotRepeatNumberInArray(int *a, int n, int *pN1, int *pN2)
+{
+    int i, j, temp;
+
+    //计算这两个数的异或结果
+    temp = 0;
+    for (i = 0; i < n; i++)
+        temp ^= a[i];
+
+    // 找第一个为1的位
+    for (j = 0; j < sizeof(int) * 8; j++) {
+        if (((temp >> j) & 1) == 1)
+            break;
+    }
+
+    // 第j位为1,说明这两个数字在第j位上是不相同的
+    // 由此分组即可
+    *pN1 = 0, *pN2 = 0;
+    for (i = 0; i < n; i++) {
+        if (((a[i] >> j) & 1) == 0)
+            *pN1 ^= a[i];
+        else
+            *pN2 ^= a[i];
+    }
+}
+
+int main()
+{
+    //int array[] = {1, 2, 7, 5, 100, 100, 6, 1, 2, 5, 7};
+    int array[] = {1, 2, 3, 4, 1,  2, 3, 4, 0, 5};
+    int number = sizeof(array) / sizeof(int);
+    int pN1 = 0;
+    int pN2 = 0;
+
+    FindOneRepeatNumberInArray(array, number, &pN1);
+    cout << pN1 << endl;
+
+    FindTwoNotRepeatNumberInArray(array, number, &pN1, &pN2);
+    cout << pN1 << '\t' << pN2 << endl;
 
     return 0;
 }
